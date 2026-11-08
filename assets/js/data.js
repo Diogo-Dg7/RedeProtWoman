@@ -14,7 +14,7 @@ window.CATEGORIAS = {
 };
 
 /* Formato de cada serviço:
-   nome, categoria, selo (opcional), descricao,
+   id (vira a âncora #id do card e é usado no menu dropdown), nome, categoria, selo (opcional), descricao,
    itens: [[destaque, texto]]            -> lista com palavra em negrito
    campos: [[tipo, rótulo, texto, link]] -> tipo: publico | endereco | horario | contato | info
    aviso (opcional), mais (HTML do "Ler mais informações", opcional)
@@ -23,6 +23,7 @@ window.CATEGORIAS = {
 window.SERVICOS = [
   {
     nome: "Ligue 180 – Central de Atendimento à Mulher",
+    id: "ligue-180",
     categoria: "assistencia",
     selo: "Atendimento gratuito",
     descricao: "Canal nacional de atendimento às mulheres em situação de violência.",
@@ -36,6 +37,7 @@ window.SERVICOS = [
   },
   {
     nome: "Delegacia de Polícia para a Mulher (DEAM)",
+    id: "deam",
     categoria: "seguranca",
     descricao: "Responsável pelo registro de ocorrências, pelo recebimento de pedidos de medidas protetivas de urgência e pela investigação de crimes relacionados à violência doméstica e familiar contra a mulher.",
     campos: [
@@ -47,6 +49,7 @@ window.SERVICOS = [
   },
   {
     nome: "Defensoria Pública do Estado – Caxias do Sul",
+    id: "defensoria-publica",
     categoria: "juridico",
     descricao: "Oferece orientação jurídica gratuita e acompanhamento de processos, incluindo pedidos de medidas protetivas, questões de guarda, pensão alimentícia e divórcio.",
     campos: [
@@ -57,6 +60,7 @@ window.SERVICOS = [
   },
   {
     nome: "Serviço de Assistência Jurídica Gratuita (SAJU) – UCS",
+    id: "saju-ucs",
     categoria: "juridico",
     descricao: "O SAJU da Universidade de Caxias do Sul oferece atendimento jurídico gratuito à comunidade, com orientação, assessoria e acompanhamento em áreas específicas do Direito. Os atendimentos são realizados por acadêmicos do curso de Direito, sempre sob a orientação e supervisão de professores advogados.",
     campos: [
@@ -125,6 +129,7 @@ window.SERVICOS = [
   },
   {
     nome: "Patrulha Maria da Penha",
+    id: "patrulha-maria-da-penha",
     categoria: "seguranca",
     descricao: "A Patrulha Maria da Penha, vinculada à Brigada Militar, realiza o acompanhamento de mulheres em situação de violência doméstica que possuem medidas protetivas de urgência, por meio de visitas preventivas e orientações.",
     aviso: "O acompanhamento da Patrulha não substitui o acionamento da polícia em situações de perigo imediato.",
@@ -143,6 +148,7 @@ window.SERVICOS = [
   },
   {
     nome: "Casa de Apoio Viva Rachel",
+    id: "casa-de-apoio-viva-rachel",
     categoria: "acolhimento",
     descricao: "Abrigo destinado a mulheres em situação de violência doméstica com risco de morte e sem rede de apoio, que também pode acolher seus filhos. Além do abrigo, é possível receber acompanhamento psicológico, social e jurídico, auxiliando na reconstrução da autonomia e na busca por condições para recomeçar a vida com segurança.",
     campos: [

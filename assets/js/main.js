@@ -41,17 +41,64 @@
   window.icon = (n, cls) => `<svg class="ico ${cls || ""}" viewBox="0 0 24 24" aria-hidden="true">${P[n] || ""}</svg>`;
   const fill = (root) => root.querySelectorAll("[data-icon]").forEach(el => { el.innerHTML = icon(el.dataset.icon); el.removeAttribute("data-icon"); });
 
-  /* ---------- Navegação ---------- */
-  const LINKS = [
-    ["inicio", "Início", "index.html"],
-    ["comecar", "Por onde começar?", "pages/por-onde-comecar.html"],
-    ["violencia", "Violência", "pages/violencia.html"],
-    ["ciclo", "Ciclo", "pages/ciclo.html"],
-    ["rede", "Rede de Proteção", "pages/rede.html"],
-    ["pesquisas", "Pesquisas", "pages/pesquisas.html"],
-    ["duvidas", "Dúvidas", "pages/duvidas.html"]
+  /* ---------- Navegação ----------
+     NAV é a única fonte do menu: gera o header em todas as páginas.
+     "sub" = seções da página (links com âncora). Sem "sub" = sem dropdown
+     (ex.: Pesquisas, que não tem seções). Cada id precisa existir na página. */
+  const NAV = [
+    { key: "inicio", label: "Início", href: "index.html", sub: [
+      ["Por que este espaço existe?", "index.html#por-que-existe"],
+      ["Estou vivendo uma situação de violência", "index.html#caminho-violencia"],
+      ["Quero entender o que estou vivendo", "index.html#caminho-entender"],
+      ["Preciso encontrar um serviço", "index.html#caminho-servico"] ] },
+    { key: "comecar", label: "Por onde começar?", href: "pages/por-onde-comecar.html", sub: [
+      ["1. Orientação e acolhimento", "pages/por-onde-comecar.html#passo-1"],
+      ["2. Caminho adequado (cível e criminal)", "pages/por-onde-comecar.html#passo-2"],
+      ["3. Medidas protetivas", "pages/por-onde-comecar.html#passo-3"],
+      ["4. Se ele descumprir as medidas", "pages/por-onde-comecar.html#passo-4"],
+      ["5. Se não tiver para onde ir", "pages/por-onde-comecar.html#passo-5"] ] },
+    { key: "violencia", label: "Violência", href: "pages/violencia.html", sub: [
+      ["Contexto histórico", "pages/violencia.html#contexto"],
+      ["Evolução das leis (linha do tempo)", "pages/violencia.html#evolucao"],
+      ["Diferentes classes sociais", "pages/violencia.html#classes"],
+      ["Misoginia", "pages/violencia.html#misoginia"],
+      ["Tipos de violência", "pages/violencia.html#tipos"] ] },
+    { key: "ciclo", label: "Ciclo", href: "pages/ciclo.html", sub: [
+      ["Encantamento", "pages/ciclo.html#encantamento"],
+      ["Aumento da tensão", "pages/ciclo.html#aumento-da-tensao"],
+      ["Ato de violência", "pages/ciclo.html#ato-de-violencia"],
+      ["Arrependimento", "pages/ciclo.html#arrependimento"],
+      ["Por que voltam para o agressor?", "pages/ciclo.html#voltam"] ] },
+    { key: "rede", label: "Rede de Proteção", href: "pages/rede.html", sub: [
+      ["Ligue 180", "pages/rede.html#ligue-180"],
+      ["DEAM", "pages/rede.html#deam"],
+      ["Defensoria Pública", "pages/rede.html#defensoria-publica"],
+      ["SAJU – UCS", "pages/rede.html#saju-ucs"],
+      ["Patrulha Maria da Penha", "pages/rede.html#patrulha-maria-da-penha"],
+      ["Casa de Apoio Viva Rachel", "pages/rede.html#casa-de-apoio-viva-rachel"],
+      ["O que ainda precisa mudar", "pages/rede.html#precisa-mudar"],
+      ["Onde procurar ajuda", "pages/rede.html#ajuda"] ] },
+    { key: "pesquisas", label: "Pesquisas", href: "pages/pesquisas.html" },
+    { key: "duvidas", label: "Dúvidas", href: "pages/duvidas.html", sub: [
+      ["Violência", "pages/duvidas.html#violencia"],
+      ["Filhos", "pages/duvidas.html#filhos"],
+      ["Separação / Divórcio", "pages/duvidas.html#separacao-divorcio"],
+      ["Direitos", "pages/duvidas.html#direitos"],
+      ["Rede de proteção", "pages/duvidas.html#rede-de-protecao"] ] }
   ];
+  const LINKS = NAV.map(n => [n.key, n.label, n.href]); // rodapé
   const cur = (k) => (k === PAGE ? ' aria-current="page"' : "");
+
+  const navItem = (n) => {
+    const link = `<a class="nav-link" href="${ROOT}${n.href}"${cur(n.key)}>${n.label}</a>`;
+    if (!n.sub) return `<div class="nav-item">${link}</div>`;
+    const id = "sub-" + n.key;
+    return `<div class="nav-item has-sub" data-label="${n.label}">${link}
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="${id}" aria-label="Abrir submenu de ${n.label}">${icon("down")}</button>
+      <ul class="subnav" id="${id}" role="menu" aria-label="${n.label}: seções">
+        ${n.sub.map(s => `<li role="none"><a role="menuitem" href="${ROOT}${s[1]}">${s[0]}</a></li>`).join("")}
+      </ul></div>`;
+  };
 
   /* ---------- Header ---------- */
   const header = document.createElement("header");
@@ -64,7 +111,7 @@
         <span class="brand-text">Rede de Proteção<br>à Mulher<small>Caxias do Sul</small></span>
       </a>
       <nav class="main-nav" id="main-nav" aria-label="Principal">
-        ${LINKS.map(l => `<a href="${ROOT}${l[2]}"${cur(l[0])}>${l[1]}</a>`).join("")}
+        ${NAV.map(navItem).join("")}
         <button class="btn nav-help" data-open-help type="button">${icon("alert")} Precisa de ajuda?</button>
       </nav>
       <button class="btn help-btn help-btn--header" data-open-help type="button">${icon("alert")} Precisa de ajuda? ${icon("arrow")}</button>
@@ -83,13 +130,93 @@
     toggle.setAttribute("aria-expanded", open);
     toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     toggle.innerHTML = icon(open ? "close" : "menu");
+    if (!open) closeAll();
   };
+
+  /* ---------- Dropdowns ----------
+     Desktop: abre ao passar o mouse (fecha com atraso de 150ms) e ao clicar (o clique "fixa").
+     Teclado: Enter/Espaço/↓ abrem; ↑ ↓ Home End navegam; Esc fecha e devolve o foco; ← → trocam de item.
+     Mobile (≤1280px): vira acordeão; um aberto por vez. */
+  const mobileMq = window.matchMedia("(max-width: 1280px)");
+  const items = [...header.querySelectorAll(".nav-item.has-sub")];
+  const links = [...header.querySelectorAll(".nav-link")];
+  function setOpen(item, open, pin) {
+    const btn = item.querySelector(".nav-toggle"), panel = item.querySelector(".subnav");
+    if (open) {
+      closeAll(item);
+      panel.classList.remove("align-right");
+      if (!mobileMq.matches) { // não deixa o painel sair da tela: itens à direita alinham pela direita
+        const r = panel.getBoundingClientRect();
+        if (r.right > window.innerWidth - 12 || item === items[items.length - 1]) panel.classList.add("align-right");
+      }
+    }
+    item.dataset.pinned = open && pin ? "1" : "";
+    item.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open);
+    btn.setAttribute("aria-label", (open ? "Fechar" : "Abrir") + " submenu de " + item.dataset.label);
+  }
+  function closeAll(except) { items.forEach(i => { clearTimeout(i._t); if (i !== except && i.classList.contains("open")) setOpen(i, false); }); }
+
+  items.forEach(item => {
+    const btn = item.querySelector(".nav-toggle"), panel = item.querySelector(".subnav");
+    const subLinks = () => [...panel.querySelectorAll("a")];
+    item.addEventListener("pointerenter", e => {
+      if (mobileMq.matches || e.pointerType !== "mouse") return;
+      clearTimeout(item._t);
+      if (!item.classList.contains("open")) setOpen(item, true, false);
+    });
+    item.addEventListener("pointerleave", e => {
+      if (mobileMq.matches || e.pointerType !== "mouse" || item.dataset.pinned) return;
+      item._t = setTimeout(() => setOpen(item, false), 150);
+    });
+    btn.addEventListener("click", () => {
+      const isOpen = item.classList.contains("open");
+      if (mobileMq.matches) setOpen(item, !isOpen, true);
+      else if (!isOpen) setOpen(item, true, true);
+      else if (!item.dataset.pinned) item.dataset.pinned = "1"; // abriu por hover: o clique fixa
+      else setOpen(item, false);
+    });
+    item.addEventListener("keydown", e => {
+      const a = document.activeElement, subs = subLinks(), inPanel = subs.includes(a);
+      if (e.key === "Escape" && item.classList.contains("open")) {
+        e.preventDefault(); e.stopPropagation(); setOpen(item, false); btn.focus(); return;
+      }
+      if (!inPanel) {
+        if (e.key === "ArrowDown") { e.preventDefault(); setOpen(item, true, true); subs[0].focus(); }
+        else if (!mobileMq.matches && (e.key === "ArrowRight" || e.key === "ArrowLeft")) {
+          e.preventDefault();
+          const i = links.indexOf(item.querySelector(".nav-link")) + (e.key === "ArrowRight" ? 1 : -1);
+          if (links[i]) links[i].focus();
+        }
+        return;
+      }
+      const i = subs.indexOf(a);
+      if (e.key === "ArrowDown") { e.preventDefault(); subs[(i + 1) % subs.length].focus(); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); (i === 0 ? btn : subs[i - 1]).focus(); }
+      else if (e.key === "Home") { e.preventDefault(); subs[0].focus(); }
+      else if (e.key === "End") { e.preventDefault(); subs[subs.length - 1].focus(); }
+    });
+    item.addEventListener("focusout", e => { // Tab para fora fecha (desktop)
+      if (!mobileMq.matches && !item.contains(e.relatedTarget) && item.classList.contains("open")) setOpen(item, false);
+    });
+  });
+  // setas ←/→ também nos itens sem dropdown
+  links.forEach((l, i) => l.addEventListener("keydown", e => {
+    if (mobileMq.matches || l.closest(".has-sub")) return;
+    if (e.key === "ArrowRight" && links[i + 1]) { e.preventDefault(); links[i + 1].focus(); }
+    if (e.key === "ArrowLeft" && links[i - 1]) { e.preventDefault(); links[i - 1].focus(); }
+  }));
+
   toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
-  // fecha o menu ao tocar num link, ao apertar Esc, ao tocar fora ou ao girar/redimensionar a tela
-  nav.addEventListener("click", e => { if (e.target.closest("a, button")) setMenu(false); });
+  // clicar em qualquer link do menu fecha dropdown e menu mobile; o botão do acordeão não fecha
+  nav.addEventListener("click", e => { if (e.target.closest("a, .nav-help")) { closeAll(); setMenu(false); } });
   document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
-  document.addEventListener("click", e => { if (!header.contains(e.target)) setMenu(false); });
-  window.addEventListener("resize", () => { if (window.innerWidth > 1180) setMenu(false); });
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".nav-item.has-sub")) closeAll();
+    if (!header.contains(e.target)) setMenu(false);
+  });
+  const onBp = () => { closeAll(); if (!mobileMq.matches) setMenu(false); };
+  mobileMq.addEventListener ? mobileMq.addEventListener("change", onBp) : mobileMq.addListener(onBp);
 
   /* ---------- Rodapé + nav inferior (mobile) ---------- */
   const footer = document.createElement("footer");

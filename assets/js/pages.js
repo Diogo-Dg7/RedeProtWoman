@@ -39,7 +39,7 @@
             <text x="200" y="220" text-anchor="middle" style="font:600 20px Newsreader,Georgia,serif;fill:#6e2b4a">violência</text></svg>`;
     cycleArt.innerHTML = svg;
     const go = (n) => {
-      const card = document.getElementById("fase-" + n);
+      const card = document.querySelectorAll(".phase")[n - 1];
       if (!card) return;
       document.querySelectorAll(".phase").forEach(p => p.classList.toggle("on", p === card));
       card.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
@@ -63,7 +63,7 @@
     const plain = (s) => [s.nome, s.descricao, s.selo, s.aviso, (s.itens || []).map(i => i.join(" ")).join(" "),
       (s.campos || []).map(c => c[1] + " " + c[2]).join(" "), (s.mais || "").replace(/<[^>]+>/g, " ")].join(" ");
     const card = (s) => `
-      <article class="service">
+      <article class="service" id="${esc(s.id)}">
         <div class="service-top"><span class="tag">${CATEGORIAS[s.categoria]}</span>${s.selo ? `<span class="seal">${esc(s.selo)}</span>` : ""}</div>
         <h3>${esc(s.nome)}</h3>
         <p>${esc(s.descricao)}</p>
@@ -82,6 +82,16 @@
     };
     filters.addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (b) { cat = b.dataset.cat; render(); } });
     q.addEventListener("input", render);
+    // âncoras para cards gerados por JS: rola até o card (limpando filtro/busca se ele estiver escondido)
+    const goHash = (first) => {
+      const id = decodeURIComponent(location.hash.slice(1)); if (!id) return;
+      const target = SERVICOS.find(x => x.id === id); if (!target) return;
+      if (!document.getElementById(id)) { cat = "todos"; q.value = ""; render(); }
+      const el = document.getElementById(id); if (!el) return;
+      el.scrollIntoView({ behavior: first ? "instant" : "smooth", block: "start" });
+      el.classList.remove("is-target"); void el.offsetWidth; el.classList.add("is-target");
+    };
+    window.addEventListener("hashchange", () => goHash(false));
     list.addEventListener("click", e => {
       const b = e.target.closest("button.btn"); if (!b) return;
       const open = b.closest(".service").classList.toggle("open");
@@ -89,6 +99,7 @@
       b.querySelector(".lbl").textContent = open ? "Mostrar menos" : "Ler mais informações";
     });
     render();
+    goHash(true);
   }
 
   /* ---------- PESQUISAS ---------- */
@@ -121,8 +132,9 @@
     let cat = params.get("cat") && FAQ[params.get("cat")] ? params.get("cat") : "todas";
     f.innerHTML = `<button class="chip" data-c="todas" type="button">Todas</button>` + Object.entries(FAQ).map(([k, v]) => `<button class="chip" data-c="${k}" type="button">${v.titulo}</button>`).join("");
     let n = 0;
+    const FAQ_ID = { violencia: "violencia", filhos: "filhos", separacao: "separacao-divorcio", direitos: "direitos", rede: "rede-de-protecao" };
     faq.innerHTML = Object.entries(FAQ).map(([k, g]) => `
-      <section class="faq-group" data-c="${k}"><h2>${g.titulo}</h2>
+      <section class="faq-group" id="${FAQ_ID[k] || k}" data-c="${k}"><h2>${g.titulo}</h2>
       ${g.itens.map(i => { n++; return `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa${n}" id="fq${n}">${esc(i[0])}${icon("down")}</button>
         <div class="faq-a" id="fa${n}" role="region" aria-labelledby="fq${n}"><div><p>${esc(i[1])}</p></div></div></div>`; }).join("")}</section>`).join("");
     const apply = () => {
@@ -132,5 +144,15 @@
     f.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (b) { cat = b.dataset.c; apply(); } });
     faq.addEventListener("click", e => { const b = e.target.closest(".faq-q"); if (b) b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true"); });
     apply();
+    // âncoras para os grupos (#violencia, #filhos...): mostra todos e rola até o grupo
+    const goHash = (first) => {
+      const id = decodeURIComponent(location.hash.slice(1)); if (!id) return;
+      const el = document.getElementById(id); if (!el || !el.classList.contains("faq-group")) return;
+      if (cat !== "todas") { cat = "todas"; apply(); }
+      el.scrollIntoView({ behavior: first ? "instant" : "smooth", block: "start" });
+      el.classList.remove("is-target"); void el.offsetWidth; el.classList.add("is-target");
+    };
+    window.addEventListener("hashchange", () => goHash(false));
+    goHash(true);
   }
 })();

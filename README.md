@@ -65,7 +65,7 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 | Alterar perguntas do FAQ | `assets/js/data.js` → `FAQ` |
 | Trocar logo, ilustração ou foto do hero | `assets/img/` (mesmos nomes de arquivo) |
 | Mudar as cores | `assets/css/style.css` → bloco `:root` |
-| Mudar o menu | `assets/js/main.js` → lista `LINKS` |
+| Mudar o menu e os dropdowns | `assets/js/main.js` → constante `NAV` (cada `sub` é uma seção da página; o `id` precisa existir) |
 | Textos do ciclo | `assets/js/pages.js` → `STEPS` |
 
 ## Funcionalidades
@@ -91,3 +91,9 @@ Endereços, horários, telefones e links ainda não verificados aparecem na tela
 Para resolver: troque o texto pelo dado confirmado (em `assets/js/data.js` ou direto no HTML) e apague o marcador. Pendentes hoje:
 DEAM (endereço, horário, telefone), Defensoria (endereço, telefone, horário), SAJU/UCS (endereço, telefone, horário),
 DPPA (endereço e telefone), contato do CRM e link da Delegacia Online da Mulher (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
+
+## Menu dropdown
+
+O menu é gerado por `main.js` a partir da constante `NAV`, igual em todas as páginas. Cada item (exceto **Pesquisas**, que não tem seções) abre uma lista de âncoras:
+desktop com hover (fecha após ~150ms) ou clique; teclado com Tab, Enter, ↑ ↓ Home End, ← → e Esc; no celular vira acordeão.
+Os cards da Rede e os grupos do FAQ são gerados por JavaScript, então ganham `id` a partir de `data.js` e a página rola até eles após carregar.
