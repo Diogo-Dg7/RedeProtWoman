@@ -32,7 +32,12 @@ window.SERVICOS = [
       ["Acolhimento e orientação:", "oferece escuta qualificada e informações sobre os direitos das mulheres e a Lei Maria da Penha."],
       ["Informações sobre a rede de apoio:", "indica endereços e contatos de serviços especializados, como DEAMs, Centros de Referência, Defensorias Públicas e Casas da Mulher Brasileira."]
     ],
-    campos: [["contato", "Telefone", "180", "tel:180"]],
+    campos: [
+      ["contato", "Telefone", "180", "tel:180"],
+      ["contato", "WhatsApp", "(61) 9610-0180", "https://wa.me/556196100180"],
+      ["info", "Acessibilidade", "Atendimento em Libras."],
+      ["info", "Quem pode ligar", "O Ligue 180 pode ser acionado pela própria vítima ou por qualquer pessoa (familiar, amigo, vizinho) que souber do caso, inclusive de forma anônima."]
+    ],
     aviso: "Ao realizar uma denúncia, é importante fornecer o máximo possível de informações corretas e detalhadas sobre a situação e, quando possível, sobre a vítima, como endereço e formas de contato. Isso ajuda as autoridades a localizá-la e a tomar as providências necessárias para oferecer proteção e assistência."
   },
   {

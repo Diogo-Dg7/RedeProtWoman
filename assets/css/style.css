@@ -532,41 +532,13 @@ p { margin: 0 0 1em; }
 .phase-repeat .ico { width: 26px; height: 26px; flex: none; }
 .cycle-seg { outline: none; }
 
-/* Fatores (cards) */
-.factors { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 22px; }
-.factors .tile h3 { font-size: 1.25rem; }
-.factors .tile p { font-size: 1rem; line-height: 1.75; color: #3a2f33; margin-bottom: 1em; }
-.factors .tile p:last-child { margin-bottom: 0; }
-.factors .tile--wide { grid-column: 1 / -1; }
-
-/* Rede: O que ainda precisa mudar? */
-.needs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 26px; list-style: none; padding: 0; }
-.need { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px 28px 26px 84px; scroll-margin-top: 110px; }
-.need-num { position: absolute; left: 24px; top: 26px; width: 44px; height: 44px; border-radius: 50%; background: var(--card); color: var(--plum-dark); display: grid; place-items: center; font-family: var(--serif); font-size: 1.3rem; font-weight: 600; }
-.need h3 { font-size: 1.3rem; margin-bottom: .55em; }
-.need p, .need li { font-size: .98rem; line-height: 1.7; color: #3a2f33; }
-.need p { margin: 0 0 .9em; }
-.need ul { margin: 0 0 .9em; padding-left: 1.15em; }
-.need li + li { margin-top: .45em; }
-.need > :last-child { margin-bottom: 0; }
-.need--help { grid-column: 1 / -1; background: var(--plum); border-color: var(--plum); color: #fff; box-shadow: var(--shadow); padding-bottom: 30px; }
-.need--help .need-num { background: #fff; color: var(--plum); }
-.need--help h3 { color: #fff; font-size: 1.6rem; }
-.need--help p, .need--help li { color: #f6e4e8; }
-.help-contacts { list-style: none; margin: 16px 0 18px; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.help-contacts li { background: rgba(255, 255, 255, .12); border-radius: var(--radius); padding: 16px 18px; margin: 0; }
-.help-contacts b { display: block; color: #fff; font-size: 1.02rem; margin-bottom: 4px; }
-.help-contacts p { margin: 0 0 .5em; font-size: .92rem; }
 .btn--light { background: #fff; color: var(--plum-dark); box-shadow: none; padding: 10px 20px; font-size: .95rem; margin: 4px 8px 4px 0; }
 .btn--light:hover { background: var(--card); color: var(--plum-dark); }
-.stat-note { background: var(--card); border-left: 4px solid var(--plum); border-radius: 0 12px 12px 0; padding: 14px 18px; }
 
 @media (max-width: 900px) {
   .cycle-layout { grid-template-columns: 1fr; gap: 30px; }
   .cycle-layout .cycle-art { position: static; max-width: 380px; margin-inline: auto; width: 100%; }
-  .needs, .factors, .compare, .examples, .help-contacts { grid-template-columns: 1fr; }
-  .need--help { grid-column: auto; }
-  .factors .tile--wide { grid-column: auto; }
+  .compare, .examples { grid-template-columns: 1fr; }
 }
 @media (max-width: 680px) {
   .tl-item { padding-left: 30px; padding-bottom: 22px; }
@@ -577,21 +549,12 @@ p { margin: 0 0 1em; }
   .summary { padding: 22px; }
   .phase { padding: 22px 20px; }
   .phase-num { position: static; margin-bottom: 12px; width: 42px; height: 42px; }
-  .need { padding: 24px 20px; }
-  .need-num { position: static; margin-bottom: 12px; }
   .cycle-layout .cycle-art { display: none; } /* no celular o ciclo vira lista vertical */
   .prose p { font-size: 1rem; }
 }
 
-/* Ajustes do bloco de ajuda dentro de .need */
-.need .help-contacts { list-style: none; padding: 0; margin: 16px 0 18px; }
-.need .help-contacts li { margin: 0; }
 .topic-anchor { scroll-margin-top: 100px; }
-.need--wide { grid-column: 1 / -1; }
-.need--wide p, .need--wide li { max-width: 72ch; }
-@media (max-width: 900px) { .need--wide { grid-column: auto; } }
 .examples li > span:first-child { flex: none; display: grid; place-items: center; }
-.help-contacts a.btn { width: auto; }
 
 /* ==========================================================
    15. CARDS DE SERVIÇO (Rede) E CAIXA DE DESTAQUE
@@ -625,9 +588,6 @@ p { margin: 0 0 1em; }
 /* ==========================================================
    16. PÁGINA "POR ONDE COMEÇAR?"
    ========================================================== */
-.compare .tile ul { font-size: .98rem; line-height: 1.7; color: #3a2f33; margin: .4em 0 1em; padding-left: 1.2em; }
-.compare .tile li + li { margin-top: .4em; }
-.mini { font-family: var(--sans); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--malva-dark); margin: 1.2em 0 .3em; }
 .feature { background: var(--plum); color: #fff; border-radius: var(--radius-lg); padding: 30px 34px; margin: 30px 0; max-width: 80ch; box-shadow: var(--shadow); }
 .feature h3 { color: #fff; font-size: 1.6rem; margin: .4em 0 .6em; }
 .feature p { color: #f6e4e8; line-height: 1.75; margin: 0 0 .9em; }
@@ -636,7 +596,6 @@ p { margin: 0 0 1em; }
 .btn.is-disabled { opacity: .65; cursor: not-allowed; }
 .btn.is-disabled:hover { background: #fff; transform: none; }
 .safety { background: var(--plum-dark); color: #fff; border-radius: var(--radius-lg); padding: 28px 32px; margin: 30px 0 0; max-width: 80ch; border-left: 8px solid #e9b8c4; }
-.safety h3 { color: #fff; font-size: 1.6rem; margin-bottom: .5em; }
 .safety p { color: #f6e4e8; line-height: 1.75; margin: 0 0 1em; }
 .safety p:last-child { margin: 0; }
 .closing { font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; color: var(--plum-dark); line-height: 1.35; max-width: 32ch; margin: 28px 0 0; padding-left: 20px; border-left: 5px solid var(--malva); }
@@ -690,4 +649,54 @@ html { scroll-padding-top: 100px; } /* o header fixo não cobre o título da se�
 }
 @media (max-width: 680px) {
   .main-nav { max-height: calc(100vh - 170px); max-height: calc(100dvh - 170px); }
+}
+
+/* ==========================================================
+   18. PÁGINA "POR ONDE COMEÇAR?" (versão atual)
+   ========================================================== */
+.toc--trilha { gap: 10px 30px; }
+.toc--trilha .chip { position: relative; }
+.toc--trilha .chip:not(:last-child)::after { content: "→"; position: absolute; right: -22px; top: 50%; transform: translateY(-52%); color: var(--malva-dark); font-size: 1.05rem; pointer-events: none; }
+.intro-text { font-size: 1.12rem !important; }
+.inline-link { color: var(--plum); text-decoration: underline; text-underline-offset: 2px; font-weight: 500; }
+.inline-link:hover { color: var(--plum-dark); }
+.feature--compact { max-width: 520px; padding: 24px 28px; margin: 28px 0 0; }
+.feature--compact h3 { margin: .5em 0 .2em; }
+.safety { border-left-width: 8px; }
+.safety p { font-family: var(--serif); font-size: clamp(1.2rem, 2.4vw, 1.5rem); line-height: 1.5; margin: 0; color: #fff; }
+.safety .tel-190 { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; font-size: 1.25em; white-space: nowrap; }
+.safety .tel-190:hover { color: #f6d3dc; }
+.closing { max-width: 46ch; }
+@media (max-width: 680px) {
+  .toc--trilha { gap: 10px 8px; }
+  .toc--trilha .chip:not(:last-child)::after { display: none; }
+}
+
+/* ==========================================================
+   19. TEXTO CORRIDO: recuo na 1ª linha, entrelinha e respiro
+   Regra central. Vale para parágrafos de leitura das páginas de conteúdo
+   (.prose e cards de texto longo). NÃO vale para títulos, listas, cards curtos,
+   botões, menus, rodapé, legendas, textos centralizados, destaques e alertas.
+   Para usar em um bloco novo: adicione a classe .texto-corrido ao contêiner.
+   ========================================================== */
+.prose p,
+.texto-corrido p,
+.tl-card > p:not(.tl-impact):not(.tl-kicker):not(.example),
+.compare .tile p,
+.phase > p:not(.tl-kicker),
+.faq-a p {
+  text-indent: 1.5em;
+  line-height: 1.75;
+}
+.prose p, .texto-corrido p { margin: 0 0 1em; }
+/* exceções: destaques, legendas e cards curtos */
+.prose .lead, .compare--short .tile p, .callout p, .summary p, .safety p, .closing, .example { text-indent: 0; }
+@media (max-width: 480px) {
+  .prose p,
+  .texto-corrido p,
+  .tl-card > p:not(.tl-impact):not(.tl-kicker):not(.example),
+  .compare .tile p,
+  .phase > p:not(.tl-kicker),
+  .faq-a p { text-indent: 1.2em; }
+  .prose .lead, .compare--short .tile p { text-indent: 0; }
 }

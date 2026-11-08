@@ -20,7 +20,7 @@ python -m http.server 8000
 RedeProtWoman/
 ├── index.html              Página inicial (hero, 3 caminhos, "Por que existe", 5 cards)
 ├── pages/
-│   ├── por-onde-comecar.html  Passo a passo para buscar ajuda (orientação, cível/criminal, MPUs, acolhimento)
+│   ├── por-onde-comecar.html  Passo a passo para buscar ajuda (acolhimento, cível/criminal, medidas protetivas, abrigo)
 │   ├── violencia.html      Tipos de violência (física, psicológica, sexual, patrimonial, moral)
 │   ├── ciclo.html          Ciclo da violência – círculo interativo em 4 etapas
 │   ├── contexto.html       Contexto histórico (história, direitos, leis, misoginia, cérebro)
@@ -43,7 +43,7 @@ Cada página define `<body data-page="..." data-root="../">`:
 
 ## Conteúdo editorial (PDFs)
 
-Os textos das páginas **Violência**, **Ciclo** e **Rede de Proteção** (seção "O que ainda precisa mudar?") vêm de seis PDFs fornecidos pela equipe do projeto. Estão escritos direto no HTML de cada página, com blocos "Fontes" recolhíveis (`<details class="sources">`) no fim de cada seção.
+Os textos das páginas **Violência** e **Ciclo** vêm de PDFs fornecidos pela equipe do projeto. Estão escritos direto no HTML de cada página, com blocos "Fontes" recolhíveis (`<details class="sources">`) no fim de cada seção.
 
 | Página | Seção | PDF de origem |
 |---|---|---|
@@ -51,8 +51,7 @@ Os textos das páginas **Violência**, **Ciclo** e **Rede de Proteção** (seç�
 | `pages/violencia.html` | Quando as coisas começam a mudar (linha do tempo) | Violência contra a Mulher: quando as coisas começam a mudar |
 | `pages/violencia.html` | Diferentes classes sociais | violência contra a mulher: diferentes classes sociais |
 | `pages/violencia.html` | Misoginia | Misoginia |
-| `pages/ciclo.html` | As quatro fases e "Por que voltam?" | Ciclo da violência |
-| `pages/rede.html` | O que ainda precisa mudar? (itens 1 a 10) | O que ainda precisa mudar |
+| `pages/ciclo.html` | As quatro fases | Ciclo da violência |
 
 Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; resíduos de cópia (como `cite turn0search0`, caracteres `￼` e `?utm_source=chatgpt.com` nos links) removidos.
 
@@ -89,11 +88,14 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 
 Endereços, horários, telefones e links ainda não verificados aparecem na tela com um marcador amarelo **A CONFIRMAR**.
 Para resolver: troque o texto pelo dado confirmado (em `assets/js/data.js` ou direto no HTML) e apague o marcador. Pendentes hoje:
-DEAM (endereço, horário, telefone), Defensoria (endereço, telefone, horário), SAJU/UCS (endereço, telefone, horário),
-DPPA (endereço e telefone), contato do CRM e link da Delegacia Online da Mulher (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
+DEAM (endereço, horário, telefone), Defensoria (endereço, telefone, horário), SAJU/UCS (endereço, telefone, horário), contato do CRM (card da Casa de Apoio Viva Rachel) e link da Delegacia Online da Mulher (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
 
 ## Menu dropdown
 
 O menu é gerado por `main.js` a partir da constante `NAV`, igual em todas as páginas. Cada item (exceto **Pesquisas**, que não tem seções) abre uma lista de âncoras:
 desktop com hover (fecha após ~150ms) ou clique; teclado com Tab, Enter, ↑ ↓ Home End, ← → e Esc; no celular vira acordeão.
 Os cards da Rede e os grupos do FAQ são gerados por JavaScript, então ganham `id` a partir de `data.js` e a página rola até eles após carregar.
+
+## Texto corrido (recuo)
+
+A regra central está na seção 19 de `assets/css/style.css`: `text-indent: 1.5em` (1.2em até 480px), `line-height: 1.75` e 1em entre parágrafos nos textos de leitura (`.prose`, cards de texto longo e respostas do FAQ). Para usar em um bloco novo, adicione a classe `.texto-corrido` ao contêiner.

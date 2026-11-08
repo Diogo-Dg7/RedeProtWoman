@@ -52,10 +52,10 @@
       ["Quero entender o que estou vivendo", "index.html#caminho-entender"],
       ["Preciso encontrar um serviço", "index.html#caminho-servico"] ] },
     { key: "comecar", label: "Por onde começar?", href: "pages/por-onde-comecar.html", sub: [
-      ["1. Orientação e acolhimento", "pages/por-onde-comecar.html#passo-1"],
-      ["2. Caminho adequado (cível e criminal)", "pages/por-onde-comecar.html#passo-2"],
+      ["1. Acolhimento e orientação", "pages/por-onde-comecar.html#passo-1"],
+      ["2. Caminho adequado", "pages/por-onde-comecar.html#passo-2"],
       ["3. Medidas protetivas", "pages/por-onde-comecar.html#passo-3"],
-      ["4. Se ele descumprir as medidas", "pages/por-onde-comecar.html#passo-4"],
+      ["4. Se ele descumprir", "pages/por-onde-comecar.html#passo-4"],
       ["5. Se não tiver para onde ir", "pages/por-onde-comecar.html#passo-5"] ] },
     { key: "violencia", label: "Violência", href: "pages/violencia.html", sub: [
       ["Contexto histórico", "pages/violencia.html#contexto"],
@@ -67,17 +67,14 @@
       ["Encantamento", "pages/ciclo.html#encantamento"],
       ["Aumento da tensão", "pages/ciclo.html#aumento-da-tensao"],
       ["Ato de violência", "pages/ciclo.html#ato-de-violencia"],
-      ["Arrependimento", "pages/ciclo.html#arrependimento"],
-      ["Por que voltam para o agressor?", "pages/ciclo.html#voltam"] ] },
+      ["Arrependimento", "pages/ciclo.html#arrependimento"] ] },
     { key: "rede", label: "Rede de Proteção", href: "pages/rede.html", sub: [
       ["Ligue 180", "pages/rede.html#ligue-180"],
       ["DEAM", "pages/rede.html#deam"],
       ["Defensoria Pública", "pages/rede.html#defensoria-publica"],
       ["SAJU – UCS", "pages/rede.html#saju-ucs"],
       ["Patrulha Maria da Penha", "pages/rede.html#patrulha-maria-da-penha"],
-      ["Casa de Apoio Viva Rachel", "pages/rede.html#casa-de-apoio-viva-rachel"],
-      ["O que ainda precisa mudar", "pages/rede.html#precisa-mudar"],
-      ["Onde procurar ajuda", "pages/rede.html#ajuda"] ] },
+      ["Casa de Apoio Viva Rachel", "pages/rede.html#casa-de-apoio-viva-rachel"] ] },
     { key: "pesquisas", label: "Pesquisas", href: "pages/pesquisas.html" },
     { key: "duvidas", label: "Dúvidas", href: "pages/duvidas.html", sub: [
       ["Violência", "pages/duvidas.html#violencia"],
