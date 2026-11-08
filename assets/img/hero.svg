@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-label="Mulher de perfil olhando para cima, ilustração suave">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6dcdc"/><stop offset="1" stop-color="#ecc9cc"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ecd0c4"/><stop offset="1" stop-color="#d4a898"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="520" fill="url(#bg)"/>
+  <path d="M600 140 C 520 170 470 250 480 340 C 490 430 560 480 600 490 Z" fill="#c99aa3" opacity=".55"/>
+  <path d="M600 300 C 540 310 500 360 520 430 L 600 520 Z" fill="#7b3a58" opacity=".85"/>
+  <path d="M40 520 C 120 420 300 440 470 380" fill="none" stroke="#7b3a58" stroke-width="1.5" opacity=".5"/>
+  <!-- sweater / shoulders -->
+  <path d="M120 520 C 130 410 200 350 290 340 C 380 335 470 370 520 440 L 540 520 Z" fill="#8f7870"/>
+  <path d="M150 520 C 170 440 230 390 300 380 M240 520 C 260 460 300 420 350 410 M330 520 C 350 470 400 440 450 440" fill="none" stroke="#a48b83" stroke-width="3" opacity=".6"/>
+  <!-- neck -->
+  <path d="M245 290 C 250 330 260 350 285 355 C 320 345 340 330 345 290 Z" fill="#cfa291"/>
+  <!-- bun and hair -->
+  <circle cx="418" cy="120" r="48" fill="#4b3029"/>
+  <path d="M330 150 C 340 90 410 70 440 110 C 470 160 440 260 360 300 C 310 290 300 200 330 150 Z" fill="#5a3b32"/>
+  <!-- head facing up-left -->
+  <path d="M215 150 C 215 100 270 70 320 95 C 370 125 365 220 330 275 C 300 300 255 290 245 250 C 235 230 225 215 220 200 C 214 188 215 168 215 150 Z" fill="url(#skin)"/>
+  <path d="M215 150 L 195 205 L 218 212" fill="url(#skin)"/>
+  <path d="M220 200 C 230 215 238 222 232 232" fill="none" stroke="#b98a7a" stroke-width="2" opacity=".6"/>
+  <path d="M262 120 C 290 105 320 110 335 128 C 320 150 330 200 345 230 C 320 120 290 118 262 120 Z" fill="#5a3b32" opacity=".9"/>
+</svg>

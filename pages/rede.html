@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rede de proteção – Rede de Proteção à Mulher</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="rede" data-root="../">
+  <main id="conteudo">
+    <section class="page-hero"><div class="wrap">
+      <div class="crumbs"><a href="../index.html">Início</a> / Rede de proteção</div>
+      <h1>Rede de proteção</h1>
+      <p>Encontre projetos, serviços e instituições de Caxias do Sul. Filtre por categoria ou pesquise por nome.</p>
+    </div></section>
+
+    <section class="section wrap">
+      <div class="toolbar">
+        <label class="search"><span data-icon="search"></span><span class="sr-only">Buscar serviço</span><input id="q" type="search" placeholder="Buscar por nome, descrição ou endereço"></label>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filtrar por categoria"></div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="grid grid--3" id="service-list"></div>
+      <div class="empty hidden" id="empty">Nenhum serviço encontrado. Tente outra categoria ou termo.</div>
+    </section>
+  </main>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/pages.js"></script>
+</body>
+</html>
