@@ -6,6 +6,13 @@
    9. Painel de ajuda  10. Rodapé/Nav inferior  11. Responsivo
    ========================================================== */
 
+/* 0. AJUSTES MOBILE GERAIS (aplicados por cima de tudo, ver também seção 11) */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: clip; -webkit-tap-highlight-color: transparent; }
+button, a, input { touch-action: manipulation; }
+button.path { border: 0; background: none; font: inherit; text-align: left; cursor: pointer; width: 100%; }
+body.no-scroll { overflow: hidden; }
+
 /* 1. TOKENS */
 :root {
   --bg: #f9e8e6;
@@ -272,3 +279,116 @@ p { margin: 0 0 1em; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 @media print { .site-header, .bottom-nav, .fab-help, .help-overlay { display: none; } }
+
+/* ==========================================================
+   12. DISPOSITIVOS MÓVEIS (refinamentos)
+   Breakpoints: 1080 (notebook pequeno) · 900 (tablet) ·
+   680 (celular) · 380 (celular pequeno)
+   ========================================================== */
+
+/* Hover só em dispositivos com mouse (evita "hover preso" no toque) */
+@media (hover: none) {
+  .btn:hover, .nav-card:hover, .service:hover, .help-opt:hover { transform: none; }
+}
+
+/* Alvos de toque de pelo menos 44px */
+@media (pointer: coarse) {
+  .chip { min-height: 44px; align-items: center; padding-inline: 20px; }
+  .main-nav a { min-height: 48px; display: flex; align-items: center; }
+  .menu-toggle { min-width: 48px; min-height: 48px; }
+  .help-close { width: 48px; height: 48px; }
+  .faq-q { min-height: 56px; }
+}
+
+/* Campos de texto com 16px para o iOS não dar zoom ao focar */
+.search input { font-size: 16px; }
+
+/* Tablet (até 900px) */
+@media (max-width: 900px) {
+  .paths-bar { grid-template-columns: 1fr; gap: 0; padding: 6px; }
+  .path + .path { border-left: 0; border-top: 1px solid rgba(110, 43, 74, .2); border-radius: 0; }
+  .path { padding: 20px 28px; }
+  .nav-cards { grid-template-columns: repeat(3, 1fr); }
+  .why-art { min-height: 240px; order: -1; }
+  .why-art::before { inset: 0 5%; }
+  .page-hero::after { width: 260px; height: 260px; right: -90px; }
+  .cycle-art { max-width: 440px; margin-inline: auto; width: 100%; }
+}
+
+/* Celular (até 680px) */
+@media (max-width: 680px) {
+  :root { --radius: 16px; --radius-lg: 22px; }
+  h2 { font-size: 1.55rem; }
+  h3 { font-size: 1.2rem; }
+
+  .header-inner { min-height: 68px; gap: 12px; }
+  .site-header { padding-top: env(safe-area-inset-top); }
+
+  /* Hero empilhado: texto em cima, ilustração integrada embaixo-direita */
+  .hero { min-height: 430px; }
+  .hero-art { inset: auto 0 0 auto; width: 72%; height: 100%; }
+  .hero-art img { object-position: 30% center; }
+
+  .paths-bar { grid-template-columns: 1fr; gap: 12px; padding: 0; background: transparent; }
+  .path, .path + .path { border: 0; border-radius: var(--radius); }
+
+  .why-art { min-height: 200px; }
+  .why-art img { width: 160px; }
+  .why .btn { width: 100%; }
+
+  .nav-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .nav-cards .nav-card:last-child { grid-column: span 2; }
+  .nav-card { min-height: 104px; padding: 18px 10px; font-size: .88rem; }
+
+  .tile { padding: 22px; }
+  .service { padding: 22px; }
+  .service .btn { width: 100%; }
+
+  .toolbar { margin-bottom: 18px; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding: 2px 16px 8px; scroll-snap-type: x proximity; scroll-padding-inline: 16px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filters .chip { flex: none; scroll-snap-align: start; white-space: nowrap; }
+  .toc .chip { font-size: .82rem; }
+
+  .cycle { gap: 22px; }
+  .cycle-info { padding: 24px 20px; min-height: 0; }
+  .cycle-dots button { width: 14px; height: 14px; }
+
+  .timeline { padding-left: 24px; margin-left: 8px; }
+  .timeline li::before { left: -33px; }
+  .topic { padding-block: 30px; }
+
+  .faq-q { padding: 16px 18px; font-size: .95rem; }
+  .faq-a p { padding: 0 18px 18px; }
+
+  /* Painel de ajuda vira "bottom sheet" */
+  .help-overlay { align-items: flex-end; padding: 0; }
+  .help-panel { width: 100%; max-height: 90dvh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 28px 18px calc(24px + env(safe-area-inset-bottom)); animation: sheet .28s ease-out; }
+  .help-panel h2 { font-size: 1.5rem; padding-right: 48px; }
+
+  .site-footer { padding-bottom: 20px; }
+  .fab-help { bottom: calc(86px + env(safe-area-inset-bottom)); }
+}
+@keyframes sheet { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Celular pequeno (até 380px) */
+@media (max-width: 380px) {
+  .wrap { width: calc(100% - 28px); }
+  .brand-text { font-size: .95rem; }
+  .brand-text small { font-size: .7rem; }
+  .brand img { width: 36px; height: 48px; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: .82rem; max-width: 190px; }
+  .nav-cards { grid-template-columns: 1fr; }
+  .nav-cards .nav-card:last-child { grid-column: auto; }
+  .nav-card { flex-direction: row; justify-content: flex-start; text-align: left; padding-inline: 20px; min-height: 72px; }
+  .bottom-nav a { font-size: .62rem; }
+}
+
+/* Paisagem em celular: evita hero muito alto */
+@media (max-height: 480px) and (orientation: landscape) {
+  .hero-inner { padding-block: 32px 80px; }
+  .bottom-nav { position: static; }
+  body { padding-bottom: 0; }
+  .fab-help { bottom: 14px; }
+}

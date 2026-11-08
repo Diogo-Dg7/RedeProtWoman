@@ -76,11 +76,18 @@
 
   const toggle = header.querySelector("#menu-toggle");
   const nav = header.querySelector("#main-nav");
-  toggle.addEventListener("click", () => {
-    const open = nav.classList.toggle("open");
+  const setMenu = (open) => {
+    nav.classList.toggle("open", open);
     toggle.setAttribute("aria-expanded", open);
+    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     toggle.innerHTML = icon(open ? "close" : "menu");
-  });
+  };
+  toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+  // fecha o menu ao tocar num link, ao apertar Esc, ao tocar fora ou ao girar/redimensionar a tela
+  nav.addEventListener("click", e => { if (e.target.closest("a, button")) setMenu(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+  document.addEventListener("click", e => { if (!header.contains(e.target)) setMenu(false); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 900) setMenu(false); });
 
   /* ---------- Rodapé + nav inferior (mobile) ---------- */
   const footer = document.createElement("footer");
@@ -124,8 +131,8 @@
     </div>`;
   body.append(overlay);
   let lastFocus = null;
-  const openHelp = () => { lastFocus = document.activeElement; overlay.classList.add("open"); overlay.querySelector(".help-close").focus(); };
-  const closeHelp = () => { overlay.classList.remove("open"); if (lastFocus) lastFocus.focus(); };
+  const openHelp = () => { lastFocus = document.activeElement; overlay.classList.add("open"); body.classList.add("no-scroll"); overlay.querySelector(".help-close").focus(); };
+  const closeHelp = () => { overlay.classList.remove("open"); body.classList.remove("no-scroll"); if (lastFocus) lastFocus.focus(); };
   document.addEventListener("click", e => { if (e.target.closest("[data-open-help]")) openHelp(); });
   overlay.querySelector(".help-close").addEventListener("click", closeHelp);
   overlay.addEventListener("click", e => { if (e.target === overlay) closeHelp(); });

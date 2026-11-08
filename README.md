@@ -57,6 +57,8 @@ Cada página define `<body data-page="..." data-root="../">`:
 - **Rede de proteção**: filtros (jurídico, saúde, assistência, acolhimento, segurança, educação), busca por texto e cards com nome, descrição, público, endereço, horário, contato e "Saber mais". Aceita `rede.html?cat=juridico`.
 - **Ciclo**: SVG circular com 4 segmentos clicáveis (também por teclado).
 - **Responsivo**: desktop (composição do mockup), tablet, e celular com menu hambúrguer, cards em coluna e navegação inferior.
+  - Breakpoints: `1080px` (notebook pequeno), `900px` (tablet, menu hambúrguer), `680px` (celular), `380px` (celular pequeno) e modo paisagem.
+  - Alvos de toque de 44px ou mais em telas touch, filtros com rolagem horizontal, painel de ajuda como *bottom sheet*, menu que fecha ao tocar fora, suporte a *notch* (`safe-area-inset`) e campos de 16px para evitar zoom no iOS.
 - **Acessibilidade**: link "pular para o conteúdo", foco visível, `aria-*` nos acordeões e no painel, respeito a `prefers-reduced-motion`.
 
 ## ⚠️ Pendências antes de publicar
