@@ -13,116 +13,144 @@ window.CATEGORIAS = {
   educacao: "Educação"
 };
 
+/* Formato de cada serviço:
+   nome, categoria, selo (opcional), descricao,
+   itens: [[destaque, texto]]            -> lista com palavra em negrito
+   campos: [[tipo, rótulo, texto, link]] -> tipo: publico | endereco | horario | contato | info
+   aviso (opcional), mais (HTML do "Ler mais informações", opcional)
+   O texto "[A CONFIRMAR]" aparece na tela como um marcador destacado: troque pelo dado
+   verificado e apague o marcador. NÃO preencha dados que não foram confirmados. */
 window.SERVICOS = [
   {
     nome: "Ligue 180 – Central de Atendimento à Mulher",
     categoria: "assistencia",
-    descricao: "Canal nacional, gratuito e sigiloso, para orientar, acolher e encaminhar mulheres em situação de violência.",
-    publico: "Todas as mulheres",
-    endereco: "Atendimento por telefone e WhatsApp",
-    horario: "24 horas, todos os dias",
-    contato: "180",
-    link: "tel:180",
-    mais: "Também recebe denúncias e pode acionar a polícia quando há risco imediato."
-  },
-  {
-    nome: "190 – Brigada Militar / Emergência",
-    categoria: "seguranca",
-    descricao: "Acione em caso de perigo imediato, agressão em andamento ou ameaça grave.",
-    publico: "Qualquer pessoa em situação de emergência",
-    endereco: "Atendimento por telefone",
-    horario: "24 horas",
-    contato: "190",
-    link: "tel:190",
-    mais: "Fale seu endereço e o que está acontecendo. Se não puder falar, o silêncio também pode ser uma forma de pedir ajuda."
+    selo: "Atendimento gratuito",
+    descricao: "Canal nacional de atendimento às mulheres em situação de violência.",
+    itens: [
+      ["Denúncias de violência:", "recebe e encaminha denúncias aos órgãos competentes, de forma anônima e sigilosa."],
+      ["Acolhimento e orientação:", "oferece escuta qualificada e informações sobre os direitos das mulheres e a Lei Maria da Penha."],
+      ["Informações sobre a rede de apoio:", "indica endereços e contatos de serviços especializados, como DEAMs, Centros de Referência, Defensorias Públicas e Casas da Mulher Brasileira."]
+    ],
+    campos: [["contato", "Telefone", "180", "tel:180"]],
+    aviso: "Ao realizar uma denúncia, é importante fornecer o máximo possível de informações corretas e detalhadas sobre a situação e, quando possível, sobre a vítima, como endereço e formas de contato. Isso ajuda as autoridades a localizá-la e a tomar as providências necessárias para oferecer proteção e assistência."
   },
   {
     nome: "Delegacia de Polícia para a Mulher (DEAM)",
     categoria: "seguranca",
-    descricao: "Registro de ocorrência, pedido de medidas protetivas de urgência e investigação dos crimes de violência doméstica.",
-    publico: "Mulheres em situação de violência",
-    endereco: "Caxias do Sul – confirmar endereço atualizado",
-    horario: "Confirmar horário (plantão para casos urgentes)",
-    contato: "Confirmar telefone",
-    link: "#",
-    mais: "A medida protetiva pode ser solicitada na delegacia, sem necessidade de advogado."
+    descricao: "Responsável pelo registro de ocorrências, pelo recebimento de pedidos de medidas protetivas de urgência e pela investigação de crimes relacionados à violência doméstica e familiar contra a mulher.",
+    campos: [
+      ["publico", "Público", "Mulheres em situação de violência."],
+      ["endereco", "Endereço", "Rua Dr. Montaury, 1387, 2º andar, Madureira, Caxias do Sul – RS, CEP 95047-500. [A CONFIRMAR]"],
+      ["horario", "Horário", "Das 8h30 às 12h e das 13h30 às 20h. [A CONFIRMAR]"],
+      ["contato", "Telefone", "(54) 3220-9280. [A CONFIRMAR]"]
+    ]
   },
   {
     nome: "Defensoria Pública do Estado – Caxias do Sul",
     categoria: "juridico",
-    descricao: "Orientação jurídica gratuita e acompanhamento de processos: medidas protetivas, guarda, pensão alimentícia, divórcio.",
-    publico: "Pessoas que não podem pagar advogado",
-    endereco: "Caxias do Sul – confirmar endereço atualizado",
-    horario: "Confirmar horário de atendimento",
-    contato: "Confirmar telefone",
-    link: "#",
-    mais: "Leve documentos pessoais e, se houver, boletim de ocorrência e comprovantes."
+    descricao: "Oferece orientação jurídica gratuita e acompanhamento de processos, incluindo pedidos de medidas protetivas, questões de guarda, pensão alimentícia e divórcio.",
+    campos: [
+      ["endereco", "Endereço", "Rua Tronca, 2383, Bairro Rio Branco, Caxias do Sul – RS, CEP 95010-100. [A CONFIRMAR]"],
+      ["contato", "Telefone", "(54) 3228-2298. [A CONFIRMAR]"],
+      ["horario", "Atendimento presencial", "Segunda a sexta-feira, das 12h às 18h. [A CONFIRMAR]"]
+    ]
   },
   {
-    nome: "Núcleo de Prática Jurídica – UCS",
-    categoria: "educacao",
-    descricao: "Atendimento jurídico gratuito prestado por estudantes de Direito, com supervisão de professores.",
-    publico: "Pessoas de baixa renda",
-    endereco: "Universidade de Caxias do Sul – confirmar bloco/sala",
-    horario: "Confirmar horário",
-    contato: "Confirmar telefone",
-    link: "#",
-    mais: "Projeto de extensão que também origina as pesquisas da biblioteca deste site."
-  },
-  {
-    nome: "CREAS – Centro de Referência Especializado de Assistência Social",
-    categoria: "assistencia",
-    descricao: "Acompanhamento psicossocial de famílias e indivíduos em situação de violência ou violação de direitos.",
-    publico: "Mulheres, crianças, idosos e famílias",
-    endereco: "Caxias do Sul – confirmar unidade mais próxima",
-    horario: "Segunda a sexta (confirmar horário)",
-    contato: "Confirmar telefone",
-    link: "#",
-    mais: "Procure também o CRAS do seu bairro para encaminhamentos e benefícios."
-  },
-  {
-    nome: "Unidades de Saúde e Hospitais (SUS)",
-    categoria: "saude",
-    descricao: "Atendimento médico e psicológico, profilaxia pós-violência sexual, notificação e acolhimento em saúde mental.",
-    publico: "Todas as pessoas",
-    endereco: "UBS do seu bairro ou pronto atendimento",
-    horario: "UBS em horário comercial; urgência 24 horas",
-    contato: "192 (SAMU)",
-    link: "tel:192",
-    mais: "Em caso de violência sexual, busque atendimento o quanto antes (até 72 horas para algumas medidas)."
-  },
-  {
-    nome: "Casa de Acolhimento (endereço sigiloso)",
-    categoria: "acolhimento",
-    descricao: "Abrigo temporário e seguro para mulheres, e seus filhos, em risco de vida.",
-    publico: "Mulheres em risco, com ou sem filhos",
-    endereco: "Sigiloso – acesso por encaminhamento da rede",
-    horario: "24 horas",
-    contato: "Via CREAS, DEAM ou 180",
-    link: "tel:180",
-    mais: "O acesso é feito por encaminhamento da rede de proteção para garantir a segurança das acolhidas."
+    nome: "Serviço de Assistência Jurídica Gratuita (SAJU) – UCS",
+    categoria: "juridico",
+    descricao: "O SAJU da Universidade de Caxias do Sul oferece atendimento jurídico gratuito à comunidade, com orientação, assessoria e acompanhamento em áreas específicas do Direito. Os atendimentos são realizados por acadêmicos do curso de Direito, sempre sob a orientação e supervisão de professores advogados.",
+    campos: [
+      ["info", "Atendimento", "Gratuito e exclusivamente mediante agendamento."],
+      ["publico", "Público atendido", "Pessoas residentes em Caxias do Sul, com renda bruta individual de até três salários mínimos."],
+      ["info", "Áreas", "Direito de Família, Cível, Penal (ANPP e medidas protetivas), do Consumidor, Previdenciário e Trabalhista."],
+      ["info", "Agendamento", "Presencialmente ou por telefone, mediante análise preliminar da situação e dos critérios de atendimento."],
+      ["endereco", "Endereço", "[A CONFIRMAR]"],
+      ["contato", "Telefone", "[A CONFIRMAR]"],
+      ["horario", "Horário", "[A CONFIRMAR]"]
+    ],
+    mais: `
+      <h4>Como funciona o atendimento?</h4>
+      <p>O atendimento no SAJU é realizado exclusivamente mediante agendamento. Para solicitá-lo, o interessado deve comparecer presencialmente ao serviço ou entrar em contato pelos telefones de atendimento.</p>
+      <p>No primeiro contato, será feita uma análise preliminar para verificar se a pessoa atende aos critérios estabelecidos e se sua demanda está entre as áreas de atuação do SAJU.</p>
+      <p>Após a aprovação dessa etapa, será agendado o atendimento. O caso será acompanhado por acadêmicos de Direito, sob a supervisão de professores advogados.</p>
+      <p>Sempre que precisar esclarecer dúvidas, entregar documentos ou conversar com o advogado responsável, o cliente deverá comparecer ao SAJU ou entrar em contato pelos telefones do serviço, respeitando o dia e o horário de atendimento correspondentes.</p>
+
+      <h4>Requisitos para ser atendido</h4>
+      <ul>
+        <li>Residir no município de Caxias do Sul.</li>
+        <li>Apresentar uma demanda que esteja entre as áreas de atuação do SAJU.</li>
+        <li>Possuir renda bruta individual de até três salários mínimos.</li>
+      </ul>
+
+      <h4>Áreas de atendimento</h4>
+      <ul>
+        <li>Direito de Família</li>
+        <li>Direito Cível</li>
+        <li>Direito Penal (ANPP e medidas protetivas)</li>
+        <li>Direito do Consumidor</li>
+        <li>Direito Previdenciário</li>
+        <li>Direito Trabalhista</li>
+      </ul>
+
+      <h4>Processos que não são realizados</h4>
+      <ul>
+        <li>Auxílio-reclusão</li>
+        <li>Solicitações de medicamentos e cirurgias</li>
+        <li>Casos de pessoas que não residem em Caxias do Sul</li>
+        <li>Solicitações de vagas em creches e escolas</li>
+        <li>Casos em que a renda ultrapassa três salários mínimos</li>
+      </ul>
+
+      <h4>Documentação necessária para o primeiro atendimento</h4>
+      <ul>
+        <li>Comprovante de renda</li>
+        <li>Comprovante de residência</li>
+        <li>Documento de identificação</li>
+        <li>Documentos relacionados ao processo ou à situação que deseja encaminhar</li>
+      </ul>
+
+      <h4>Atenção!</h4>
+      <p>Caso o atendimento seja interrompido antes do início do processo, seja por falta de comparecimento, ausência de documentos ou qualquer outra situação que impossibilite o ingresso da ação antes do término do semestre vigente, será necessário reiniciar todo o procedimento. Nesses casos, o interessado deverá realizar um novo agendamento, passar novamente pela triagem, entregar a documentação para análise e aguardar um novo atendimento.</p>
+      <p>Para o andamento do processo, o cliente deve:</p>
+      <ul>
+        <li>Comparecer aos atendimentos agendados;</li>
+        <li>Entregar a documentação solicitada dentro do prazo;</li>
+        <li>Manter contato com a equipe sempre que necessário.</li>
+      </ul>
+
+      <h4>Perguntas frequentes</h4>
+      <p><strong>O atendimento é gratuito?</strong><br>Sim. O SAJU presta assistência jurídica gratuita às pessoas que atendem aos critérios estabelecidos pelo serviço.</p>
+      <p><strong>Quem fará meu atendimento?</strong><br>O atendimento é realizado por acadêmicos do curso de Direito da UCS, sempre com orientação e supervisão de professores advogados.</p>
+      <p><strong>Quanto tempo demora o processo?</strong><br>Cada caso possui suas particularidades. O tempo de tramitação depende do tipo de ação e do andamento do Poder Judiciário.</p>`
   },
   {
     nome: "Patrulha Maria da Penha",
     categoria: "seguranca",
-    descricao: "Acompanhamento policial preventivo de mulheres com medida protetiva de urgência.",
-    publico: "Mulheres com medida protetiva",
-    endereco: "Atendimento por viatura / Brigada Militar",
-    horario: "Confirmar",
-    contato: "190",
-    link: "tel:190",
-    mais: "Confirme com a Brigada Militar de Caxias do Sul como ser incluída."
+    descricao: "A Patrulha Maria da Penha, vinculada à Brigada Militar, realiza o acompanhamento de mulheres em situação de violência doméstica que possuem medidas protetivas de urgência, por meio de visitas preventivas e orientações.",
+    aviso: "O acompanhamento da Patrulha não substitui o acionamento da polícia em situações de perigo imediato.",
+    mais: `
+      <h4>Como solicitar o acompanhamento?</h4>
+      <p>Ao solicitar as Medidas Protetivas de Urgência (MPUs), a mulher pode informar que deseja também o acompanhamento da Patrulha Maria da Penha.</p>
+      <p>Após o deferimento da medida protetiva e o encaminhamento aos órgãos de segurança, a Patrulha pode ser acionada pelo sistema ou por meio das listas encaminhadas pelos Juizados de Violência Doméstica.</p>
+      <p>A equipe realiza visitas preventivas, comparecendo eventualmente à residência das mulheres que solicitaram o acompanhamento, para oferecer orientações, verificar como está a situação e acompanhar o cumprimento das medidas protetivas.</p>
+
+      <h4>Como buscar orientação ou contato?</h4>
+      <p>A mulher também pode procurar diretamente uma unidade da Brigada Militar ou um posto de segurança próximo de sua localidade.</p>
+      <ul>
+        <li><strong>153:</strong> Guarda Municipal, onde houver esse serviço. <a href="tel:153">Ligar 153</a></li>
+        <li><strong>190:</strong> Brigada Militar, em situações de emergência. <a href="tel:190">Ligar 190</a></li>
+      </ul>`
   },
   {
-    nome: "Escolas e projetos de prevenção",
-    categoria: "educacao",
-    descricao: "Palestras, rodas de conversa e formação sobre violência de gênero e relações respeitosas.",
-    publico: "Estudantes, educadores e comunidade",
-    endereco: "Escolas e universidades do município",
-    horario: "Conforme agenda",
-    contato: "Confirmar",
-    link: "#",
-    mais: "Informe-se com a Secretaria Municipal de Educação."
+    nome: "Casa de Apoio Viva Rachel",
+    categoria: "acolhimento",
+    descricao: "Abrigo destinado a mulheres em situação de violência doméstica com risco de morte e sem rede de apoio, que também pode acolher seus filhos. Além do abrigo, é possível receber acompanhamento psicológico, social e jurídico, auxiliando na reconstrução da autonomia e na busca por condições para recomeçar a vida com segurança.",
+    campos: [
+      ["publico", "Público", "Mulheres em situação de violência doméstica com risco de morte e sem rede de apoio. O abrigo também pode acolher seus filhos."],
+      ["endereco", "Endereço", "Sigiloso, para preservar a segurança das mulheres acolhidas."],
+      ["info", "Como ter acesso", "O encaminhamento é realizado pela rede de proteção, especialmente pelo Centro de Referência da Mulher (CRM)."],
+      ["contato", "Contato do CRM", "[A CONFIRMAR]"]
+    ]
   }
 ];
 

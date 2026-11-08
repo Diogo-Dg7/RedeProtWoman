@@ -44,6 +44,7 @@
   /* ---------- Navegação ---------- */
   const LINKS = [
     ["inicio", "Início", "index.html"],
+    ["comecar", "Por onde começar?", "pages/por-onde-comecar.html"],
     ["violencia", "Violência", "pages/violencia.html"],
     ["ciclo", "Ciclo", "pages/ciclo.html"],
     ["rede", "Rede de Proteção", "pages/rede.html"],
@@ -88,7 +89,7 @@
   nav.addEventListener("click", e => { if (e.target.closest("a, button")) setMenu(false); });
   document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
   document.addEventListener("click", e => { if (!header.contains(e.target)) setMenu(false); });
-  window.addEventListener("resize", () => { if (window.innerWidth > 900) setMenu(false); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 1180) setMenu(false); });
 
   /* ---------- Rodapé + nav inferior (mobile) ---------- */
   const footer = document.createElement("footer");

@@ -52,38 +52,41 @@
   const list = $("#service-list");
   if (list) {
     const filters = $("#filters"), q = $("#q"), count = $("#count"), empty = $("#empty");
-    let cat = params.get("cat") && CATEGORIAS[params.get("cat")] ? params.get("cat") : "todos";
+    // só mostra categorias que têm pelo menos um serviço cadastrado
+    const cats = Object.entries(CATEGORIAS).filter(([k]) => SERVICOS.some(s => s.categoria === k));
+    let cat = params.get("cat") && cats.some(([k]) => k === params.get("cat")) ? params.get("cat") : "todos";
     filters.innerHTML = `<button class="chip" data-cat="todos" type="button">Todos</button>` +
-      Object.entries(CATEGORIAS).map(([k, v]) => `<button class="chip" data-cat="${k}" type="button">${v}</button>`).join("");
+      cats.map(([k, v]) => `<button class="chip" data-cat="${k}" type="button">${v}</button>`).join("");
+    // texto seguro + marcador visível para dados pendentes
+    const tbc = (t) => esc(t).replace(/\[A CONFIRMAR\]/g, '<mark class="tbc">A CONFIRMAR</mark>');
+    const ICONS = { publico: "users", endereco: "pin", horario: "clock", contato: "phone", info: "file" };
+    const plain = (s) => [s.nome, s.descricao, s.selo, s.aviso, (s.itens || []).map(i => i.join(" ")).join(" "),
+      (s.campos || []).map(c => c[1] + " " + c[2]).join(" "), (s.mais || "").replace(/<[^>]+>/g, " ")].join(" ");
+    const card = (s) => `
+      <article class="service">
+        <div class="service-top"><span class="tag">${CATEGORIAS[s.categoria]}</span>${s.selo ? `<span class="seal">${esc(s.selo)}</span>` : ""}</div>
+        <h3>${esc(s.nome)}</h3>
+        <p>${esc(s.descricao)}</p>
+        ${s.itens ? `<ul class="service-list">${s.itens.map(i => `<li><strong>${esc(i[0])}</strong> ${esc(i[1])}</li>`).join("")}</ul>` : ""}
+        ${s.campos ? `<dl>${s.campos.map(c => `<div><dt>${icon(ICONS[c[0]] || "file")}</dt><dd><span class="field">${esc(c[1])}</span>${c[3] ? `<a href="${esc(c[3])}"><strong>${tbc(c[2])}</strong></a>` : tbc(c[2])}</dd></div>`).join("")}</dl>` : ""}
+        ${s.aviso ? `<p class="service-warn"><strong>Aviso:</strong> ${esc(s.aviso)}</p>` : ""}
+        ${s.mais ? `<div class="more">${s.mais}</div><button class="btn btn--ghost" type="button" aria-expanded="false"><span class="lbl">Ler mais informações</span> ${icon("arrow")}</button>` : ""}
+      </article>`;
     const render = () => {
       const term = norm(q.value.trim());
-      const res = SERVICOS.filter(s => (cat === "todos" || s.categoria === cat) &&
-        (!term || norm([s.nome, s.descricao, s.publico, s.endereco].join(" ")).includes(term)));
+      const res = SERVICOS.filter(s => (cat === "todos" || s.categoria === cat) && (!term || norm(plain(s)).includes(term)));
       filters.querySelectorAll(".chip").forEach(c => { const on = c.dataset.cat === cat; c.classList.toggle("on", on); c.setAttribute("aria-pressed", on); });
       count.textContent = `${res.length} ${res.length === 1 ? "serviço encontrado" : "serviços encontrados"}`;
       empty.classList.toggle("hidden", res.length > 0);
-      list.innerHTML = res.map(s => `
-        <article class="service">
-          <span class="tag">${CATEGORIAS[s.categoria]}</span>
-          <h3>${esc(s.nome)}</h3>
-          <p>${esc(s.descricao)}</p>
-          <dl>
-            <div><dt>${icon("users")}</dt><dd><span class="sr-only">Público: </span>${esc(s.publico)}</dd></div>
-            <div><dt>${icon("pin")}</dt><dd><span class="sr-only">Endereço: </span>${esc(s.endereco)}</dd></div>
-            <div><dt>${icon("clock")}</dt><dd><span class="sr-only">Horário: </span>${esc(s.horario)}</dd></div>
-            <div><dt>${icon("phone")}</dt><dd><span class="sr-only">Contato: </span>${s.link && s.link !== "#" ? `<a href="${esc(s.link)}"><strong>${esc(s.contato)}</strong></a>` : esc(s.contato)}</dd></div>
-          </dl>
-          <p class="more">${esc(s.mais)}</p>
-          <button class="btn btn--ghost" type="button" aria-expanded="false">Saber mais ${icon("arrow")}</button>
-        </article>`).join("");
+      list.innerHTML = res.map(card).join("");
     };
     filters.addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (b) { cat = b.dataset.cat; render(); } });
     q.addEventListener("input", render);
     list.addEventListener("click", e => {
-      const b = e.target.closest(".btn"); if (!b) return;
+      const b = e.target.closest("button.btn"); if (!b) return;
       const open = b.closest(".service").classList.toggle("open");
       b.setAttribute("aria-expanded", open);
-      b.firstChild.textContent = open ? "Mostrar menos " : "Saber mais ";
+      b.querySelector(".lbl").textContent = open ? "Mostrar menos" : "Ler mais informações";
     });
     render();
   }

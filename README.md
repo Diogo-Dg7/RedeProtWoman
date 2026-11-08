@@ -20,6 +20,7 @@ python -m http.server 8000
 RedeProtWoman/
 ├── index.html              Página inicial (hero, 3 caminhos, "Por que existe", 5 cards)
 ├── pages/
+│   ├── por-onde-comecar.html  Passo a passo para buscar ajuda (orientação, cível/criminal, MPUs, acolhimento)
 │   ├── violencia.html      Tipos de violência (física, psicológica, sexual, patrimonial, moral)
 │   ├── ciclo.html          Ciclo da violência – círculo interativo em 4 etapas
 │   ├── contexto.html       Contexto histórico (história, direitos, leis, misoginia, cérebro)
@@ -59,7 +60,7 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 
 | Quero... | Edite |
 |---|---|
-| Adicionar/alterar um serviço da rede | `assets/js/data.js` → `SERVICOS` |
+| Adicionar/alterar um serviço da rede | `assets/js/data.js` → `SERVICOS` (o formato está explicado no topo da lista) |
 | Adicionar uma pesquisa | `assets/js/data.js` → `PESQUISAS` (campo `arquivo` = link do PDF) |
 | Alterar perguntas do FAQ | `assets/js/data.js` → `FAQ` |
 | Trocar logo, ilustração ou foto do hero | `assets/img/` (mesmos nomes de arquivo) |
@@ -83,3 +84,10 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 2. **Substituir as pesquisas de exemplo** (títulos com "EXEMPLO") pelas reais.
 3. **Imagem do hero**: `assets/img/hero-mulher.webp` tem 448×384 px e fica um pouco suave em telas grandes; se houver uma versão de maior resolução, substitua mantendo o nome do arquivo.
 4. Revisar os textos jurídicos e do "Contexto histórico" com a orientação do projeto.
+
+## Dados pendentes: `[A CONFIRMAR]`
+
+Endereços, horários, telefones e links ainda não verificados aparecem na tela com um marcador amarelo **A CONFIRMAR**.
+Para resolver: troque o texto pelo dado confirmado (em `assets/js/data.js` ou direto no HTML) e apague o marcador. Pendentes hoje:
+DEAM (endereço, horário, telefone), Defensoria (endereço, telefone, horário), SAJU/UCS (endereço, telefone, horário),
+DPPA (endereço e telefone), contato do CRM e link da Delegacia Online da Mulher (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
