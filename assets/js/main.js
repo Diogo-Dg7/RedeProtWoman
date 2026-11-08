@@ -58,7 +58,8 @@
   header.innerHTML = `
     <div class="wrap header-inner">
       <a class="brand" href="${ROOT}index.html" aria-label="Rede de Proteção à Mulher – página inicial">
-        <img src="${ROOT}assets/img/face-line.svg" alt="">
+        <img class="brand-full" src="${ROOT}assets/img/logo-completa.svg" alt="Rede de Proteção à Mulher – Caxias do Sul">
+        <img class="brand-icon" src="${ROOT}assets/img/logo-icone.svg" alt="">
         <span class="brand-text">Rede de Proteção<br>à Mulher<small>Caxias do Sul</small></span>
       </a>
       <nav class="main-nav" id="main-nav" aria-label="Principal">

@@ -32,7 +32,7 @@ RedeProtWoman/
 │   │   ├── main.js         Header, rodapé, nav inferior (mobile), painel "Precisa de ajuda?", ícones
 │   │   ├── data.js         **Conteúdo editável**: serviços, pesquisas, perguntas do FAQ
 │   │   └── pages.js        Lógica de cada página (ciclo, filtros, busca, acordeão)
-│   └── img/                hero.svg, face-line.svg, favicon.svg
+│   └── img/                logo-completa.svg, logo-icone.svg, mulher-traco.svg, hero-foto.png, favicon.svg
 └── README.md
 ```
 
@@ -47,6 +47,7 @@ Cada página define `<body data-page="..." data-root="../">`:
 | Adicionar/alterar um serviço da rede | `assets/js/data.js` → `SERVICOS` |
 | Adicionar uma pesquisa | `assets/js/data.js` → `PESQUISAS` (campo `arquivo` = link do PDF) |
 | Alterar perguntas do FAQ | `assets/js/data.js` → `FAQ` |
+| Trocar logo, ilustração ou foto do hero | `assets/img/` (mesmos nomes de arquivo) |
 | Mudar as cores | `assets/css/style.css` → bloco `:root` |
 | Mudar o menu | `assets/js/main.js` → lista `LINKS` |
 | Textos do ciclo | `assets/js/pages.js` → `STEPS` |
@@ -65,5 +66,5 @@ Cada página define `<body data-page="..." data-root="../">`:
 
 1. **Confirmar dados locais** em `data.js` (endereços, horários e telefones marcados com "confirmar"): DEAM, Defensoria, CREAS, NPJ-UCS etc. Os números nacionais (180, 190, 192) estão corretos.
 2. **Substituir as pesquisas de exemplo** (títulos com "EXEMPLO") pelas reais.
-3. **Imagem do hero**: `hero.svg` é uma ilustração própria aproximando o mockup. Para usar uma fotografia/arte final, troque o arquivo mantendo o mesmo nome (ou ajuste o `src` em `index.html`).
+3. **Imagem do hero**: `assets/img/hero-foto.png` tem 448×384 px e fica um pouco suave em telas grandes; se houver uma versão de maior resolução, substitua mantendo o nome do arquivo.
 4. Revisar os textos jurídicos e do "Contexto histórico" com a orientação do projeto.
