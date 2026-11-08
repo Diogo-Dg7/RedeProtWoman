@@ -32,13 +32,28 @@ RedeProtWoman/
 │   │   ├── main.js         Header, rodapé, nav inferior (mobile), painel "Precisa de ajuda?", ícones
 │   │   ├── data.js         **Conteúdo editável**: serviços, pesquisas, perguntas do FAQ
 │   │   └── pages.js        Lógica de cada página (ciclo, filtros, busca, acordeão)
-│   └── img/                logo-completa.svg, logo-icone.svg, mulher-traco.svg, hero-foto.png, favicon.svg
+│   └── img/                logo-completa.svg, logo-icone.svg, mulher-traco.svg, hero-mulher.webp, favicon.svg
 └── README.md
 ```
 
 Cada página define `<body data-page="..." data-root="../">`:
 - `data-page` marca o item ativo no menu;
 - `data-root` é o caminho até a raiz (`""` na home, `"../"` em `pages/`).
+
+## Conteúdo editorial (PDFs)
+
+Os textos das páginas **Violência**, **Ciclo** e **Rede de Proteção** (seção "O que ainda precisa mudar?") vêm de seis PDFs fornecidos pela equipe do projeto. Estão escritos direto no HTML de cada página, com blocos "Fontes" recolhíveis (`<details class="sources">`) no fim de cada seção.
+
+| Página | Seção | PDF de origem |
+|---|---|---|
+| `pages/violencia.html` | Contexto histórico | Contexto histórico |
+| `pages/violencia.html` | Quando as coisas começam a mudar (linha do tempo) | Violência contra a Mulher: quando as coisas começam a mudar |
+| `pages/violencia.html` | Diferentes classes sociais | violência contra a mulher: diferentes classes sociais |
+| `pages/violencia.html` | Misoginia | Misoginia |
+| `pages/ciclo.html` | As quatro fases e "Por que voltam?" | Ciclo da violência |
+| `pages/rede.html` | O que ainda precisa mudar? (itens 1 a 10) | O que ainda precisa mudar |
+
+Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; resíduos de cópia (como `cite turn0search0`, caracteres `￼` e `?utm_source=chatgpt.com` nos links) removidos.
 
 ## Como editar o conteúdo
 
@@ -66,5 +81,5 @@ Cada página define `<body data-page="..." data-root="../">`:
 
 1. **Confirmar dados locais** em `data.js` (endereços, horários e telefones marcados com "confirmar"): DEAM, Defensoria, CREAS, NPJ-UCS etc. Os números nacionais (180, 190, 192) estão corretos.
 2. **Substituir as pesquisas de exemplo** (títulos com "EXEMPLO") pelas reais.
-3. **Imagem do hero**: `assets/img/hero-foto.png` tem 448×384 px e fica um pouco suave em telas grandes; se houver uma versão de maior resolução, substitua mantendo o nome do arquivo.
+3. **Imagem do hero**: `assets/img/hero-mulher.webp` tem 448×384 px e fica um pouco suave em telas grandes; se houver uma versão de maior resolução, substitua mantendo o nome do arquivo.
 4. Revisar os textos jurídicos e do "Contexto histórico" com a orientação do projeto.

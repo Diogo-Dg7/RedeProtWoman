@@ -8,41 +8,44 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
-  /* ---------- CICLO DA VIOLÊNCIA ---------- */
-  const cycleEl = $("#cycle");
-  if (cycleEl) {
+  /* ---------- CICLO DA VIOLÊNCIA ----------
+     O círculo é um índice visual das 4 fases. O texto vem do HTML (conteúdo dos PDFs):
+     clicar numa fase leva ao card correspondente e o destaca. */
+  const cycleArt = $("#cycle-art");
+  if (cycleArt) {
     const STEPS = [
-      { t: "Encantamento", c: "#b98a91", d: "Fase de carinho, atenção e promessas. O agressor se mostra apaixonado e atencioso, e a relação parece perfeita. É também quando a mulher se apega e cria expectativas.", s: "Sinais: presentes, elogios excessivos, desejo de estar sempre junto." },
-      { t: "Aumento da tensão", c: "#9b6670", d: "Surgem irritação, ciúmes, críticas, humilhações e ameaças. A mulher passa a 'pisar em ovos' para evitar conflitos e se sente culpada pelo clima ruim.", s: "Sinais: controle, isolamento de amigos, cobranças, medo." },
-      { t: "Ato de violência", c: "#6e2b4a", d: "A tensão explode em agressão física, psicológica, sexual, moral ou patrimonial. É o momento de maior risco, e a violência pode escalar a cada ciclo.", s: "Aqui é fundamental buscar ajuda: 190 ou 180." },
-      { t: "Arrependimento", c: "#8a4a62", d: "O agressor pede perdão, promete mudar, culpa o estresse, o álcool ou a própria vítima. Reinicia a fase de encantamento, e o ciclo tende a se repetir, cada vez mais curto.", s: "Sinais: promessas, presentes, choro, 'nunca mais vai acontecer'." }
+      { t: "Encantamento", c: "#b98a91" },
+      { t: "Aumento da tensão", c: "#9b6670" },
+      { t: "Ato de violência", c: "#6e2b4a" },
+      { t: "Arrependimento", c: "#8a4a62" }
     ];
-    const cx = 200, cy = 200, R = 180, r = 80;
+    const cx = 200, cy = 200, R = 176, r = 78;
     const pt = (rad, a) => [cx + rad * Math.cos(a), cy + rad * Math.sin(a)];
-    let svg = '<svg viewBox="0 0 400 400" role="group" aria-label="Círculo do ciclo da violência dividido em quatro etapas">';
+    let svg = '<svg viewBox="0 0 400 400" role="group" aria-label="Círculo do ciclo da violência dividido em quatro fases">' +
+      '<defs><marker id="arw" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1l8 4-8 4z" fill="#9b6670"/></marker></defs>';
     STEPS.forEach((s, i) => {
-      const a0 = -Math.PI / 2 + i * Math.PI / 2 + 0.03, a1 = a0 + Math.PI / 2 - 0.06;
+      const a0 = -Math.PI / 2 + i * Math.PI / 2 + 0.04, a1 = a0 + Math.PI / 2 - 0.08;
       const [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0);
       const [tx, ty] = pt((R + r) / 2, (a0 + a1) / 2);
       const words = s.t.split(" ");
-      svg += `<g class="cycle-seg" tabindex="0" role="button" data-i="${i}" aria-label="${i + 1}. ${s.t}">
+      svg += `<g class="cycle-seg" tabindex="0" role="link" data-i="${i + 1}" aria-label="Fase ${i + 1}: ${s.t}">
         <path d="M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z" fill="${s.c}"/>
-        <text x="${tx}" y="${ty - (words.length - 1) * 8}" text-anchor="middle">${words.map((w, k) => `<tspan x="${tx}" dy="${k ? 16 : 0}">${w}</tspan>`).join("")}</text></g>`;
+        <text x="${tx}" y="${ty - 6 - (words.length - 1) * 8}" text-anchor="middle"><tspan x="${tx}" style="font-size:20px">${i + 1}</tspan>${words.map(w => `<tspan x="${tx}" dy="16">${w}</tspan>`).join("")}</text></g>`;
     });
+    // seta externa indicando que o ciclo se repete (sentido horário)
+    const [ax, ay] = pt(R + 12, -Math.PI / 2 - 0.9), [bx, by] = pt(R + 12, -Math.PI / 2 - 0.12);
+    svg += `<path d="M${ax} ${ay} A${R + 12} ${R + 12} 0 0 1 ${bx} ${by}" fill="none" stroke="#9b6670" stroke-width="2" stroke-dasharray="3 6" marker-end="url(#arw)"/>`;
     svg += `<text x="200" y="196" text-anchor="middle" style="font:600 20px Newsreader,Georgia,serif;fill:#6e2b4a">Ciclo da</text>
             <text x="200" y="220" text-anchor="middle" style="font:600 20px Newsreader,Georgia,serif;fill:#6e2b4a">violência</text></svg>`;
-    cycleEl.querySelector(".cycle-art").innerHTML = svg;
-    const info = cycleEl.querySelector(".cycle-info"), dots = cycleEl.querySelector(".cycle-dots");
-    dots.innerHTML = STEPS.map((_, i) => `<button type="button" data-i="${i}" aria-label="Etapa ${i + 1}"></button>`).join("");
-    const show = (i) => {
-      const s = STEPS[i];
-      info.querySelector(".body").innerHTML = `<span class="step">Etapa ${i + 1} de 4</span><h3>${s.t}</h3><p>${s.d}</p><p><strong>${s.s}</strong></p>`;
-      cycleEl.querySelectorAll(".cycle-seg").forEach((g, k) => g.classList.toggle("on", k === i));
-      dots.querySelectorAll("button").forEach((b, k) => b.classList.toggle("on", k === i));
+    cycleArt.innerHTML = svg;
+    const go = (n) => {
+      const card = document.getElementById("fase-" + n);
+      if (!card) return;
+      document.querySelectorAll(".phase").forEach(p => p.classList.toggle("on", p === card));
+      card.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
     };
-    cycleEl.addEventListener("click", e => { const t = e.target.closest("[data-i]"); if (t) show(+t.dataset.i); });
-    cycleEl.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset.i) { e.preventDefault(); show(+e.target.dataset.i); } });
-    show(0);
+    cycleArt.addEventListener("click", e => { const g = e.target.closest("[data-i]"); if (g) go(+g.dataset.i); });
+    cycleArt.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset.i) { e.preventDefault(); go(+e.target.dataset.i); } });
   }
 
   /* ---------- REDE DE PROTEÇÃO ---------- */

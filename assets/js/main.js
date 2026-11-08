@@ -140,5 +140,10 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeHelp(); });
   overlay.querySelector("#quick-exit").addEventListener("click", e => { e.preventDefault(); location.replace("https://www.google.com"); });
 
+  /* Dificulta "pegar" imagens marcadas com data-protect: só nelas, sem afetar o resto do site */
+  document.querySelectorAll("[data-protect]").forEach(el => {
+    ["contextmenu", "dragstart", "selectstart"].forEach(ev => el.addEventListener(ev, e => e.preventDefault()));
+  });
+
   fill(document);
 })();
