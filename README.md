@@ -86,16 +86,6 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 
 ## Dados pendentes: `[A CONFIRMAR]`
 
-Endereços, horários, telefones e links ainda não verificados aparecem na tela com um marcador amarelo **A CONFIRMAR**.
-Para resolver: troque o texto pelo dado confirmado (em `assets/js/data.js` ou direto no HTML) e apague o marcador. Pendentes hoje:
-DEAM (endereço, horário, telefone), Defensoria (endereço, telefone, horário), SAJU/UCS (endereço, telefone, horário), contato do CRM (card da Casa de Apoio Viva Rachel) e link da Delegacia Online da Mulher (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
-
-## Menu dropdown
-
-O menu é gerado por `main.js` a partir da constante `NAV`, igual em todas as páginas. Cada item (exceto **Pesquisas**, que não tem seções) abre uma lista de âncoras:
-desktop com hover (fecha após ~150ms) ou clique; teclado com Tab, Enter, ↑ ↓ Home End, ← → e Esc; no celular vira acordeão.
-Os cards da Rede e os grupos do FAQ são gerados por JavaScript, então ganham `id` a partir de `data.js` e a página rola até eles após carregar.
-
-## Texto corrido (recuo)
-
-A regra central está na seção 19 de `assets/css/style.css`: `text-indent: 1.5em` (1.2em até 480px), `line-height: 1.75` e 1em entre parágrafos nos textos de leitura (`.prose`, cards de texto longo e respostas do FAQ). Para usar em um bloco novo, adicione a classe `.texto-corrido` ao contêiner.
+Dados ainda não verificados aparecem na tela com um marcador amarelo **A CONFIRMAR**.
+Para resolver: troque o texto pelo dado confirmado e apague o marcador. Pendente hoje: o link da **Delegacia Online da Mulher** (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
+Endereço (Google Maps), telefone (`tel:`) e horário dos serviços ficam em `assets/js/data.js`.

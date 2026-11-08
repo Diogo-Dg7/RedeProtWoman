@@ -4,6 +4,9 @@
    "confirmar" devem ser verificados antes da publicação.
    ========================================================== */
 
+/* Link do Google Maps a partir do endereço */
+window.mapsLink = (endereco) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(endereco);
+
 window.CATEGORIAS = {
   juridico: "Jurídico",
   saude: "Saúde",
@@ -47,9 +50,9 @@ window.SERVICOS = [
     descricao: "Responsável pelo registro de ocorrências, pelo recebimento de pedidos de medidas protetivas de urgência e pela investigação de crimes relacionados à violência doméstica e familiar contra a mulher.",
     campos: [
       ["publico", "Público", "Mulheres em situação de violência."],
-      ["endereco", "Endereço", "Rua Dr. Montaury, 1387, 2º andar, Madureira, Caxias do Sul – RS, CEP 95047-500. [A CONFIRMAR]"],
-      ["horario", "Horário", "Das 8h30 às 12h e das 13h30 às 20h. [A CONFIRMAR]"],
-      ["contato", "Telefone", "(54) 3220-9280. [A CONFIRMAR]"]
+      ["endereco", "Endereço", "Rua Dr. Montaury, 1387, 2º andar, Madureira, Caxias do Sul – RS, CEP 95047-500", mapsLink("Rua Dr. Montaury, 1387, 2º andar, Madureira, Caxias do Sul – RS, CEP 95047-500")],
+      ["horario", "Horário", "Das 8h30 às 12h e das 13h30 às 20h"],
+      ["contato", "Telefone", "(54) 3220-9280", "tel:+555432209280"]
     ]
   },
   {
@@ -58,9 +61,9 @@ window.SERVICOS = [
     categoria: "juridico",
     descricao: "Oferece orientação jurídica gratuita e acompanhamento de processos, incluindo pedidos de medidas protetivas, questões de guarda, pensão alimentícia e divórcio.",
     campos: [
-      ["endereco", "Endereço", "Rua Tronca, 2383, Bairro Rio Branco, Caxias do Sul – RS, CEP 95010-100. [A CONFIRMAR]"],
-      ["contato", "Telefone", "(54) 3228-2298. [A CONFIRMAR]"],
-      ["horario", "Atendimento presencial", "Segunda a sexta-feira, das 12h às 18h. [A CONFIRMAR]"]
+      ["endereco", "Endereço", "Rua Tronca, 2383, Bairro Rio Branco, Caxias do Sul – RS, CEP 95010-100", mapsLink("Rua Tronca, 2383, Bairro Rio Branco, Caxias do Sul – RS, CEP 95010-100")],
+      ["contato", "Telefone", "(54) 3228-2298", "tel:+555432282298"],
+      ["horario", "Horário de atendimento presencial", "Segunda a sexta-feira, das 12h às 18h"]
     ]
   },
   {
@@ -73,9 +76,9 @@ window.SERVICOS = [
       ["publico", "Público atendido", "Pessoas residentes em Caxias do Sul, com renda bruta individual de até três salários mínimos."],
       ["info", "Áreas", "Direito de Família, Cível, Penal (ANPP e medidas protetivas), do Consumidor, Previdenciário e Trabalhista."],
       ["info", "Agendamento", "Presencialmente ou por telefone, mediante análise preliminar da situação e dos critérios de atendimento."],
-      ["endereco", "Endereço", "[A CONFIRMAR]"],
-      ["contato", "Telefone", "[A CONFIRMAR]"],
-      ["horario", "Horário", "[A CONFIRMAR]"]
+      ["endereco", "Endereço", "R. Francisco Getúlio Vargas, 1130 – Bloco 58 – Petrópolis, Caxias do Sul – RS, CEP 95070-560", mapsLink("R. Francisco Getúlio Vargas, 1130 – Bloco 58 – Petrópolis, Caxias do Sul – RS, CEP 95070-560")],
+      ["contato", "Telefone", "(54) 3218-2276", "tel:+555432182276"],
+      ["horario", "Horário", "Segunda a sexta-feira, das 8h às 21h. Sábado e domingo: fechado."]
     ],
     mais: `
       <h4>Como funciona o atendimento?</h4>
@@ -159,8 +162,7 @@ window.SERVICOS = [
     campos: [
       ["publico", "Público", "Mulheres em situação de violência doméstica com risco de morte e sem rede de apoio. O abrigo também pode acolher seus filhos."],
       ["endereco", "Endereço", "Sigiloso, para preservar a segurança das mulheres acolhidas."],
-      ["info", "Como ter acesso", "O encaminhamento é realizado pela rede de proteção, especialmente pelo Centro de Referência da Mulher (CRM)."],
-      ["contato", "Contato do CRM", "[A CONFIRMAR]"]
+      ["info", "Como ter acesso", "O encaminhamento é realizado pela rede de proteção."]
     ]
   }
 ];
@@ -192,7 +194,7 @@ window.FAQ = {
   ]},
   direitos: { titulo: "Direitos", itens: [
     ["O que é medida protetiva de urgência?", "É uma ordem judicial que, por exemplo, afasta o agressor do lar e proíbe aproximação e contato. Pode ser pedida na delegacia, e o juiz decide em até 48 horas."],
-    ["Preciso de advogado para pedir medida protetiva?", "Não. O pedido pode ser feito diretamente na delegacia, no Ministério Público ou na Defensoria Pública."],
+    ["Preciso de advogado para pedir medida protetiva?", "Não. O pedido deve ser feito diretamente na Delegacia Especializada de Atendimento à Mulher, Delegacia de Polícia de Pronto Atendimento ou na Delegacia Online."],
     ["Tenho direito a atendimento de saúde?", "Sim. O SUS deve prestar atendimento integral, incluindo apoio psicológico e, em caso de violência sexual, profilaxia e acolhimento."]
   ]},
   rede: { titulo: "Rede de proteção", itens: [

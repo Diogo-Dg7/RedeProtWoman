@@ -700,3 +700,7 @@ html { scroll-padding-top: 100px; } /* o header fixo não cobre o título da se�
   .faq-a p { text-indent: 1.2em; }
   .prose .lead, .compare--short .tile p { text-indent: 0; }
 }
+
+/* Endereços e telefones clicáveis nos cards de serviço */
+.service dd a { color: var(--plum-dark); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(110, 43, 74, .4); }
+.service dd a:hover { text-decoration-color: currentColor; }

@@ -68,7 +68,7 @@
         <h3>${esc(s.nome)}</h3>
         <p>${esc(s.descricao)}</p>
         ${s.itens ? `<ul class="service-list">${s.itens.map(i => `<li><strong>${esc(i[0])}</strong> ${esc(i[1])}</li>`).join("")}</ul>` : ""}
-        ${s.campos ? `<dl>${s.campos.map(c => `<div><dt>${icon(ICONS[c[0]] || "file")}</dt><dd><span class="field">${esc(c[1])}</span>${c[3] ? `<a href="${esc(c[3])}"${/^https?:/.test(c[3]) ? ' target="_blank" rel="noopener"' : ""}><strong>${tbc(c[2])}</strong></a>` : tbc(c[2])}</dd></div>`).join("")}</dl>` : ""}
+        ${s.campos ? `<dl>${s.campos.map(c => `<div><dt>${icon(ICONS[c[0]] || "file")}</dt><dd><span class="field">${esc(c[1])}</span>${c[3] ? `<a href="${esc(c[3])}"${/^https?:/.test(c[3]) ? ' target="_blank" rel="noopener"' : ""}>${c[0] === "contato" ? `<strong>${tbc(c[2])}</strong>` : tbc(c[2])}</a>` : tbc(c[2])}</dd></div>`).join("")}</dl>` : ""}
         ${s.aviso ? `<p class="service-warn"><strong>Aviso:</strong> ${esc(s.aviso)}</p>` : ""}
         ${s.mais ? `<div class="more">${s.mais}</div><button class="btn btn--ghost" type="button" aria-expanded="false"><span class="lbl">Ler mais informações</span> ${icon("arrow")}</button>` : ""}
       </article>`;
