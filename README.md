@@ -87,5 +87,5 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 ## Dados pendentes: `[A CONFIRMAR]`
 
 Dados ainda não verificados aparecem na tela com um marcador amarelo **A CONFIRMAR**.
-Para resolver: troque o texto pelo dado confirmado e apague o marcador. Pendente hoje: o link da **Delegacia Online da Mulher** (em `pages/por-onde-comecar.html`, há um comentário `TODO` com o código para trocar).
+Para resolver: troque o texto pelo dado confirmado e apague o marcador. Nenhum dado pendente hoje.
 Endereço (Google Maps), telefone (`tel:`) e horário dos serviços ficam em `assets/js/data.js`.
