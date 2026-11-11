@@ -164,6 +164,49 @@ window.SERVICOS = [
       ["endereco", "Endereço", "Sigiloso, para preservar a segurança das mulheres acolhidas."],
       ["info", "Como ter acesso", "O encaminhamento é realizado pela rede de proteção."]
     ]
+  },
+  {
+    nome: "Espaço Bem-Me-Quer",
+    id: "espaco-bem-me-quer",
+    categoria: "assistencia",
+    descricao: "Central de atendimento às vítimas de crimes. Seu objetivo é concretizar a condição de sujeito de direitos das vítimas, através de serviços voltados para a informação, apoio, acolhimento, reparação e promoção de meios efetivos de participação no processo penal.",
+    campos: [
+      ["endereco", "Endereço", "Av. Independência, nº 2372, Térreo – Sala 14, Bairro Exposição, Caxias do Sul – RS, CEP 95082-380", mapsLink("Av. Independência, 2372, Bairro Exposição, Caxias do Sul – RS, CEP 95082-380")],
+      ["horario", "Horário", "Segunda a sexta-feira, das 12h às 19h"],
+      ["contato", "Telefone", "(54) 3216-5300 (ramal 5452)", "tel:+555432165300"],
+      ["contato", "WhatsApp", "(54) 99641-3016", "https://wa.me/5554996413016"]
+    ]
+  },
+  {
+    nome: "Instituto Rosa Del Este",
+    id: "instituto-rosa-del-este",
+    categoria: "assistencia",
+    descricao: "A ONG presta assistência social e psicológica imediata às vítimas de violência, mas também promove um auxílio que causa impactos de longo prazo, como a profissionalização e o constante trabalho junto da vítima para que ela entenda seu valor e se veja como um ser humano merecedor de coisas boas.",
+    campos: [
+      ["endereco", "Endereço", "R. Borges de Medeiros, 211, Sala 01 A, Centro, Caxias do Sul – RS", mapsLink("R. Borges de Medeiros, 211, Centro, Caxias do Sul – RS")],
+      ["info", "Referência", "Próximo ao Zaffari e ao Estádio Alfredo Jaconi."],
+      ["contato", "Telefone", "(54) 3067-0355", "tel:+555430670355"]
+    ]
+  },
+  {
+    nome: "Projeto Resgate – Apsiconor",
+    id: "projeto-resgate",
+    categoria: "saude",
+    selo: "Atendimento gratuito",
+    descricao: "Uma iniciativa da Apsiconor (Associação dos Psicólogos do Nordeste do RS), em Caxias do Sul. Oferece apoio psicológico a mulheres que passam ou passaram por violência e abusos, inclusive a violência psicológica, que costuma ser o início do ciclo de violência. O projeto acolhe e escuta essas mulheres, trabalha a autoestima e as orienta para que consigam se reestruturar.",
+    itens: [
+      ["Atendimentos individuais", ""],
+      ["Encontros periódicos em grupo", ""],
+      ["Palestras abertas ao público", ""]
+    ],
+    campos: [
+      ["info", "Como acessar", "Entre em contato com a Apsiconor pelos canais abaixo para saber como se inscrever e onde são os atendimentos."],
+      ["endereco", "Endereço", "Rua Pedro Tomasi, 937, Sala 102, Bairro Exposição, Caxias do Sul – RS, CEP 95084-320", mapsLink("Rua Pedro Tomasi, 937, Bairro Exposição, Caxias do Sul – RS, CEP 95084-320")],
+      ["horario", "Horário", "Segunda a sexta-feira, das 13h às 17h"],
+      ["contato", "WhatsApp", "(54) 99236-9775", "https://wa.me/5554992369775"],
+      ["contato", "WhatsApp", "(54) 99615-9155", "https://wa.me/5554996159155"],
+      ["contato", "Telefone fixo", "(54) 3223-4529", "tel:+555432234529"]
+    ]
   }
 ];
 
