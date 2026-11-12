@@ -570,6 +570,18 @@ p { margin: 0 0 1em; }
 .service .more h4:first-child { margin-top: 0; }
 .service .more > .service-list, .service .more > dl, .service .more > .service-warn { margin: 0 0 1em; }
 .service .more > .service-warn { background: var(--surface); }
+
+/* Cabeçalho com 8 itens: as setas e o botão de ajuda nunca encolhem (antes sumiam por falta de espaço) */
+.nav-toggle, .help-btn--header { flex-shrink: 0; }
+.help-btn--header { white-space: nowrap; }
+@media (min-width: 1281px) {
+  .header-inner { gap: 16px; }
+  .brand { padding-right: 18px; }
+  .brand-full { height: 58px; }
+  .main-nav { gap: 12px; min-width: 0; }
+  .nav-link { font-size: .86rem; }
+  .help-btn--header { padding: 12px 20px; font-size: .86rem; }
+}
 /* informação principal (endereço, horário, telefone, itens) em negrito rosa, como no resto do site */
 .service dd, .service dd a, .service-list strong, .service .more strong { color: var(--plum-dark); font-weight: 600; }
 .service dd .field { font-weight: 600; }
@@ -716,6 +728,10 @@ html { scroll-padding-top: 100px; } /* o header fixo não cobre o título da se�
   line-height: 1.75;
 }
 .prose p, .texto-corrido p { margin: 0 0 1em; }
+/* listas do texto corrido: recuo maior que o da 1ª linha do parágrafo e respiro entre os itens */
+.prose ul, .prose ol { padding-left: 3em; margin: .4em 0 1.4em; }
+.prose li + li { margin-top: .7em; }
+@media (max-width: 480px) { .prose ul, .prose ol { padding-left: 2.4em; } }
 /* exceções: destaques, legendas e cards curtos */
 .prose .lead, .compare--short .tile p, .callout p, .summary p, .safety p, .closing, .example { text-indent: 0; }
 @media (max-width: 480px) {

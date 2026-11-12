@@ -220,12 +220,12 @@ window.SERVICOS = [
 ];
 
 window.PESQUISAS = [
-  { titulo: "Medidas protetivas de urgência: eficácia e desafios (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2025, area: "Direito Penal", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Violência patrimonial e o direito das famílias (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2025, area: "Direito Civil", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Lei Maria da Penha: evolução jurisprudencial (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2024, area: "Direito Constitucional", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Feminicídio e política criminal (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2024, area: "Direito Penal", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Guarda, alienação e violência doméstica (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2023, area: "Direito Civil", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Acesso à justiça para mulheres em Caxias do Sul (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2023, area: "Direitos Humanos", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" }
+  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
+  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
+  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
+  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
+  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
+  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" }
 ];
 
 /* COMPOSIÇÃO DA REDE – órgãos que fazem parte da rede, mas NÃO fazem atendimento direto.

@@ -108,25 +108,20 @@
     goHash(true);
   }
 
-  /* ---------- PESQUISAS ---------- */
+  /* ---------- PESQUISAS (todas juntas, sem divisão por área) ---------- */
   const plist = $("#research-list");
   if (plist) {
-    const areas = [...new Set(PESQUISAS.map(p => p.area))];
-    const f = $("#research-filters"), q = $("#rq"), count = $("#rcount");
-    let area = "todas";
-    f.innerHTML = `<button class="chip" data-a="todas" type="button">Todas</button>` + areas.map(a => `<button class="chip" data-a="${esc(a)}" type="button">${esc(a)}</button>`).join("");
+    const q = $("#rq"), count = $("#rcount");
     const render = () => {
       const t = norm(q.value.trim());
-      const res = PESQUISAS.filter(p => (area === "todas" || p.area === area) && (!t || norm(p.titulo + p.autor + p.resumo).includes(t)));
-      f.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.a === area));
+      const res = PESQUISAS.filter(p => !t || norm(p.titulo + " " + p.autor + " " + p.resumo).includes(t));
       count.textContent = `${res.length} ${res.length === 1 ? "pesquisa" : "pesquisas"}`;
       plist.innerHTML = res.map(p => `
-        <article class="service"><span class="tag">${esc(p.area)} · ${p.ano}</span>
+        <article class="service">${p.ano ? `<span class="tag">${esc(p.ano)}</span>` : ""}
           <h3>${esc(p.titulo)}</h3><p>${esc(p.resumo)}</p>
           <p><small>${esc(p.autor)}</small></p>
           <a class="btn btn--ghost" href="${esc(p.arquivo)}">${icon("file")} Ler pesquisa</a></article>`).join("") || '<div class="empty">Nenhuma pesquisa encontrada.</div>';
     };
-    f.addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (b) { area = b.dataset.a; render(); } });
     q.addEventListener("input", render);
     render();
   }
