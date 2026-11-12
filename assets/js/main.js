@@ -75,9 +75,12 @@
       ["SAJU – UCS", "pages/rede.html#saju-ucs"],
       ["Patrulha Maria da Penha", "pages/rede.html#patrulha-maria-da-penha"],
       ["Casa de Apoio Viva Rachel", "pages/rede.html#casa-de-apoio-viva-rachel"],
+      ["Centro de Referência da Mulher", "pages/rede.html#centro-de-referencia-da-mulher"],
       ["Espaço Bem-Me-Quer", "pages/rede.html#espaco-bem-me-quer"],
       ["Instituto Rosa Del Este", "pages/rede.html#instituto-rosa-del-este"],
-      ["Projeto Resgate", "pages/rede.html#projeto-resgate"] ] },
+      ["Projeto Resgate", "pages/rede.html#projeto-resgate"],
+      ["Composição da rede", "pages/rede-composicao.html"] ] },
+    { key: "noticias", label: "Notícias", href: "pages/noticias.html" },
     { key: "pesquisas", label: "Pesquisas", href: "pages/pesquisas.html" },
     { key: "duvidas", label: "Dúvidas", href: "pages/duvidas.html", sub: [
       ["Violência", "pages/duvidas.html#violencia"],

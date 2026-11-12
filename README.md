@@ -25,6 +25,8 @@ RedeProtWoman/
 │   ├── ciclo.html          Ciclo da violência – círculo interativo em 4 etapas
 │   ├── contexto.html       Contexto histórico (história, direitos, leis, misoginia, cérebro)
 │   ├── rede.html           Rede de proteção – busca + filtros por categoria
+│   ├── rede-composicao.html  Composição da rede: serviços de atendimento + órgãos de atuação institucional
+│   ├── noticias.html       Notícias das iniciativas da cidade (mais recente primeiro)
 │   ├── pesquisas.html      Biblioteca de pesquisas dos estudantes de Direito da UCS
 │   └── duvidas.html        FAQ em acordeões, por categoria
 ├── assets/
@@ -60,6 +62,8 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 | Quero... | Edite |
 |---|---|
 | Adicionar/alterar um serviço da rede | `assets/js/data.js` → `SERVICOS` (o formato está explicado no topo da lista) |
+| Adicionar um órgão que compõe a rede, mas não faz atendimento (ex.: PEM) | `assets/js/data.js` → `REDE_ORGAOS` (aparece em `pages/rede-composicao.html`) |
+| Adicionar uma notícia | `assets/js/data.js` → `NOTICIAS` (data, fonte, título, resumo, pontos e link da publicação) |
 | Adicionar uma pesquisa | `assets/js/data.js` → `PESQUISAS` (campo `arquivo` = link do PDF) |
 | Alterar perguntas do FAQ | `assets/js/data.js` → `FAQ` |
 | Trocar logo, ilustração ou foto do hero | `assets/img/` (mesmos nomes de arquivo) |
@@ -87,5 +91,5 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 ## Dados pendentes: `[A CONFIRMAR]`
 
 Dados ainda não verificados aparecem na tela com um marcador amarelo **A CONFIRMAR**.
-Para resolver: troque o texto pelo dado confirmado e apague o marcador. Nenhum dado pendente hoje.
+Para resolver: troque o texto pelo dado confirmado e apague o marcador. Pendente hoje: horário do **Centro de Referência da Mulher (CRM)** em `assets/js/data.js` (9h ou 8h?).
 Endereço (Google Maps), telefone (`tel:`) e horário dos serviços ficam em `assets/js/data.js`.

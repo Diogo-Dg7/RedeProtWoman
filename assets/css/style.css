@@ -568,6 +568,33 @@ p { margin: 0 0 1em; }
 .service .more { font-size: .94rem; line-height: 1.7; padding: 18px 20px; }
 .service .more h4 { font-family: var(--serif); font-size: 1.1rem; color: var(--plum-dark); margin: 1.2em 0 .4em; }
 .service .more h4:first-child { margin-top: 0; }
+.service .more > .service-list, .service .more > dl, .service .more > .service-warn { margin: 0 0 1em; }
+.service .more > .service-warn { background: var(--surface); }
+/* informação principal (endereço, horário, telefone, itens) em negrito rosa, como no resto do site */
+.service dd, .service dd a, .service-list strong, .service .more strong { color: var(--plum-dark); font-weight: 600; }
+.service dd .field { font-weight: 600; }
+
+/* Rede de Proteção: abas entre "Serviços de atendimento" e "Composição da rede" */
+.subpages { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.subpages .chip { text-decoration: none; }
+.comp-intro { max-width: 760px; color: var(--ink-soft); margin: 0 0 22px; }
+.comp-group + .comp-group { margin-top: 56px; }
+.comp .inline-link { margin-top: auto; color: var(--plum); text-decoration: underline; font-size: .9rem; font-weight: 600; }
+.tag--alt { background: var(--plum); color: #fff; }
+
+/* Notícias */
+.news-list { display: grid; gap: 22px; max-width: 860px; }
+.news .service-top { justify-content: space-between; }
+.news-date { font-size: .8rem; letter-spacing: .04em; color: var(--malva-dark); font-weight: 600; }
+.news h3 { font-family: var(--serif); font-size: 1.35rem; line-height: 1.3; color: var(--plum-dark); }
+.news .service-list li { color: #3a2f33; }
+.news-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 4px; }
+.news-actions .btn { margin-top: 0; }
+.news-body { display: flex; flex-direction: column; gap: 12px; }
+.news-img { display: block; width: 100%; height: auto; border-radius: 12px; }
+@media (min-width: 681px) {
+  .news--img { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 26px; align-items: start; }
+}
 .service .more p { font-size: .94rem; margin: 0 0 .8em; color: #3a2f33; }
 .service .more ul { margin: 0 0 .9em; padding-left: 1.2em; }
 .service .more li + li { margin-top: .3em; }

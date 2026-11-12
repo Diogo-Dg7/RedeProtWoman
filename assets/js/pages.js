@@ -62,16 +62,22 @@
     const ICONS = { publico: "users", endereco: "pin", horario: "clock", contato: "phone", info: "file" };
     const plain = (s) => [s.nome, s.descricao, s.selo, s.aviso, (s.itens || []).map(i => i.join(" ")).join(" "),
       (s.campos || []).map(c => c[1] + " " + c[2]).join(" "), (s.mais || "").replace(/<[^>]+>/g, " ")].join(" ");
-    const card = (s) => `
+    // no card fica só "o que é" (categoria, nome, descrição); o resto vai para "Ler mais informações"
+    const card = (s) => {
+      const extra = [
+        s.itens ? `<ul class="service-list">${s.itens.map(i => `<li><strong>${esc(i[0])}</strong> ${esc(i[1])}</li>`).join("")}</ul>` : "",
+        s.campos ? `<dl>${s.campos.map(c => `<div><dt>${icon(ICONS[c[0]] || "file")}</dt><dd><span class="field">${esc(c[1])}</span>${c[3] ? `<a href="${esc(c[3])}"${/^https?:/.test(c[3]) ? ' target="_blank" rel="noopener"' : ""}>${c[0] === "contato" ? `<strong>${tbc(c[2])}</strong>` : tbc(c[2])}</a>` : tbc(c[2])}</dd></div>`).join("")}</dl>` : "",
+        s.aviso ? `<p class="service-warn"><strong>Aviso:</strong> ${esc(s.aviso)}</p>` : "",
+        s.mais || ""
+      ].join("").trim();
+      return `
       <article class="service" id="${esc(s.id)}">
         <div class="service-top"><span class="tag">${CATEGORIAS[s.categoria]}</span>${s.selo ? `<span class="seal">${esc(s.selo)}</span>` : ""}</div>
         <h3>${esc(s.nome)}</h3>
         <p>${esc(s.descricao)}</p>
-        ${s.itens ? `<ul class="service-list">${s.itens.map(i => `<li><strong>${esc(i[0])}</strong> ${esc(i[1])}</li>`).join("")}</ul>` : ""}
-        ${s.campos ? `<dl>${s.campos.map(c => `<div><dt>${icon(ICONS[c[0]] || "file")}</dt><dd><span class="field">${esc(c[1])}</span>${c[3] ? `<a href="${esc(c[3])}"${/^https?:/.test(c[3]) ? ' target="_blank" rel="noopener"' : ""}>${c[0] === "contato" ? `<strong>${tbc(c[2])}</strong>` : tbc(c[2])}</a>` : tbc(c[2])}</dd></div>`).join("")}</dl>` : ""}
-        ${s.aviso ? `<p class="service-warn"><strong>Aviso:</strong> ${esc(s.aviso)}</p>` : ""}
-        ${s.mais ? `<div class="more">${s.mais}</div><button class="btn btn--ghost" type="button" aria-expanded="false"><span class="lbl">Ler mais informações</span> ${icon("arrow")}</button>` : ""}
+        ${extra ? `<div class="more">${extra}</div><button class="btn btn--ghost" type="button" aria-expanded="false"><span class="lbl">Ler mais informações</span> ${icon("arrow")}</button>` : ""}
       </article>`;
+    };
     const render = () => {
       const term = norm(q.value.trim());
       const res = SERVICOS.filter(s => (cat === "todos" || s.categoria === cat) && (!term || norm(plain(s)).includes(term)));
@@ -123,6 +129,49 @@
     f.addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (b) { area = b.dataset.a; render(); } });
     q.addEventListener("input", render);
     render();
+  }
+
+  /* ---------- COMPOSIÇÃO DA REDE ---------- */
+  const compAt = $("#comp-atendimento"), compOrg = $("#comp-orgaos");
+  if (compAt) {
+    compAt.innerHTML = SERVICOS.map(s => `
+      <article class="service comp">
+        <div class="service-top"><span class="tag">${CATEGORIAS[s.categoria]}</span></div>
+        <h3>${esc(s.nome)}</h3>
+        <p>${esc(s.descricao)}</p>
+        <a class="inline-link" href="rede.html#${esc(s.id)}">Ver contatos e informações</a>
+      </article>`).join("");
+  }
+  if (compOrg) {
+    compOrg.innerHTML = (window.REDE_ORGAOS || []).map(o => `
+      <article class="service comp" id="${esc(o.id)}">
+        <div class="service-top"><span class="tag tag--alt">${esc(o.vinculo)}</span></div>
+        <h3>${esc(o.nome)}</h3>
+        <p>${esc(o.descricao)}</p>
+        ${o.relacionado ? `<a class="inline-link" href="${esc(o.relacionado[1])}">${esc(o.relacionado[0])}</a>` : ""}
+      </article>`).join("");
+  }
+
+  /* ---------- NOTÍCIAS ---------- */
+  const nlist = $("#news-list");
+  if (nlist) {
+    const fmt = (d) => { const [a, m, dia] = d.split("-"); return `${dia}/${m}/${a}`; };
+    const itens = [...(window.NOTICIAS || [])].sort((a, b) => b.data.localeCompare(a.data));
+    const root = document.body.dataset.root || "";
+    nlist.innerHTML = itens.map(n => `
+      <article class="service news${n.imagem ? " news--img" : ""}">
+        ${n.imagem ? `<img class="news-img" src="${esc(root + "assets/img/" + n.imagem[0])}" alt="${esc(n.imagem[1])}" loading="lazy">` : ""}
+        <div class="news-body">
+        <div class="service-top"><span class="tag">${esc(n.fonte)}</span><time class="news-date" datetime="${esc(n.data)}">${fmt(n.data)}</time></div>
+        <h3>${esc(n.titulo)}</h3>
+        <p>${esc(n.resumo)}</p>
+        ${n.pontos ? `<ul class="service-list">${n.pontos.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+        <div class="news-actions">
+          ${n.link ? `<a class="btn btn--ghost" href="${esc(n.link)}" target="_blank" rel="noopener">Ver publicação original ${icon("arrow")}</a>` : ""}
+          ${n.relacionado ? `<a class="inline-link" href="${esc(n.relacionado[1])}">${esc(n.relacionado[0])}</a>` : ""}
+        </div>
+        </div>
+      </article>`).join("") || '<div class="empty">Nenhuma notícia publicada ainda.</div>';
   }
 
   /* ---------- DÚVIDAS (FAQ) ---------- */

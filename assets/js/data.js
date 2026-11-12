@@ -28,7 +28,6 @@ window.SERVICOS = [
     nome: "Ligue 180 – Central de Atendimento à Mulher",
     id: "ligue-180",
     categoria: "assistencia",
-    selo: "Atendimento gratuito",
     descricao: "Canal nacional de atendimento às mulheres em situação de violência.",
     itens: [
       ["Denúncias de violência:", "recebe e encaminha denúncias aos órgãos competentes, de forma anônima e sigilosa."],
@@ -44,7 +43,7 @@ window.SERVICOS = [
     aviso: "Ao realizar uma denúncia, é importante fornecer o máximo possível de informações corretas e detalhadas sobre a situação e, quando possível, sobre a vítima, como endereço e formas de contato. Isso ajuda as autoridades a localizá-la e a tomar as providências necessárias para oferecer proteção e assistência."
   },
   {
-    nome: "Delegacia de Polícia para a Mulher (DEAM)",
+    nome: "Delegacia Especializada de Atendimento à Mulher (DEAM)",
     id: "deam",
     categoria: "seguranca",
     descricao: "Responsável pelo registro de ocorrências, pelo recebimento de pedidos de medidas protetivas de urgência e pela investigação de crimes relacionados à violência doméstica e familiar contra a mulher.",
@@ -166,6 +165,17 @@ window.SERVICOS = [
     ]
   },
   {
+    nome: "Centro de Referência da Mulher (CRM) – Rompendo Paradigmas",
+    id: "centro-de-referencia-da-mulher",
+    categoria: "assistencia",
+    descricao: "Equipamento público especializado no acolhimento, orientação, atendimento psicossocial e suporte jurídico a mulheres em situação de violência doméstica e familiar. É vinculado à Coordenadoria da Mulher de Caxias do Sul.",
+    campos: [
+      ["endereco", "Endereço", "Rua Alfredo Chaves, 1333, 3º andar, Bairro Exposição (Centro Administrativo Municipal), Caxias do Sul – RS", mapsLink("Rua Alfredo Chaves, 1333, Bairro Exposição, Caxias do Sul – RS")],
+      ["horario", "Horário", "Segunda a sexta-feira, das 9h às 17h [A CONFIRMAR]"],
+      ["contato", "Telefone", "(54) 3218-6112", "tel:+555432186112"]
+    ]
+  },
+  {
     nome: "Espaço Bem-Me-Quer",
     id: "espaco-bem-me-quer",
     categoria: "assistencia",
@@ -192,7 +202,6 @@ window.SERVICOS = [
     nome: "Projeto Resgate – Apsiconor",
     id: "projeto-resgate",
     categoria: "saude",
-    selo: "Atendimento gratuito",
     descricao: "Uma iniciativa da Apsiconor (Associação dos Psicólogos do Nordeste do RS), em Caxias do Sul. Oferece apoio psicológico a mulheres que passam ou passaram por violência e abusos, inclusive a violência psicológica, que costuma ser o início do ciclo de violência. O projeto acolhe e escuta essas mulheres, trabalha a autoestima e as orienta para que consigam se reestruturar.",
     itens: [
       ["Atendimentos individuais", ""],
@@ -219,6 +228,53 @@ window.PESQUISAS = [
   { titulo: "Acesso à justiça para mulheres em Caxias do Sul (EXEMPLO)", autor: "Estudante de Direito – UCS", ano: 2023, area: "Direitos Humanos", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" }
 ];
 
+/* COMPOSIÇÃO DA REDE – órgãos que fazem parte da rede, mas NÃO fazem atendimento direto.
+   (Os serviços de atendimento já vêm de SERVICOS e aparecem automaticamente na página.)
+   Formato: nome, id, vinculo (a que órgão/esfera pertence), descricao (apenas o que é),
+   relacionado (opcional): [texto, link]. */
+window.REDE_ORGAOS = [
+  {
+    nome: "Coordenadoria da Mulher",
+    id: "coordenadoria-da-mulher",
+    vinculo: "Prefeitura de Caxias do Sul",
+    descricao: "Atua no planejamento e na execução de políticas públicas para o público feminino e integra a rede municipal de proteção. O principal equipamento vinculado a ela é o Centro de Referência da Mulher (CRM) – Rompendo Paradigmas.",
+    relacionado: ["Ver o Centro de Referência da Mulher", "rede.html#centro-de-referencia-da-mulher"]
+  },
+  {
+    nome: "Conselho Municipal dos Direitos da Mulher (COMDIM)",
+    id: "conselho-municipal-dos-direitos-da-mulher",
+    vinculo: "Município de Caxias do Sul",
+    descricao: "Órgão colegiado, de caráter consultivo, deliberativo e fiscalizador. Propõe políticas públicas voltadas à igualdade de gênero no município, fiscaliza as ações do poder público relacionadas à proteção das mulheres e atua em articulação com a sociedade civil, movimentos de mulheres e entidades de classe para combater a discriminação e a violência."
+  },
+  {
+    nome: "Procuradoria Especial da Mulher (PEM)",
+    id: "procuradoria-especial-da-mulher",
+    vinculo: "Câmara de Vereadores de Caxias do Sul",
+    descricao: "Órgão da Câmara de Vereadores que tem como missão defender os direitos das mulheres, combater a violência e a discriminação de gênero, além de fiscalizar e acompanhar as políticas públicas voltadas à proteção das mulheres no município."
+  }
+];
+
+/* NOTÍCIAS – iniciativas da cidade. A página mostra da mais recente para a mais antiga.
+   Formato: data (AAAA-MM-DD), fonte, titulo, resumo, pontos (lista, opcional),
+   imagem (opcional): [arquivo dentro de assets/img/, descrição da imagem],
+   link (publicação original), relacionado (opcional): [texto, link para outra página do site] */
+window.NOTICIAS = [
+  {
+    data: "2026-11-11",
+    fonte: "Prefeitura de Caxias do Sul",
+    titulo: "Município assume gestão direta da Casa Viva Rachel para garantir acolhimento ininterrupto a mulheres vítimas de violência",
+    resumo: "A Prefeitura passou a administrar diretamente a Casa Viva Rachel, abrigo para mulheres vítimas de violência, depois que a Associação Mão Amiga decidiu não continuar à frente do serviço.",
+    pontos: [
+      "O serviço passa a ser conduzido diretamente pela equipe técnica da SMASC, sem interrupção do acolhimento.",
+      "A manutenção do abrigo ocorre em um momento crítico para a segurança das mulheres no Rio Grande do Sul.",
+      "Segundo dados da segurança pública, o estado já registrou mais de 60 feminicídios em 2026."
+    ],
+    imagem: ["noticias/casa-viva-rachel.png", "Arte da Prefeitura de Caxias do Sul: mulher abraçando uma criança, com o título da notícia sobre a Casa Viva Rachel"],
+    link: "https://www.instagram.com/p/DfnAtHHNIT0/",
+    relacionado: ["Conheça a Casa de Apoio Viva Rachel", "rede.html#casa-de-apoio-viva-rachel"]
+  }
+];
+
 window.FAQ = {
   violencia: { titulo: "Violência", itens: [
     ["O que é violência doméstica?", "É qualquer ação ou omissão baseada no gênero que cause morte, lesão, sofrimento físico, sexual ou psicológico e dano moral ou patrimonial, no âmbito da família, da unidade doméstica ou de qualquer relação íntima de afeto (Lei Maria da Penha, Lei 11.340/2006)."],
@@ -238,6 +294,7 @@ window.FAQ = {
   direitos: { titulo: "Direitos", itens: [
     ["O que é medida protetiva de urgência?", "É uma ordem judicial que, por exemplo, afasta o agressor do lar e proíbe aproximação e contato. Pode ser pedida na delegacia, e o juiz decide em até 48 horas."],
     ["Preciso de advogado para pedir medida protetiva?", "Não. O pedido deve ser feito diretamente na Delegacia Especializada de Atendimento à Mulher, Delegacia de Polícia de Pronto Atendimento ou na Delegacia Online."],
+    ["Preciso ter boletim de ocorrência anterior para pedir medida protetiva?", "Não. A Lei Maria da Penha (art. 19, § 5º, incluído pela Lei nº 14.550/2023) determina que as medidas protetivas sejam concedidas independentemente do registro de boletim de ocorrência, da existência de inquérito policial, de ação penal ou cível e até da classificação do crime. O seu relato já é suficiente para o pedido ser analisado pelo juiz."],
     ["Tenho direito a atendimento de saúde?", "Sim. O SUS deve prestar atendimento integral, incluindo apoio psicológico e, em caso de violência sexual, profilaxia e acolhimento."]
   ]},
   rede: { titulo: "Rede de proteção", itens: [
