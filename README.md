@@ -62,6 +62,7 @@ Regras seguidas: texto fiel aos PDFs, sem acrescentar dados, leis ou telefones; 
 | Quero... | Edite |
 |---|---|
 | Adicionar/alterar um serviço da rede | `assets/js/data.js` → `SERVICOS` (o formato está explicado no topo da lista) |
+| Garantir que celulares peguem a versão nova depois de mudar CSS/JS | Trocar o número `?v=...` nos links de `style.css` e dos `.js` em todos os `.html` (o GitHub Pages guarda os arquivos em cache por 10 minutos) |
 | Adicionar um órgão que compõe a rede, mas não faz atendimento (ex.: PEM) | `assets/js/data.js` → `REDE_ORGAOS` (aparece em `pages/rede-composicao.html`) |
 | Adicionar uma notícia | `assets/js/data.js` → `NOTICIAS` (data, fonte, título, resumo, pontos e link da publicação) |
 | Adicionar uma pesquisa | `assets/js/data.js` → `PESQUISAS` (campo `arquivo` = link do PDF) |
