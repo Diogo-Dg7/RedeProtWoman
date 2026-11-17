@@ -7,6 +7,9 @@
   const body = document.body;
   const ROOT = body.dataset.root || "";
   const PAGE = body.dataset.page || "";
+  const IS_HOME = PAGE === "inicio";
+  // termo vindo de um resultado da pesquisa (?destaque=palavra): é destacado na página de destino
+  const HL_TERM = IS_HOME ? "" : (new URLSearchParams(location.search).get("destaque") || "").trim();
 
   /* ---------- Ícones (traço fino, estilo do mockup) ---------- */
   const P = {
@@ -30,6 +33,7 @@
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
     down: '<path d="M6 9l6 6 6-6"/>',
+    up: '<path d="M6 15l6-6 6 6"/>',
     user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
     brain: '<path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 003 3V4zM15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-3 3V4z"/>',
     coin: '<circle cx="12" cy="12" r="9"/><path d="M14.500 9a2.500 2.500 0 00-5 0c0 3 5 2 5 5a2.500 2.500 0 01-5 0M12 6v12"/>',
@@ -112,9 +116,34 @@
         ${NAV.map(navItem).join("")}
         <button class="btn nav-help" data-open-help type="button">${icon("alert")} Precisa de ajuda?</button>
       </nav>
+      ${IS_HOME ? `<button class="find-toggle" id="find-toggle" type="button" aria-label="Pesquisar no site" title="Pesquisar no site" aria-expanded="false" aria-controls="find-bar">${icon("search")}</button>` : ""}
       <button class="btn help-btn help-btn--header" data-open-help type="button">${icon("alert")} Precisa de ajuda? ${icon("arrow")}</button>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">${icon("menu")}</button>
-    </div>`;
+    </div>
+    ${IS_HOME ? `
+    <div class="find-bar" id="find-bar" hidden>
+      <div class="wrap find-inner" role="search">
+        <label class="find-field">
+          ${icon("search")}
+          <span class="sr-only">Pesquisar em todo o site</span>
+          <input type="search" placeholder="Pesquisar em todo o site…" autocomplete="off" spellcheck="false" enterkeyhint="search" aria-controls="find-results">
+          <span class="find-count" aria-live="polite"></span>
+        </label>
+        <button class="find-btn find-close" type="button" aria-label="Fechar pesquisa" title="Fechar">${icon("close")}</button>
+      </div>
+      <div class="wrap find-results" id="find-results" hidden></div>
+    </div>` : HL_TERM ? `
+    <div class="find-bar find-bar--hl" id="find-bar">
+      <div class="wrap find-inner">
+        <p class="find-hl">${icon("search")}<span>Resultado da pesquisa: <b></b></span></p>
+        <span class="find-count" aria-live="polite"></span>
+        <div class="find-nav">
+          <button class="find-btn" type="button" data-find="prev" aria-label="Ocorrência anterior" title="Anterior">${icon("up")}</button>
+          <button class="find-btn" type="button" data-find="next" aria-label="Próxima ocorrência" title="Próxima">${icon("down")}</button>
+          <button class="find-btn find-close" type="button" aria-label="Limpar destaque da pesquisa" title="Limpar">${icon("close")}</button>
+        </div>
+      </div>
+    </div>` : ""}`;
   body.prepend(header);
 
   const skip = document.createElement("a");
@@ -216,10 +245,276 @@
   const onBp = () => { closeAll(); if (!mobileMq.matches) setMenu(false); };
   mobileMq.addEventListener ? mobileMq.addEventListener("change", onBp) : mobileMq.addListener(onBp);
 
+  /* ---------- Pesquisa no site ----------
+     A lupa só aparece na página inicial, mas a pesquisa varre o site inteiro:
+     - textos fixos de cada página (lidos do próprio HTML, por seção com id);
+     - conteúdo que vem de data.js (serviços, composição da rede, notícias, dúvidas).
+     Não diferencia maiúsculas nem acentos ("violencia" acha "violência").
+     Ao clicar num resultado, a página de destino abre com ?destaque=palavra:
+     as ocorrências ficam destacadas e uma barra permite ir de uma a outra.
+     Para incluir uma página nova na pesquisa, acrescente-a em SITE_PAGES. */
+  const fold = (t) => t.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  const escH = (t) => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const foldMap = (text) => { // texto sem acentos + posição de cada letra no texto original
+    let norm = ""; const map = [];
+    for (let i = 0; i < text.length; i++) { const f = fold(text[i]); for (let k = 0; k < f.length; k++) { norm += f[k]; map.push(i); } }
+    return [norm, map];
+  };
+  const smoothScroll = () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const findBar = header.querySelector("#find-bar");
+
+  /* destaque das ocorrências na página atual */
+  let hits = [], hitIdx = -1, hlTerm = "";
+  function clearHits() {
+    document.querySelectorAll("mark.find-hit").forEach(m => {
+      const p = m.parentNode; if (!p) return;
+      p.replaceChild(document.createTextNode(m.textContent), m); p.normalize();
+    });
+    hits = []; hitIdx = -1;
+  }
+  function highlight(term) {
+    clearHits(); hlTerm = term;
+    const q = fold(term), root = document.getElementById("conteudo") || document.querySelector("main");
+    if (q.length < 2 || !root) return 0;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => {
+      const el = n.parentElement;
+      if (!n.nodeValue.trim() || !el || el.closest("script, style, svg, noscript, .hidden, [hidden], .chip")) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    } });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const text = node.nodeValue, [norm, map] = foldMap(text);
+      const frag = document.createDocumentFragment(); let last = 0, from = 0, pos, found = false;
+      while ((pos = norm.indexOf(q, from)) !== -1) {
+        const st = map[pos], en = map[pos + q.length - 1] + 1;
+        if (st > last) frag.append(text.slice(last, st));
+        const m = document.createElement("mark"); m.className = "find-hit"; m.textContent = text.slice(st, en);
+        frag.append(m); hits.push(m); last = en; from = pos + q.length; found = true;
+      }
+      if (!found) return;
+      if (last < text.length) frag.append(text.slice(last));
+      node.parentNode.replaceChild(frag, node);
+    });
+    return hits.length;
+  }
+  function revealHit(el) { // abre pergunta / "Ler mais" que esconde a ocorrência; true = abriu algo
+    let opened = false;
+    for (let d = el.closest("details"); d; d = d.parentElement && d.parentElement.closest("details")) if (!d.open) { d.open = true; opened = true; }
+    const ans = el.closest(".faq-a"), q = ans && ans.previousElementSibling;
+    if (q && q.getAttribute("aria-expanded") !== "true") { q.setAttribute("aria-expanded", "true"); opened = true; }
+    const svc = el.closest(".service");
+    if (svc && el.closest(".more") && !svc.classList.contains("open")) {
+      const b = svc.querySelector("button.btn[aria-expanded]");
+      b ? b.click() : svc.classList.add("open"); opened = true;
+    }
+    return opened;
+  }
+  function goHit(i, onDone) {
+    if (!hits.length) return;
+    if (!hits[0].isConnected && !highlight(hlTerm)) return onDone && onDone(); // a página redesenhou o conteúdo
+    if (hits[hitIdx]) hits[hitIdx].classList.remove("is-current");
+    hitIdx = (i + hits.length) % hits.length;
+    const h = hits[hitIdx];
+    const opened = revealHit(h); h.classList.add("is-current");
+    const scroll = () => h.scrollIntoView({ block: "center", inline: "nearest", behavior: smoothScroll() ? "smooth" : "auto" });
+    opened ? setTimeout(scroll, 320) : scroll();
+    if (onDone) onDone();
+  }
+
+  /* página de destino: destaca a palavra pesquisada */
+  if (HL_TERM && findBar) {
+    const count = findBar.querySelector(".find-count");
+    const [prev, next] = findBar.querySelectorAll("[data-find]");
+    const show = () => { count.textContent = hits.length ? `${hitIdx + 1} de ${hits.length}` : "Nenhuma ocorrência"; prev.disabled = next.disabled = hits.length < 1; };
+    findBar.querySelector(".find-hl b").textContent = `“${HL_TERM}”`;
+    prev.addEventListener("click", () => goHit(hitIdx - 1, show));
+    next.addEventListener("click", () => goHit(hitIdx + 1, show));
+    findBar.querySelector(".find-close").addEventListener("click", () => {
+      clearHits(); findBar.remove();
+      history.replaceState(null, "", location.pathname + location.hash);
+    });
+    // espera data.js/pages.js montarem o conteúdo da página
+    document.addEventListener("DOMContentLoaded", () => {
+      highlight(HL_TERM);
+      const id = decodeURIComponent(location.hash.slice(1));
+      const target = id && document.getElementById(id);
+      const start = target ? Math.max(0, hits.findIndex(h => target.contains(h))) : 0;
+      if (hits.length) goHit(start, show); else show();
+    });
+  }
+
+  /* página inicial: pesquisa em todo o site */
+  if (IS_HOME && findBar) {
+    const SITE_PAGES = [
+      ["index.html", "Início"],
+      ["pages/por-onde-comecar.html", "Por onde começar?"],
+      ["pages/violencia.html", "Violência"],
+      ["pages/contexto.html", "Contexto histórico"],
+      ["pages/ciclo.html", "Ciclo da violência"],
+      ["pages/rede.html", "Rede de Proteção"],
+      ["pages/rede-composicao.html", "Composição da rede"],
+      ["pages/noticias.html", "Notícias"],
+      ["pages/decisoes.html", "Decisões"],
+      ["pages/pesquisas.html", "Pesquisas"],
+      ["pages/pesquisa-drogas.html", "Pesquisas"],
+      ["pages/pesquisa-saude-mental.html", "Pesquisas"],
+      ["pages/pesquisa-homotransfobia.html", "Pesquisas"],
+      ["pages/duvidas.html", "Dúvidas"]
+    ];
+    const ordOf = (path) => SITE_PAGES.findIndex(p => p[0] === path);
+    const findBtn = header.querySelector("#find-toggle");
+    const input = findBar.querySelector("input");
+    const count = findBar.querySelector(".find-count");
+    const results = findBar.querySelector("#find-results");
+    let entries = null, indexing = null, timer;
+
+    const add = (list, ord, label, path, anchor, title, text) => {
+      text = String(text || "").replace(/\s+/g, " ").trim(); title = String(title || "").replace(/\s+/g, " ").trim();
+      if (!text && !title) return;
+      const [n, m] = foldMap(text);
+      list.push({ ord, label, path, anchor, title: title || label, text, n, m, nt: fold(title) });
+    };
+    // junta todos os textos de um item de data.js, sem links, telefones de discagem e imagens
+    const flat = (v) => v == null ? "" : typeof v === "object" ? Object.values(v).map(flat).join(" ")
+      : /^(https?:|tel:|mailto:|#)|\.(png|jpe?g|svg|webp)$/i.test(String(v)) ? "" : String(v);
+
+    function parsePage(list, html, path, label) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const main = doc.querySelector("main"); if (!main) return;
+      const ord = ordOf(path);
+      main.querySelectorAll("script, style, svg, noscript, .crumbs, .chip").forEach(e => e.remove());
+      main.querySelectorAll("*").forEach(e => e.append(" ")); // evita palavras grudadas entre blocos
+      const secs = [...main.querySelectorAll("[id]")].filter(e => e.id !== "conteudo" && !/^t-/.test(e.id) && e.querySelector("h1, h2, h3, h4"));
+      secs.forEach(e => e.setAttribute("data-sx", ""));
+      secs.forEach(e => {
+        const c = e.cloneNode(true); c.querySelectorAll("[data-sx]").forEach(x => x.remove());
+        const h = c.querySelector("h1, h2, h3, h4");
+        add(list, ord, label, path, e.id, h ? h.textContent : label, c.textContent);
+      });
+      const rest = main.cloneNode(true); rest.querySelectorAll("[data-sx]").forEach(x => x.remove());
+      const h1 = rest.querySelector("h1");
+      add(list, ord, label, path, "", h1 ? h1.textContent : label, rest.textContent);
+    }
+    function addData(list) {
+      const cats = window.CATEGORIAS || {};
+      (window.SERVICOS || []).forEach(s => add(list, ordOf("pages/rede.html"), "Rede de Proteção", "pages/rede.html", s.id, s.nome,
+        flat({ ...s, id: "", nome: "", categoria: cats[s.categoria] || "" })));
+      (window.REDE_ORGAOS || []).forEach(o => add(list, ordOf("pages/rede-composicao.html"), "Composição da rede", "pages/rede-composicao.html", o.id, o.nome,
+        flat({ ...o, id: "", nome: "" })));
+      (window.NOTICIAS || []).forEach(n => add(list, ordOf("pages/noticias.html"), "Notícias", "pages/noticias.html", "", n.titulo,
+        flat({ fonte: n.fonte, resumo: n.resumo, pontos: n.pontos, botao: n.botao && n.botao[0] })));
+      // mesmos ids de grupo usados em pages.js (FAQ_ID)
+      const FAQ_ID = { violencia: "violencia", filhos: "filhos", separacao: "separacao-divorcio", medidas: "medidas-protetivas", direitos: "direitos", rede: "rede-de-protecao" };
+      Object.entries(window.FAQ || {}).forEach(([k, g]) => g.itens.forEach(i =>
+        add(list, ordOf("pages/duvidas.html"), "Dúvidas · " + g.titulo, "pages/duvidas.html", FAQ_ID[k] || k, i[0], i[1])));
+    }
+    function buildIndex() {
+      if (indexing) return indexing;
+      const list = [];
+      indexing = Promise.all(SITE_PAGES.map(([path, label]) =>
+        fetch(ROOT + path).then(r => r.ok ? r.text() : "").then(html => html && parsePage(list, html, path, label)).catch(() => {})
+      )).then(() => { addData(list); list.sort((a, b) => a.ord - b.ord); entries = list; return list; });
+      return indexing;
+    }
+
+    // marca as ocorrências dentro de um trecho de texto (já escapando o HTML)
+    function markText(text, q) {
+      const [norm, map] = foldMap(text); let out = "", last = 0, from = 0, pos;
+      while ((pos = norm.indexOf(q, from)) !== -1) {
+        const st = map[pos], en = map[pos + q.length - 1] + 1;
+        out += escH(text.slice(last, st)) + "<mark>" + escH(text.slice(st, en)) + "</mark>";
+        last = en; from = pos + q.length;
+      }
+      return out + escH(text.slice(last));
+    }
+    function snippet(e, first, q) {
+      const t = e.text;
+      if (first < 0) return escH(t.slice(0, 150)) + (t.length > 150 ? "…" : "");
+      const s = e.m[first];
+      let a = Math.max(0, s - 70), b = Math.min(t.length, s + q.length + 110);
+      if (a > 0) { const sp = t.indexOf(" ", a); if (sp > -1 && sp < s) a = sp + 1; }
+      if (b < t.length) { const sp = t.lastIndexOf(" ", b); if (sp > s + q.length) b = sp; }
+      return (a > 0 ? "…" : "") + markText(t.slice(a, b), q) + (b < t.length ? "…" : "");
+    }
+    function search() {
+      const raw = input.value.trim(), q = fold(raw);
+      if (q.length < 2) { count.textContent = ""; results.hidden = true; results.innerHTML = ""; return; }
+      if (!entries) {
+        count.textContent = "Buscando…";
+        buildIndex().then(() => { if (fold(input.value.trim()) === q) search(); });
+        return;
+      }
+      const found = [];
+      entries.forEach(e => {
+        let c = 0, first = -1, p = -1;
+        while ((p = e.n.indexOf(q, p + 1)) !== -1) { if (first < 0) first = p; c++; }
+        const inTitle = e.nt.includes(q);
+        if (c || inTitle) found.push({ e, c, first, score: c + (inTitle ? 10 : 0) });
+      });
+      found.sort((x, y) => y.score - x.score || x.e.ord - y.e.ord);
+      const total = found.reduce((s, r) => s + Math.max(r.c, 1), 0);
+      count.textContent = found.length ? `${found.length} ${found.length === 1 ? "resultado" : "resultados"}` : "Nenhum resultado";
+      results.hidden = false;
+      results.innerHTML = found.length ? `
+        <p class="find-sum">${total} ${total === 1 ? "ocorrência" : "ocorrências"} de <b>“${escH(raw)}”</b> no site</p>
+        <ul class="find-list">${found.slice(0, 60).map(r => {
+          const href = ROOT + r.e.path + "?destaque=" + encodeURIComponent(raw) + (r.e.anchor ? "#" + encodeURIComponent(r.e.anchor) : "");
+          return `<li><a class="find-res" href="${escH(href)}">
+            <span class="find-res-top"><span class="find-res-page">${escH(r.e.label)}</span>${r.c > 1 ? `<span class="find-res-n">${r.c} ocorrências</span>` : ""}</span>
+            <b class="find-res-title">${markText(r.e.title, q)}</b>
+            <span class="find-res-snip">${snippet(r.e, r.first, q)}</span>
+          </a></li>`; }).join("")}</ul>`
+        : `<p class="find-empty">Nada encontrado para <b>“${escH(raw)}”</b>. Tente outra palavra ou escreva de outro jeito.</p>`;
+      results.scrollTop = 0;
+    }
+    function setFind(open) {
+      findBar.hidden = !open;
+      findBtn.classList.toggle("on", open);
+      findBtn.setAttribute("aria-expanded", open);
+      findBtn.setAttribute("aria-label", open ? "Fechar pesquisa" : "Pesquisar no site");
+      if (open) { setMenu(false); buildIndex(); input.focus(); input.select(); if (input.value.trim()) search(); }
+      else { clearTimeout(timer); clearHits(); }
+    }
+    findBtn.addEventListener("click", () => setFind(findBar.hidden));
+    findBar.querySelector(".find-close").addEventListener("click", () => { setFind(false); findBtn.focus(); });
+    input.addEventListener("input", () => { clearTimeout(timer); clearHits(); timer = setTimeout(search, 180); });
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") { // Enter abre o primeiro resultado
+        e.preventDefault(); clearTimeout(timer); search();
+        const first = results.querySelector(".find-res"); if (first) first.click();
+      } else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); setFind(false); findBtn.focus(); }
+    });
+    // resultado da própria página inicial: destaca aqui mesmo, sem recarregar
+    results.addEventListener("click", e => {
+      const a = e.target.closest(".find-res"); if (!a) return;
+      const url = new URL(a.href, location.href);
+      const base = (p) => p.replace(/index\.html$/, "");
+      if (base(url.pathname) !== base(location.pathname)) return;
+      e.preventDefault();
+      results.hidden = true;
+      highlight(input.value.trim());
+      const target = url.hash && document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      const start = target ? Math.max(0, hits.findIndex(h => target.contains(h))) : 0;
+      goHit(start);
+    });
+    input.addEventListener("focus", () => { if (results.innerHTML && input.value.trim()) results.hidden = false; });
+    document.addEventListener("click", e => { if (!findBar.hidden && !header.contains(e.target)) results.hidden = true; });
+  }
+
   /* ---------- Rodapé + nav inferior (mobile) ---------- */
   const footer = document.createElement("footer");
   footer.className = "site-footer";
   footer.innerHTML = `
+    <div class="wrap">
+      <section class="footer-form" aria-labelledby="footer-form-t">
+        <span class="footer-form-ico">${icon("chat")}</span>
+        <div class="footer-form-txt">
+          <h3 id="footer-form-t">Sugestões, reclamações e propostas</h3>
+          <p>Este espaço é destinado ao envio de sugestões, reclamações, elogios e propostas de integração com a Rede de Proteção à Mulher. Sua participação contribui para aprimorar o atendimento e fortalecer a articulação entre os serviços.</p>
+        </div>
+        <a class="footer-form-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSetIliGzu6Aidbf4knC2DnAxemHfL6sYmn8mPO0-aoDGAR2fA/viewform" target="_blank" rel="noopener">Enviar mensagem ${icon("arrow")}</a>
+      </section>
+    </div>
     <div class="wrap footer-grid">
       <div><h3>Rede de Proteção à Mulher</h3>
         <p>Informação também é uma forma de proteção. Projeto de extensão com estudantes de Direito da UCS – Caxias do Sul.</p></div>
