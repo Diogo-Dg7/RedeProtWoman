@@ -55,6 +55,19 @@ window.SERVICOS = [
     ]
   },
   {
+    nome: "Plantão da Polícia Civil – Caxias do Sul",
+    id: "plantao-policia-civil",
+    categoria: "seguranca",
+    descricao: "Atende 24 horas, todos os dias, inclusive fins de semana e feriados. É possível registrar o boletim de ocorrência e pedir medidas protetivas de urgência fora do horário da DEAM e também nos casos de violência de gênero sem vínculo familiar ou relação íntima de afeto."
+  },
+  {
+    nome: "Delegacia Online – Polícia Civil RS",
+    id: "delegacia-online",
+    categoria: "seguranca",
+    descricao: "Permite registrar o boletim de ocorrência pela internet, sem sair de casa. Tem uma área específica para mulheres, a Delegacia Online da Mulher, onde também é possível pedir medidas protetivas de urgência.",
+    link: ["Acessar a Delegacia Online", "https://www.delegaciaonline.rs.gov.br/"]
+  },
+  {
     nome: "Defensoria Pública do Estado – Caxias do Sul",
     id: "defensoria-publica",
     categoria: "juridico",
@@ -220,9 +233,9 @@ window.SERVICOS = [
 ];
 
 window.PESQUISAS = [
-  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
-  { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
+  { titulo: "Proibicionismo, Legalização e (Des)criminalização das Drogas no contexto da mulher", autor: "Grupo 6 – Direito Penal II · Supervisão: Thalia Salvador Ludwig", ano: "Contexto", resumo: "Por que o número de mulheres presas cresce tanto no Brasil? A pesquisa mostra a ligação entre a política de drogas, a vulnerabilidade social e o encarceramento feminino, e reúne as políticas públicas de apoio.", arquivo: "pesquisa-drogas.html" },
+  { titulo: "Saúde mental, violência doméstica e suicídio", autor: "Grupo 1", ano: "Contexto", resumo: "A violência nem sempre deixa marcas no corpo. Como ela afeta a saúde mental das mulheres e por que o sofrimento aparece de formas diferentes entre mulheres e homens.", arquivo: "pesquisa-saude-mental.html" },
+  { titulo: "Criminalização da homotransfobia e proteção jurídica das mulheres lésbicas, bissexuais, transexuais e travestis no Brasil", autor: "Estudantes de Direito – UCS", ano: "Contexto", resumo: "O que muda para mulheres LGBTQIA+ com a decisão do STF que pune a homofobia e a transfobia, e quando a Lei Maria da Penha também as protege.", arquivo: "pesquisa-homotransfobia.html" },
   { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
   { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" },
   { titulo: "Título", autor: "Estudante de Direito – UCS", ano: "Contexto", resumo: "Texto de exemplo. Substitua pelos dados reais da pesquisa.", arquivo: "#" }
@@ -291,10 +304,22 @@ window.FAQ = {
     ["O que acontece com os bens?", "Depende do regime de bens do casamento ou da união estável. Em geral, o patrimônio construído em conjunto é dividido. Reter ou destruir seus bens é violência patrimonial."],
     ["Posso pedir pensão alimentícia?", "Sim, para os filhos e, em alguns casos, para si. A Defensoria Pública pode ajudar gratuitamente."]
   ]},
-  direitos: { titulo: "Direitos", itens: [
-    ["O que é medida protetiva de urgência?", "É uma ordem judicial que, por exemplo, afasta o agressor do lar e proíbe aproximação e contato. Pode ser pedida na delegacia, e o juiz decide em até 48 horas."],
-    ["Preciso de advogado para pedir medida protetiva?", "Não. O pedido deve ser feito diretamente na Delegacia Especializada de Atendimento à Mulher, Delegacia de Polícia de Pronto Atendimento ou na Delegacia Online."],
+  /* Tudo sobre medidas protetivas fica reunido aqui (o conteúdo segue "Por onde começar?" e a Rede de Proteção) */
+  medidas: { titulo: "Medidas protetivas", itens: [
+    ["O que é medida protetiva de urgência?", "É uma ordem judicial prevista na Lei Maria da Penha (Lei 11.340/2006). Ela tem o objetivo de garantir a sua segurança e impedir novas situações de violência."],
+    ["Quais medidas podem ser pedidas?", "Entre elas: o afastamento do agressor, a proibição de aproximação e de contato, a restrição de visitas aos filhos e a suspensão do porte de armas."],
+    ["Quem pode pedir? Só vale para violência doméstica?", "Não é só para violência doméstica. Em 19 de agosto de 2026, o Supremo Tribunal Federal decidiu (Tema 1.412 da Repercussão Geral) que as medidas protetivas da Lei Maria da Penha valem para toda forma de violência contra a mulher baseada no gênero, mesmo que não aconteça em casa, na família ou em uma relação íntima de afeto."],
+    ["E quando não há vínculo familiar ou relação íntima de afeto?", "A violência pode ser praticada por vizinhos, conhecidos ou outras pessoas, e você também tem direito à medida protetiva. Registre o boletim de ocorrência no plantão da Polícia Civil ou pela Delegacia Online. O pedido segue para o juiz pelo mesmo procedimento da Lei Maria da Penha. A investigação fica com a delegacia distrital responsável, e não com a DEAM: você pode perguntar qual delegacia recebeu o seu registro no momento do atendimento ou, depois, em qualquer delegacia da Polícia Civil."],
+    ["E se eu tiver vínculo familiar ou relação íntima de afeto?", "Nesse caso, trata-se de violência doméstica e familiar, prevista diretamente na Lei Maria da Penha. A relação íntima de afeto inclui namoro, casamento e união estável, mesmo que já tenha terminado e mesmo que vocês não morem juntos. Você pode pedir a medida na Delegacia Especializada de Atendimento à Mulher (DEAM), na Delegacia de Plantão ou pela Delegacia Online da Mulher do RS. A DEAM é a responsável pela investigação desses casos."],
+    ["Onde posso pedir a medida protetiva em Caxias do Sul?", "Na DEAM (Rua Dr. Montaury, 1387, 2º andar, Madureira – das 8h30 às 12h e das 13h30 às 20h), no Plantão da Polícia Civil, que atende 24 horas, ou pela internet, na Delegacia Online da Mulher do RS (www.delegaciaonline.rs.gov.br). Os contatos completos estão na página Rede de Proteção."],
+    ["Preciso de advogado para pedir medida protetiva?", "Não. O pedido é feito diretamente na Delegacia Especializada de Atendimento à Mulher (DEAM), na Delegacia de Plantão ou na Delegacia Online."],
     ["Preciso ter boletim de ocorrência anterior para pedir medida protetiva?", "Não. A Lei Maria da Penha (art. 19, § 5º, incluído pela Lei nº 14.550/2023) determina que as medidas protetivas sejam concedidas independentemente do registro de boletim de ocorrência, da existência de inquérito policial, de ação penal ou cível e até da classificação do crime. O seu relato já é suficiente para o pedido ser analisado pelo juiz."],
+    ["Quanto tempo demora para a medida valer?", "Depois que o pedido chega ao Judiciário, o juiz tem até 48 horas para decidir. Em seguida, a vítima e o suspeito são intimados, e é neste momento que a medida entra em vigor."],
+    ["E se o agressor descumprir a medida?", "Comunique imediatamente a Polícia para registrar o boletim de ocorrência. O descumprimento é crime, previsto no artigo 24-A da Lei Maria da Penha. Guarde mensagens, fotografias, vídeos e outras provas, se possível. Em caso de perigo imediato, procure um local seguro e ligue 190."],
+    ["Posso ter acompanhamento depois que a medida for concedida?", "Sim. Ao pedir a medida protetiva, informe que deseja o acompanhamento da Patrulha Maria da Penha, da Brigada Militar. A equipe faz visitas preventivas, orienta e acompanha o cumprimento das medidas. Esse acompanhamento não substitui o 190 em situações de perigo imediato."],
+    ["E se for violência política?", "A proteção contra a violência de gênero inclui a violência política (art. 326-B do Código Eleitoral). Nesse caso, a competência é da Justiça Eleitoral."]
+  ]},
+  direitos: { titulo: "Direitos", itens: [
     ["Tenho direito a atendimento de saúde?", "Sim. O SUS deve prestar atendimento integral, incluindo apoio psicológico e, em caso de violência sexual, profilaxia e acolhimento."]
   ]},
   rede: { titulo: "Rede de proteção", itens: [

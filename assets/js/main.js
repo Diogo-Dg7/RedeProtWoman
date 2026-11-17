@@ -77,6 +77,7 @@
       ["Violência", "pages/duvidas.html#violencia"],
       ["Filhos", "pages/duvidas.html#filhos"],
       ["Separação / Divórcio", "pages/duvidas.html#separacao-divorcio"],
+      ["Medidas protetivas", "pages/duvidas.html#medidas-protetivas"],
       ["Direitos", "pages/duvidas.html#direitos"],
       ["Rede de proteção", "pages/duvidas.html#rede-de-protecao"] ] }
   ];

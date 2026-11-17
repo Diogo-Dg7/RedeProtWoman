@@ -75,6 +75,7 @@
         <div class="service-top"><span class="tag">${CATEGORIAS[s.categoria]}</span>${s.selo ? `<span class="seal">${esc(s.selo)}</span>` : ""}</div>
         <h3>${esc(s.nome)}</h3>
         <p>${esc(s.descricao)}</p>
+        ${s.link ? `<a class="btn service-link" href="${esc(s.link[1])}" target="_blank" rel="noopener">${esc(s.link[0])} ${icon("arrow")}</a>` : ""}
         ${extra ? `<div class="more">${extra}</div><button class="btn btn--ghost" type="button" aria-expanded="false"><span class="lbl">Ler mais informações</span> ${icon("arrow")}</button>` : ""}
       </article>`;
     };
@@ -176,7 +177,7 @@
     let cat = params.get("cat") && FAQ[params.get("cat")] ? params.get("cat") : "todas";
     f.innerHTML = `<button class="chip" data-c="todas" type="button">Todas</button>` + Object.entries(FAQ).map(([k, v]) => `<button class="chip" data-c="${k}" type="button">${v.titulo}</button>`).join("");
     let n = 0;
-    const FAQ_ID = { violencia: "violencia", filhos: "filhos", separacao: "separacao-divorcio", direitos: "direitos", rede: "rede-de-protecao" };
+    const FAQ_ID = { violencia: "violencia", filhos: "filhos", separacao: "separacao-divorcio", medidas: "medidas-protetivas", direitos: "direitos", rede: "rede-de-protecao" };
     faq.innerHTML = Object.entries(FAQ).map(([k, g]) => `
       <section class="faq-group" id="${FAQ_ID[k] || k}" data-c="${k}"><h2>${g.titulo}</h2>
       ${g.itens.map(i => { n++; return `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa${n}" id="fq${n}">${esc(i[0])}${icon("down")}</button>
