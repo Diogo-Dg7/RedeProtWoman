@@ -163,6 +163,8 @@
         <p>${esc(n.resumo)}</p>
         ${n.pontos ? `<ul class="service-list">${n.pontos.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
         <div class="news-actions">
+          ${n.botao ? `<a class="btn" href="${esc(n.botao[1])}" target="_blank" rel="noopener">${esc(n.botao[0])} ${icon("arrow")}</a>` : ""}
+          ${n.decisao ? `<a class="btn" href="decisoes.html#${esc(n.decisao)}">Ler a decisão completa ${icon("arrow")}</a>` : ""}
           ${n.link ? `<a class="btn btn--ghost" href="${esc(n.link)}" target="_blank" rel="noopener">Ver publicação original ${icon("arrow")}</a>` : ""}
           ${n.relacionado ? `<a class="inline-link" href="${esc(n.relacionado[1])}">${esc(n.relacionado[0])}</a>` : ""}
         </div>

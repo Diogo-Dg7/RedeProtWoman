@@ -858,3 +858,87 @@ html { scroll-padding-top: 100px; } /* o header fixo não cobre o título da se�
 .violence-forms { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .violence-forms a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: var(--plum); color: #fff; font-weight: 600; font-size: .95rem; letter-spacing: .02em; transition: background .2s, transform .2s; }
 .violence-forms a:hover { background: var(--plum-dark); transform: translateY(-2px); }
+
+/* Foto do hero: fica NA FRENTE das linhas decorativas (sem multiply, que fazia as linhas
+   atravessarem o rosto e o pescoço) e com cores um pouco mais limpas. */
+.hero-art { z-index: 1; }
+.hero-art img {
+  mix-blend-mode: normal;
+  filter: contrast(1.06) saturate(1.08) brightness(1.03);
+  max-height: 420px;
+  image-rendering: auto;
+}
+
+/* Página Decisões: matéria completa de cada decisão */
+.decision { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 34px 38px; margin-bottom: 34px; scroll-margin-top: 110px; }
+.decision .service-top { justify-content: space-between; margin-bottom: 14px; }
+.decision h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--plum-dark); max-width: 30ch; }
+.decision-img { display: block; width: 100%; max-height: 460px; object-fit: cover; border-radius: var(--radius); margin: 8px 0 28px; }
+.decision .prose { max-width: 75ch; }
+.decision-related { margin: 18px 0 0; font-weight: 600; }
+.decision-related a { color: var(--plum); text-decoration: underline; }
+.decision:target { box-shadow: 0 0 0 3px var(--plum); }
+@media (max-width: 680px) { .decision { padding: 22px 18px; border-radius: var(--radius); } }
+/* Notícias: imagem no card não estica além da proporção */
+.news-img { aspect-ratio: auto; max-height: 420px; object-fit: cover; }
+
+/* Decisões em formato de resumo: imagem pequena ao lado do texto */
+.decision { display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: start; padding: 28px; max-width: 1000px; }
+.decision-img { width: 100%; height: 210px; max-height: none; object-fit: cover; margin: 0; }
+.decision-body { display: flex; flex-direction: column; gap: 12px; }
+.decision-body .service-top { margin-bottom: 0; }
+.decision h2 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); margin: 0; max-width: none; }
+.decision-body > p { margin: 0; line-height: 1.75; color: #3a2f33; }
+.decision-body .news-actions .btn .ico { width: 18px; height: 18px; }
+.decision-body .inline-link { color: var(--plum); text-decoration: underline; font-weight: 600; }
+@media (max-width: 760px) {
+  .decision { grid-template-columns: 1fr; gap: 18px; padding: 20px 18px; }
+  .decision-img { height: 180px; }
+}
+
+/* ==========================================================
+   VIOLENTÔMETRO (página Ciclo) – estilo termômetro:
+   um tubo à esquerda que "esquenta" do rosa ao vinho e
+   faixas horizontais com o nível e os comportamentos.
+   ========================================================== */
+.vm-intro { font-size: 1.05rem; color: #3a2f33; max-width: 70ch; margin: 0 0 22px; }
+.vm { position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); max-width: 1000px; }
+.vm-band { display: grid; grid-template-columns: 250px 1fr; gap: 28px; align-items: center; padding: 28px 32px 28px 112px; }
+.vm-label b { display: block; font-family: var(--serif); font-size: 1.9rem; line-height: 1.05; text-transform: uppercase; letter-spacing: .02em; }
+.vm-label small { display: block; margin-top: 8px; font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.vm-band ul { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 28px; }
+.vm-band li { break-inside: avoid; position: relative; padding-left: 16px; margin: 0 0 7px; font-size: .92rem; line-height: 1.4; }
+.vm-band li::before { content: ""; position: absolute; left: 0; top: .5em; width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .7; }
+.vm-band--1 { background: #f6dde2; color: var(--plum-dark); }
+.vm-band--2 { background: #c98597; color: #fff; }
+.vm-band--3 { background: #7a2d4d; color: #fff; }
+.vm-end { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 32px 16px 112px; background: #2e0f1f; color: #fff; font-weight: 700; font-size: 1.05rem; letter-spacing: .14em; text-transform: uppercase; }
+/* Termômetro */
+.vm-thermo { position: absolute; left: 34px; top: 26px; bottom: 6px; width: 46px; pointer-events: none; }
+.vm-tube { position: absolute; left: 11px; top: 0; bottom: 34px; width: 24px; border-radius: 12px 12px 0 0; background: #fff; box-shadow: inset 0 0 0 3px rgba(85,32,58,.12); overflow: hidden; }
+.vm-tube::before { content: ""; position: absolute; inset: 6px 6px 0; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, #f2c4cf 0%, #d48aa0 35%, #9b3f62 70%, #55203a 100%); }
+.vm-tube::after { content: ""; position: absolute; right: -2px; top: 10px; bottom: 0; width: 8px; background: repeating-linear-gradient(180deg, rgba(85,32,58,.35) 0 2px, transparent 2px 16px); }
+.vm-bulb { position: absolute; left: 0; bottom: 0; width: 46px; height: 46px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 3px rgba(85,32,58,.12); }
+.vm-bulb::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: #55203a; }
+.vm-help { margin-top: 24px; max-width: 1000px; }
+.vm-help a { color: #fff; font-weight: 600; text-decoration: underline; }
+.vm-help b { color: #fff; }
+@media (max-width: 900px) {
+  .vm-band { grid-template-columns: 1fr; gap: 14px; padding: 22px 20px 22px 84px; }
+  .vm-end { padding-left: 84px; justify-content: flex-start; }
+  .vm-thermo { left: 22px; width: 40px; }
+  .vm-tube { left: 10px; width: 20px; }
+  .vm-bulb { width: 40px; height: 40px; }
+  .vm-label b { font-size: 1.55rem; }
+}
+@media (max-width: 520px) { .vm-band ul { columns: 1; } }
+/* ajustes do Violentômetro: cor dos títulos herda a da faixa; tubo mais visível */
+.vm-label, .vm-label b { color: inherit; margin: 0; }
+.vm-label small { font-family: var(--sans); }
+.vm-thermo { left: 30px; width: 54px; top: 22px; bottom: 4px; }
+.vm-tube { left: 12px; width: 30px; border-radius: 15px 15px 0 0; bottom: 40px; }
+.vm-tube::before { inset: 6px 7px 0; border-radius: 10px 10px 0 0; }
+.vm-tube::after { right: auto; left: 100%; margin-left: 4px; width: 10px; background: repeating-linear-gradient(180deg, rgba(255,255,255,.75) 0 2px, transparent 2px 16px); }
+.vm-bulb { width: 54px; height: 54px; }
+.vm-bulb::before { inset: 8px; }
+@media (max-width: 900px) { .vm-thermo { left: 18px; width: 46px; } .vm-tube { left: 10px; width: 26px; } .vm-bulb { width: 46px; height: 46px; } }

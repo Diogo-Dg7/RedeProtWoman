@@ -67,11 +67,14 @@
       ["Encantamento", "pages/ciclo.html#encantamento"],
       ["Aumento da tensão", "pages/ciclo.html#aumento-da-tensao"],
       ["Ato de violência", "pages/ciclo.html#ato-de-violencia"],
-      ["Arrependimento", "pages/ciclo.html#arrependimento"] ] },
+      ["Arrependimento", "pages/ciclo.html#arrependimento"],
+      ["Violentômetro", "pages/ciclo.html#violentometro"] ] },
     { key: "rede", label: "Rede de Proteção", href: "pages/rede.html", sub: [
       ["Serviços de atendimento", "pages/rede.html"],
       ["Composição da rede", "pages/rede-composicao.html"] ] },
-    { key: "noticias", label: "Notícias", href: "pages/noticias.html" },
+    { key: "noticias", label: "Notícias", href: "pages/noticias.html", sub: [
+      ["Notícias", "pages/noticias.html"],
+      ["Decisões", "pages/decisoes.html"] ] },
     { key: "pesquisas", label: "Pesquisas", href: "pages/pesquisas.html" },
     { key: "duvidas", label: "Dúvidas", href: "pages/duvidas.html", sub: [
       ["Violência", "pages/duvidas.html#violencia"],

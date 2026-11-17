@@ -55,7 +55,7 @@ window.SERVICOS = [
     ]
   },
   {
-    nome: "Plantão da Polícia Civil – Caxias do Sul",
+    nome: "Plantão da Polícia Civil (DPPA) – Caxias do Sul",
     id: "plantao-policia-civil",
     categoria: "seguranca",
     descricao: "Atende 24 horas, todos os dias, inclusive fins de semana e feriados. É possível registrar o boletim de ocorrência e pedir medidas protetivas de urgência fora do horário da DEAM e também nos casos de violência de gênero sem vínculo familiar ou relação íntima de afeto."
@@ -229,6 +229,20 @@ window.SERVICOS = [
       ["contato", "WhatsApp", "(54) 99615-9155", "https://wa.me/5554996159155"],
       ["contato", "Telefone fixo", "(54) 3223-4529", "tel:+555432234529"]
     ]
+  },
+  {
+    nome: "Projeto Rosas – UCS",
+    id: "projeto-rosas-ucs",
+    categoria: "educacao",
+    descricao: "O Projeto Rosas UCS visa capacitar acerca das questões jurídicas, sociais e psicológicas que giram em torno da violência doméstica e familiar contra a mulher, objetivando, principalmente, a formação de cidadãos para a atuação como multiplicadores de conscientização acerca da prevenção, punição e erradicação da violência doméstica e familiar contra a mulher na comunidade em que vivem.",
+    link: ["Saiba mais sobre os encontros", "https://www.ucs.br/site/eventos/projeto-rosas-ucs-2025/"],
+    campos: [
+      ["publico", "Público-alvo", "Acadêmicos e profissionais do Direito e áreas afins, assim como a comunidade em geral."],
+      ["info", "Objetivos", "Conscientizar, acolher, fornecer informações e orientação sobre a prevenção e combate à violência doméstica e familiar contra a mulher."],
+      ["contato", "Central de Atendimento", "(54) 3218-2145", "tel:+555432182145"],
+      ["contato", "E-mail", "extensao@ucs.br", "mailto:extensao@ucs.br"],
+      ["info", "Próximos encontros", "Informações sobre os próximos encontros e os endereços das unidades da UCS na página do projeto.", "https://www.ucs.br/site/eventos/projeto-rosas-ucs-2025/"]
+    ]
   }
 ];
 
@@ -285,6 +299,47 @@ window.NOTICIAS = [
     imagem: ["noticias/casa-viva-rachel.png", "Arte da Prefeitura de Caxias do Sul: mulher abraçando uma criança, com o título da notícia sobre a Casa Viva Rachel"],
     link: "https://www.instagram.com/p/DfnAtHHNIT0/",
     relacionado: ["Conheça a Casa de Apoio Viva Rachel", "rede.html#casa-de-apoio-viva-rachel"]
+  },
+  {
+    data: "2026-11-17",
+    fonte: "Grupo Mulheres do Brasil e Prefeitura de Caxias do Sul",
+    titulo: "Juntas pelo fim da violência contra mulheres e meninas: 6ª Caminhada é no dia 29 de novembro",
+    resumo: "Caxias do Sul vai às ruas pelo fim da violência contra mulheres e meninas. A caminhada é um convite para unir vozes, fortalecer a rede de proteção e mostrar que não podemos nos calar diante da violência. Mulheres, homens, crianças e toda a comunidade são bem-vindos.",
+    pontos: [
+      "Quando: domingo, 29 de novembro, às 9h.",
+      "Onde: concentração em frente ao Largo da Prefeitura Municipal de Caxias do Sul.",
+      "Realização: Grupo Mulheres do Brasil – Núcleo Caxias do Sul, em parceria com a Prefeitura, por meio da Coordenadoria da Mulher.",
+      "Inscreva-se pelo link e ganhe sua camiseta."
+    ],
+    imagem: ["noticias/caminhada-2026.jpg", "Cartaz da 6ª Caminhada pelo Fim da Violência contra Mulheres e Meninas: três mulheres caminhando de mãos dadas, com a frase Dê seu passo nessa luta, 29 de novembro, 9h"],
+    botao: ["Inscreva-se e ganhe sua camiseta", "https://forms.gle/UrP6bw9ESLUVxV7f9"]
+  },
+  {
+    data: "2026-11-12",
+    fonte: "Supremo Tribunal Federal (STF)",
+    titulo: "STF tem unanimidade para afastar isenção de pena em crimes patrimoniais entre familiares",
+    resumo: "Por unanimidade, o STF entendeu que as regras do Código Penal que isentavam de pena quem comete crimes patrimoniais, como furto e estelionato, contra familiares não são compatíveis com a Constituição de 1988. Para os ministros, essas regras nasceram de um modelo patriarcal e deixavam sem proteção mulheres vítimas de violência patrimonial.",
+    pontos: [
+      "A decisão afasta os artigos 181 e 182 do Código Penal e vale para todos os integrantes da família, independentemente do gênero da vítima.",
+      "A ministra Cármen Lúcia lembrou que a violência patrimonial pode desencadear outras formas de violência, como a psicológica e a moral.",
+      "O julgamento será retomado em 18 de novembro, para definir se a decisão vale para fatos anteriores."
+    ],
+    imagem: ["noticias/stf-plenario.png", "Plenário do Supremo Tribunal Federal durante sessão de julgamento"],
+    decisao: "crimes-patrimoniais-entre-familiares"
+  },
+  {
+    data: "2026-08-19",
+    fonte: "Supremo Tribunal Federal (STF)",
+    titulo: "STF decide que medidas protetivas valem para toda violência de gênero contra a mulher",
+    resumo: "Por unanimidade, o STF decidiu, no Tema 1.412 da Repercussão Geral, que as medidas protetivas da Lei Maria da Penha valem para toda forma de violência contra a mulher baseada no gênero, mesmo fora de casa, da família ou de uma relação íntima de afeto.",
+    pontos: [
+      "Mulheres agredidas por vizinhos, conhecidos ou outras pessoas também podem pedir medida protetiva.",
+      "A proteção inclui a violência política de gênero.",
+      "Um pedido feito ao juízo errado deve ser analisado mesmo assim quando houver risco imediato à vítima."
+    ],
+    imagem: ["noticias/stf-justica.png", "Estátua da Justiça em frente ao prédio do Supremo Tribunal Federal, em Brasília"],
+    decisao: "medidas-protetivas-tema-1412",
+    relacionado: ["Veja como pedir a medida protetiva", "por-onde-comecar.html#quem-pode-pedir"]
   }
 ];
 
