@@ -146,6 +146,17 @@
     </div>` : ""}`;
   body.prepend(header);
 
+  /* ---------- Atalhos com ícones (só no celular/tablet, onde o menu vira "hambúrguer") ----------
+     Faixa que rola para o lado, logo abaixo do cabeçalho, com todas as páginas do menu. */
+  const QUICK_ICONS = { inicio: "home", comecar: "pin", violencia: "megaphone", ciclo: "cycle", rede: "users", noticias: "file", pesquisas: "chart", duvidas: "help" };
+  const quick = document.createElement("nav");
+  quick.className = "quick-nav"; quick.setAttribute("aria-label", "Atalhos para as páginas");
+  quick.innerHTML = `<div class="quick-track">${NAV.map(n =>
+    `<a class="quick-link" href="${ROOT}${n.href}"${cur(n.key)}>${icon(QUICK_ICONS[n.key] || "file")}<span>${n.label}</span></a>`).join("")}</div>`;
+  header.after(quick);
+  const curQuick = quick.querySelector('[aria-current="page"]');
+  if (curQuick) requestAnimationFrame(() => { const t = quick.firstElementChild; t.scrollLeft = curQuick.offsetLeft - (t.clientWidth - curQuick.offsetWidth) / 2; });
+
   const skip = document.createElement("a");
   skip.className = "skip"; skip.href = "#conteudo"; skip.textContent = "Ir para o conteúdo";
   body.prepend(skip);
@@ -359,6 +370,9 @@
       ["pages/pesquisa-drogas.html", "Pesquisas"],
       ["pages/pesquisa-saude-mental.html", "Pesquisas"],
       ["pages/pesquisa-homotransfobia.html", "Pesquisas"],
+      ["pages/pesquisa-aborto.html", "Pesquisas"],
+      ["pages/pesquisa-corrupcao.html", "Pesquisas"],
+      ["pages/pesquisa-mulheres-negras-indigenas.html", "Pesquisas"],
       ["pages/duvidas.html", "Dúvidas"]
     ];
     const ordOf = (path) => SITE_PAGES.findIndex(p => p[0] === path);

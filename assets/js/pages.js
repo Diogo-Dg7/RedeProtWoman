@@ -115,7 +115,7 @@
     const q = $("#rq"), count = $("#rcount");
     const render = () => {
       const t = norm(q.value.trim());
-      const res = PESQUISAS.filter(p => !t || norm(p.titulo + " " + p.autor + " " + p.resumo).includes(t));
+      const res = PESQUISAS.filter(p => !t || norm(p.titulo + " " + p.ano + " " + p.autor + " " + p.resumo).includes(t));
       count.textContent = `${res.length} ${res.length === 1 ? "pesquisa" : "pesquisas"}`;
       plist.innerHTML = res.map(p => `
         <article class="service">${p.ano ? `<span class="tag">${esc(p.ano)}</span>` : ""}

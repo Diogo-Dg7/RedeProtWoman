@@ -1029,3 +1029,43 @@ mark.find-hit.is-current { background: var(--plum); color: #fff; box-shadow: 0 0
   .find-hl > .ico { display: none; }
 }
 @media print { .find-toggle, .find-bar { display: none; } mark.find-hit { background: none; color: inherit; box-shadow: none; } }
+
+/* Pesquisas: galeria de cartazes dos estudantes */
+.posters { padding-top: 0; }
+.posters h2 { margin-bottom: 10px; }
+.posters-intro { max-width: 62ch; color: var(--ink-soft); margin: 0 0 34px; }
+.posters-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px; max-width: 920px; }
+.poster { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.poster a { display: block; padding: 12px; background: #fff; border-radius: 20px; box-shadow: 0 18px 40px rgba(110, 43, 74, .16); transform: rotate(-1.4deg); transition: transform .3s ease, box-shadow .3s ease; }
+.poster:nth-child(2) a { transform: rotate(1.4deg); }
+.poster a:hover, .poster a:focus-visible { transform: rotate(0) translateY(-6px); box-shadow: 0 26px 50px rgba(110, 43, 74, .22); }
+.poster img { width: 100%; height: auto; border-radius: 12px; }
+.poster figcaption { font-size: .92rem; line-height: 1.6; color: var(--ink-soft); padding: 0 6px; }
+.poster figcaption b { display: block; font-family: var(--serif); font-size: 1.2rem; color: var(--plum-dark); margin-bottom: 2px; }
+@media (max-width: 680px) {
+  .posters-grid { grid-template-columns: 1fr; gap: 36px; }
+  .poster a, .poster:nth-child(2) a { transform: none; padding: 8px; border-radius: 16px; }
+}
+
+/* Atalhos com ícones abaixo do cabeçalho (celular/tablet) */
+.quick-nav { display: none; }
+@media (max-width: 1280px) {
+  .quick-nav { display: block; background: var(--bg-soft); border-bottom: 1px solid rgba(185, 138, 145, .2); }
+  .quick-track { position: relative; scroll-padding-inline: 24px; display: flex; gap: 8px; overflow-x: auto; padding: 10px 24px; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .quick-track::-webkit-scrollbar { display: none; }
+  .quick-link { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px 9px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--plum-dark); font-size: .86rem; font-weight: 500; white-space: nowrap; scroll-snap-align: start; transition: background .2s, color .2s; }
+  .quick-link .ico { width: 18px; height: 18px; stroke-width: 1.8; color: var(--plum); }
+  .quick-link:hover { background: var(--card); }
+  .quick-link[aria-current="page"] { background: var(--plum); border-color: var(--plum); color: #fff; font-weight: 600; }
+  .quick-link[aria-current="page"] .ico { color: #fff; }
+}
+@media (max-width: 680px) {
+  .quick-track { padding: 10px 16px; gap: 6px; scroll-padding-inline: 16px; }
+  .quick-link { padding: 8px 14px 8px 10px; font-size: .82rem; min-height: 40px; }
+}
+@media print { .quick-nav { display: none; } }
+/* Página inicial: lista de pesquisas mais compacta (6 itens) */
+.why-list { gap: 10px; }
+.why-list a { padding: 13px 20px; gap: 2px; }
+.why-list b { font-size: 1.08rem; }
+.why-list span { font-size: .86rem; }
