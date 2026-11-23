@@ -322,6 +322,15 @@
     desenharCal(); desenharLista();
   }
 
+  /* ---------- CAIXAS QUE ABREM (details): abre a caixa quando um link aponta para ela ---------- */
+  const abrirAlvo = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id && document.getElementById(id);
+    if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView({ block: "start" }); }
+  };
+  abrirAlvo();
+  window.addEventListener("hashchange", abrirAlvo);
+
   /* ---------- DÚVIDAS (FAQ) ---------- */
   const faq = $("#faq");
   if (faq) {

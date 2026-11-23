@@ -60,8 +60,8 @@
       ["1. Acolhimento e orientação", "pages/por-onde-comecar.html#passo-1"],
       ["2. Caminho adequado", "pages/por-onde-comecar.html#passo-2"],
       ["3. Medidas protetivas", "pages/por-onde-comecar.html#passo-3"],
-      ["4. Se ele descumprir", "pages/por-onde-comecar.html#passo-4"],
-      ["5. Se não tiver para onde ir", "pages/por-onde-comecar.html#passo-5"] ] },
+      ["Se ele descumprir", "pages/por-onde-comecar.html#passo-4"],
+      ["Se não tiver para onde ir", "pages/por-onde-comecar.html#passo-5"] ] },
     { key: "violencia", label: "Violência", href: "pages/violencia.html", sub: [
       ["Contexto histórico", "pages/violencia.html#contexto"],
       ["Evolução das leis (linha do tempo)", "pages/violencia.html#evolucao"],

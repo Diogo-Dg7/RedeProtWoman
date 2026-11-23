@@ -1140,3 +1140,13 @@ mark.find-hit.is-current { background: var(--plum); color: #fff; box-shadow: 0 0
 .ev-sub { font-family: var(--serif); font-size: 1.3rem; color: var(--malva-dark); margin: 18px 0 0; }
 .ev-col .news-list { max-width: none; }
 #ev-clear[hidden] { display: none; }
+
+/* Por onde começar: "puxadinhos" do passo 3 (abrem ao clicar) */
+.toc--trilha .chip--sub { background: transparent; border-color: var(--line); font-size: .82rem; }
+.toc--trilha .chip:has(+ .chip--sub)::after, .toc--trilha .chip--sub::after { display: none; }
+
+/* Delegacia Online em faixa, logo abaixo da esfera criminal (passo 2) */
+.feature--inline { max-width: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; margin-top: 22px; }
+.feature--inline h3 { margin: .45em 0 .15em; }
+.feature--inline .feature-sub { margin: 0; color: #f7e3e6; font-size: .95rem; max-width: 52ch; }
+.feature--inline .feature-action { margin: 0; }

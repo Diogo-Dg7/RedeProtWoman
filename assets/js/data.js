@@ -79,6 +79,16 @@ window.SERVICOS = [
     ]
   },
   {
+    nome: "CAP TOTAL – dúvidas sobre medidas protetivas",
+    id: "cap-total",
+    categoria: "juridico",
+    descricao: "Atendimento para esclarecer dúvidas relacionadas às Medidas Protetivas de Urgência.",
+    campos: [
+      ["contato", "Telefone", "(54) 99963-2644", "tel:+5554999632644"]
+    ],
+    aviso: "Para revogar (cancelar) ou prorrogar (renovar) a medida, procure a Defensoria Pública ou o seu advogado. O pedido para renovar precisa ser feito antes de a medida vencer."
+  },
+  {
     nome: "Serviço de Assistência Jurídica Gratuita (SAJU) – UCS",
     id: "saju-ucs",
     categoria: "juridico",
@@ -412,11 +422,13 @@ window.FAQ = {
     ["Quem pode pedir? Só vale para violência doméstica?", "Não é só para violência doméstica. Em 19 de agosto de 2026, o Supremo Tribunal Federal decidiu (Tema 1.412 da Repercussão Geral) que as medidas protetivas da Lei Maria da Penha valem para toda forma de violência contra a mulher baseada no gênero, mesmo que não aconteça em casa, na família ou em uma relação íntima de afeto."],
     ["E quando não há vínculo familiar ou relação íntima de afeto?", "A violência pode ser praticada por vizinhos, conhecidos ou outras pessoas, e você também tem direito à medida protetiva. Registre o boletim de ocorrência no plantão da Polícia Civil ou pela Delegacia Online. O pedido segue para o juiz pelo mesmo procedimento da Lei Maria da Penha. A investigação fica com a delegacia distrital responsável, e não com a DEAM: você pode perguntar qual delegacia recebeu o seu registro no momento do atendimento ou, depois, em qualquer delegacia da Polícia Civil."],
     ["E se eu tiver vínculo familiar ou relação íntima de afeto?", "Nesse caso, trata-se de violência doméstica e familiar, prevista diretamente na Lei Maria da Penha. A relação íntima de afeto inclui namoro, casamento e união estável, mesmo que já tenha terminado e mesmo que vocês não morem juntos. Você pode pedir a medida na Delegacia Especializada de Atendimento à Mulher (DEAM), na Delegacia de Polícia de Pronto Atendimento (DPPA) ou pela Delegacia Online da Mulher do RS. A DEAM é a responsável pela investigação desses casos."],
-    ["Onde posso pedir a medida protetiva em Caxias do Sul?", "Na DEAM (Rua Dr. Montaury, 1387, 2º andar, Madureira – das 8h30 às 12h e das 13h30 às 20h), na Delegacia de Polícia de Pronto Atendimento (DPPA), que atende 24 horas, ou pela internet, na Delegacia Online da Mulher do RS (www.delegaciaonline.rs.gov.br). Os contatos completos estão na página Rede de Proteção."],
+    ["Onde posso pedir a medida protetiva em Caxias do Sul?", "Na DEAM (Rua Dr. Montaury, 1387, 2º andar, Madureira – das 8h30 às 12h e das 13h30 às 20h), na Delegacia de Polícia de Pronto Atendimento (DPPA), que atende 24 horas, ou pela internet, na Delegacia Online da Mulher do RS (www.delegaciaonline.rs.gov.br). Ao fazer o pedido, informe o nome do agressor e, se souber, o endereço e/ou o telefone dele. Os contatos completos estão na página Rede de Proteção."],
     ["Preciso de advogado para pedir medida protetiva?", "Não. O pedido é feito diretamente na Delegacia Especializada de Atendimento à Mulher (DEAM), na Delegacia de Polícia de Pronto Atendimento (DPPA) ou na Delegacia Online."],
     ["Preciso ter boletim de ocorrência anterior para pedir medida protetiva?", "Não. A Lei Maria da Penha (art. 19, § 5º, incluído pela Lei nº 14.550/2023) determina que as medidas protetivas sejam concedidas independentemente do registro de boletim de ocorrência, da existência de inquérito policial, de ação penal ou cível e até da classificação do crime. O seu relato já é suficiente para o pedido ser analisado pelo juiz."],
     ["Quanto tempo demora para a medida valer?", "Depois que o pedido chega ao Judiciário, o juiz tem até 48 horas para decidir. Em seguida, a vítima e o suspeito são intimados, e é neste momento que a medida entra em vigor."],
-    ["E se o agressor descumprir a medida?", "Comunique imediatamente a Polícia para registrar o boletim de ocorrência. O descumprimento é crime, previsto no artigo 24-A da Lei Maria da Penha. Guarde mensagens, fotografias, vídeos e outras provas, se possível. Em caso de perigo imediato, procure um local seguro e ligue 190."],
+    ["Como vou saber se a medida foi concedida?", "Se a medida for concedida, um oficial de justiça entra em contato com você para informar a decisão, e o agressor também é informado. Fique atenta ao seu WhatsApp. Se o pedido for negado, você recebe uma carta com aviso de recebimento (Carta AR)."],
+    ["Tenho dúvidas sobre a minha medida. Como faço para revogar ou prorrogar?", "Dúvidas sobre a medida protetiva podem ser esclarecidas diretamente no CAP TOTAL, pelo (54) 99963-2644. Para revogar (cancelar) ou prorrogar (renovar) a medida, procure a Defensoria Pública ou o seu advogado. Atenção: o pedido para renovar precisa ser feito antes de a medida vencer."],
+    ["E se o agressor descumprir a medida?", "O descumprimento é crime, previsto no artigo 24-A da Lei Maria da Penha. Se o agressor estiver presente, ligue imediatamente para a Brigada Militar, no 190. Se ele não estiver, registre o boletim de ocorrência na Delegacia da Mulher, no plantão da Polícia ou pela Delegacia Online (www.delegaciaonline.rs.gov.br). Se o descumprimento for por mensagens ou ligações, junte os prints, mostrando as datas e o número de quem enviou. Guarde também fotografias, vídeos e outras provas, se possível."],
     ["Posso ter acompanhamento depois que a medida for concedida?", "Sim. Ao pedir a medida protetiva, informe que deseja o acompanhamento da Patrulha Maria da Penha, da Brigada Militar. A equipe faz visitas preventivas, orienta e acompanha o cumprimento das medidas. Esse acompanhamento não substitui o 190 em situações de perigo imediato."],
     ["E se for violência política?", "A proteção contra a violência de gênero inclui a violência política (art. 326-B do Código Eleitoral). Nesse caso, a competência é da Justiça Eleitoral."]
   ]},
