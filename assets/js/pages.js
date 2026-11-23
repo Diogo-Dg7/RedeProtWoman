@@ -148,30 +148,49 @@
       </article>`).join("");
   }
 
-  /* ---------- NOTÍCIAS ---------- */
-  const nlist = $("#news-list");
-  if (nlist) {
-    const fmt = (d) => { const [a, m, dia] = d.split("-"); return `${dia}/${m}/${a}`; };
-    const itens = [...(window.NOTICIAS || [])].sort((a, b) => b.data.localeCompare(a.data));
-    const root = document.body.dataset.root || "";
-    const carrossel = (imgs, titulo) => `
+  /* ---------- NOTÍCIAS, DECISÕES E EVENTOS ----------
+     Tudo vem de window.NOTICIAS (data.js). O tipo de cada item:
+     tipo: "evento" (com evento: { dia, hora, local, nome }), ou "decisao" quando tem o campo decisao; senão é notícia. */
+  const tipoDe = (n) => n.tipo || (n.decisao ? "decisao" : n.evento ? "evento" : "noticia");
+  const TIPO_NOME = { noticia: "Notícia", decisao: "Decisão", evento: "Evento" };
+  const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+  const SEMANA = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+  const dataDe = (iso) => { const [a, m, d] = iso.split("-").map(Number); return new Date(a, m - 1, d); };
+  const isoDe = (dt) => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+  const fmt = (d) => { const [a, m, dia] = d.split("-"); return `${dia}/${m}/${a}`; };
+  const porExtenso = (iso) => { const dt = dataDe(iso); return `${SEMANA[dt.getDay()]}, ${dt.getDate()} de ${MESES[dt.getMonth()]}`; };
+  const hoje = isoDe(new Date());
+  const rootN = document.body.dataset.root || "";
+
+  const carrossel = (imgs, titulo) => `
       <div class="nc" role="region" aria-roledescription="carrossel" aria-label="${esc("Imagens: " + titulo)}">
         <div class="nc-track" tabindex="0">
-          ${imgs.map((im, i) => `<a class="nc-slide" href="${esc(root + "assets/img/" + im[0])}" target="_blank" rel="noopener" aria-label="${esc(`Imagem ${i + 1} de ${imgs.length}: abrir em tamanho grande`)}"><img src="${esc(root + "assets/img/" + im[0])}" alt="${esc(im[1])}" loading="${i ? "lazy" : "eager"}" width="1024" height="1280"></a>`).join("")}
+          ${imgs.map((im, i) => `<a class="nc-slide" href="${esc(rootN + "assets/img/" + im[0])}" target="_blank" rel="noopener" aria-label="${esc(`Imagem ${i + 1} de ${imgs.length}: abrir em tamanho grande`)}"><img src="${esc(rootN + "assets/img/" + im[0])}" alt="${esc(im[1])}" loading="${i ? "lazy" : "eager"}" width="1024" height="1280"></a>`).join("")}
         </div>
         <button class="nc-btn nc-prev" type="button" aria-label="Imagem anterior">${icon("arrow")}</button>
         <button class="nc-btn nc-next" type="button" aria-label="Próxima imagem">${icon("arrow")}</button>
         <div class="nc-foot"><div class="nc-dots">${imgs.map((_, i) => `<button type="button" class="nc-dot" aria-label="Ir para a imagem ${i + 1}"></button>`).join("")}</div><span class="nc-count" aria-live="polite">1 / ${imgs.length}</span></div>
       </div>`;
-    nlist.innerHTML = itens.map(n => `
-      <article class="service news${n.imagens ? " news--carousel" : n.imagem ? " news--img" : ""}">
+
+  const cartao = (n, { mostrarTipo = false, id = "" } = {}) => {
+    const t = tipoDe(n);
+    const ev = n.evento;
+    // no evento, "Quando" e "Onde" já aparecem no quadro de data/hora/local
+    const pontos = (n.pontos || []).filter(p => !(ev && /^(Quando|Onde):/.test(p)));
+    return `
+      <article class="service news news--${t}${n.imagens ? " news--carousel" : n.imagem ? " news--img" : ""}"${id ? ` id="${esc(id)}"` : ""}>
         ${n.imagens ? carrossel(n.imagens, n.titulo) : ""}
-        ${!n.imagens && n.imagem ? `<img class="news-img" src="${esc(root + "assets/img/" + n.imagem[0])}" alt="${esc(n.imagem[1])}" loading="lazy">` : ""}
+        ${!n.imagens && n.imagem ? `<img class="news-img" src="${esc(rootN + "assets/img/" + n.imagem[0])}" alt="${esc(n.imagem[1])}" loading="lazy">` : ""}
         <div class="news-body">
-        <div class="service-top"><span class="tag">${esc(n.fonte)}</span><time class="news-date" datetime="${esc(n.data)}">${fmt(n.data)}</time></div>
+        <div class="service-top"><span class="news-tags">${mostrarTipo ? `<span class="tag tag--tipo tag--${t}">${TIPO_NOME[t]}</span>` : ""}<span class="tag">${esc(n.fonte)}</span></span><time class="news-date" datetime="${esc(n.data)}">${fmt(n.data)}</time></div>
         <h3>${esc(n.titulo)}</h3>
+        ${ev ? `<div class="ev-info${ev.dia < hoje ? " ev-info--passado" : ""}">
+          <span>${icon("calendar")}<b>${esc(porExtenso(ev.dia))}</b>${ev.dia < hoje ? " (já aconteceu)" : ""}</span>
+          ${ev.hora ? `<span>${icon("clock")}${esc(ev.hora)}</span>` : ""}
+          ${ev.local ? `<span>${icon("pin")}${esc(ev.local)}</span>` : ""}
+        </div>` : ""}
         <p>${esc(n.resumo)}</p>
-        ${n.pontos ? `<ul class="service-list">${n.pontos.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+        ${pontos.length ? `<ul class="service-list">${pontos.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
         <div class="news-actions">
           ${n.botao ? `<a class="btn" href="${esc(n.botao[1])}" target="_blank" rel="noopener">${esc(n.botao[0])} ${icon("arrow")}</a>` : ""}
           ${n.decisao ? `<a class="btn" href="decisoes.html#${esc(n.decisao)}">Ler a decisão completa ${icon("arrow")}</a>` : ""}
@@ -179,35 +198,128 @@
           ${n.relacionado ? `<a class="inline-link" href="${esc(n.relacionado[1])}">${esc(n.relacionado[0])}</a>` : ""}
         </div>
         </div>
-      </article>`).join("") || '<div class="empty">Nenhuma notícia publicada ainda.</div>';
+      </article>`;
+  };
 
-    // carrosséis: deslizar com o dedo, setas, bolinhas e teclado
-    nlist.querySelectorAll(".nc").forEach(c => {
-      const track = c.querySelector(".nc-track");
-      const slides = [...track.children];
-      const dots = [...c.querySelectorAll(".nc-dot")];
-      const count = c.querySelector(".nc-count");
-      const prev = c.querySelector(".nc-prev"), next = c.querySelector(".nc-next");
-      let atual = 0;
-      const ir = (i) => { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: "smooth" }); };
-      const marcar = () => {
-        const i = Math.round(track.scrollLeft / track.clientWidth);
-        if (i === atual && count.dataset.ok) return;
-        atual = i; count.dataset.ok = "1";
-        dots.forEach((d, k) => { d.classList.toggle("on", k === i); d.setAttribute("aria-current", k === i ? "true" : "false"); });
-        count.textContent = `${i + 1} / ${slides.length}`;
-        prev.disabled = i === 0; next.disabled = i === slides.length - 1;
-      };
-      let t; track.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(marcar, 60); }, { passive: true });
-      prev.addEventListener("click", () => ir(atual - 1));
-      next.addEventListener("click", () => ir(atual + 1));
-      dots.forEach((d, k) => d.addEventListener("click", () => ir(k)));
-      track.addEventListener("keydown", e => {
-        if (e.key === "ArrowRight") { e.preventDefault(); ir(atual + 1); }
-        if (e.key === "ArrowLeft") { e.preventDefault(); ir(atual - 1); }
-      });
-      marcar();
+  // carrosséis: deslizar com o dedo, setas, bolinhas e teclado
+  const ativarCarrosseis = (box) => box.querySelectorAll(".nc").forEach(c => {
+    const track = c.querySelector(".nc-track");
+    const slides = [...track.children];
+    const dots = [...c.querySelectorAll(".nc-dot")];
+    const count = c.querySelector(".nc-count");
+    const prev = c.querySelector(".nc-prev"), next = c.querySelector(".nc-next");
+    let atual = 0;
+    const ir = (i) => { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: "smooth" }); };
+    const marcar = () => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i === atual && count.dataset.ok) return;
+      atual = i; count.dataset.ok = "1";
+      dots.forEach((d, k) => { d.classList.toggle("on", k === i); d.setAttribute("aria-current", k === i ? "true" : "false"); });
+      count.textContent = `${i + 1} / ${slides.length}`;
+      prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+    };
+    let t; track.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(marcar, 60); }, { passive: true });
+    prev.addEventListener("click", () => ir(atual - 1));
+    next.addEventListener("click", () => ir(atual + 1));
+    dots.forEach((d, k) => d.addEventListener("click", () => ir(k)));
+    track.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight") { e.preventDefault(); ir(atual + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); ir(atual - 1); }
     });
+    marcar();
+  });
+
+  // abas: "Todas" (noticias.html) e "Notícias" (noticias.html?tipo=noticia) ficam na mesma página
+  const nlist = $("#news-list");
+  if (nlist) {
+    const filtro = params.get("tipo") === "noticia" ? "noticia" : "";
+    document.querySelectorAll(".subpages [data-f]").forEach(a => {
+      const on = a.dataset.f === filtro;
+      a.classList.toggle("on", on);
+      if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    if (filtro) {
+      const h1 = $(".page-hero h1"); if (h1) h1.textContent = "Notícias";
+      const p = $(".page-hero p"); if (p) p.textContent = "Novidades sobre as iniciativas de Caxias do Sul no enfrentamento à violência contra a mulher.";
+    }
+    const itens = [...(window.NOTICIAS || [])]
+      .filter(n => !filtro || tipoDe(n) === filtro)
+      .sort((a, b) => b.data.localeCompare(a.data));
+    nlist.innerHTML = itens.map(n => cartao(n, { mostrarTipo: !filtro })).join("") || '<div class="empty">Nenhuma notícia publicada ainda.</div>';
+    ativarCarrosseis(nlist);
+  }
+
+  /* ---------- EVENTOS: calendário + lista ---------- */
+  const cal = $("#ev-cal");
+  if (cal) {
+    const eventos = (window.NOTICIAS || []).filter(n => tipoDe(n) === "evento" && n.evento)
+      .map((n, i) => ({ n, dia: n.evento.dia, id: `evento-${n.evento.dia}-${i}` }))
+      .sort((a, b) => a.dia.localeCompare(b.dia));
+    const porDia = {};
+    eventos.forEach(e => (porDia[e.dia] = porDia[e.dia] || []).push(e));
+    const lista = $("#ev-list");
+    const titulo = $("#ev-list-title");
+    const limpar = $("#ev-clear");
+    const proximo = eventos.find(e => e.dia >= hoje);
+    const inicio = dataDe(proximo ? proximo.dia : hoje);
+    let ano = inicio.getFullYear(), mes = inicio.getMonth();
+    let diaSel = "";
+
+    const desenharLista = () => {
+      let html = "";
+      if (diaSel) {
+        titulo.textContent = `Eventos em ${porExtenso(diaSel)}`;
+        html = (porDia[diaSel] || []).map(e => cartao(e.n, { id: e.id })).join("");
+        limpar.hidden = false;
+      } else {
+        titulo.textContent = "Próximos eventos";
+        const futuros = eventos.filter(e => e.dia >= hoje);
+        const passados = eventos.filter(e => e.dia < hoje).reverse();
+        html = futuros.map(e => cartao(e.n, { id: e.id })).join("") || '<div class="empty">Nenhum evento marcado por enquanto.</div>';
+        if (passados.length) html += `<h2 class="ev-sub">Eventos que já aconteceram</h2>` + passados.map(e => cartao(e.n, { id: e.id })).join("");
+        limpar.hidden = true;
+      }
+      lista.innerHTML = html;
+      ativarCarrosseis(lista);
+    };
+
+    const desenharCal = () => {
+      const primeiro = new Date(ano, mes, 1);
+      const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+      let cel = "";
+      for (let i = 0; i < primeiro.getDay(); i++) cel += `<span class="ev-day ev-day--vazio" aria-hidden="true"></span>`;
+      for (let d = 1; d <= diasNoMes; d++) {
+        const iso = isoDe(new Date(ano, mes, d));
+        const evs = porDia[iso] || [];
+        const cls = ["ev-day", iso === hoje ? "ev-day--hoje" : "", evs.length ? "ev-day--tem" : "", iso < hoje ? "ev-day--passou" : "", iso === diaSel ? "on" : ""].filter(Boolean).join(" ");
+        cel += evs.length
+          ? `<button type="button" class="${cls}" data-dia="${iso}" aria-pressed="${iso === diaSel}" aria-label="${esc(`${d} de ${MESES[mes]}: ${evs.map(e => e.n.evento.nome || e.n.titulo).join("; ")}`)}"><b>${d}</b><i></i><small>${esc(evs[0].n.evento.nome || "")}${evs.length > 1 ? ` +${evs.length - 1}` : ""}</small></button>`
+          : `<span class="${cls}"${iso === hoje ? ' aria-current="date"' : ""}><b>${d}</b></span>`;
+      }
+      const temNoMes = eventos.filter(e => { const dt = dataDe(e.dia); return dt.getFullYear() === ano && dt.getMonth() === mes; }).length;
+      cal.innerHTML = `
+        <div class="ev-cal-head">
+          <button type="button" class="ev-nav" data-mv="-1" aria-label="Mês anterior">${icon("arrow")}</button>
+          <h2 aria-live="polite">${MESES[mes][0].toUpperCase() + MESES[mes].slice(1)} de ${ano}</h2>
+          <button type="button" class="ev-nav" data-mv="1" aria-label="Próximo mês">${icon("arrow")}</button>
+        </div>
+        <div class="ev-week" aria-hidden="true"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+        <div class="ev-grid">${cel}</div>
+        <p class="ev-cal-foot">${temNoMes ? `${temNoMes} evento${temNoMes > 1 ? "s" : ""} neste mês. Toque no dia marcado para ver.` : "Nenhum evento neste mês."}</p>`;
+    };
+
+    cal.addEventListener("click", e => {
+      const mv = e.target.closest("[data-mv]");
+      if (mv) { mes += Number(mv.dataset.mv); if (mes < 0) { mes = 11; ano--; } if (mes > 11) { mes = 0; ano++; } desenharCal(); return; }
+      const b = e.target.closest("[data-dia]");
+      if (b) {
+        diaSel = diaSel === b.dataset.dia ? "" : b.dataset.dia;
+        desenharCal(); desenharLista();
+        if (diaSel) titulo.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+    limpar.addEventListener("click", () => { diaSel = ""; desenharCal(); desenharLista(); });
+    desenharCal(); desenharLista();
   }
 
   /* ---------- DÚVIDAS (FAQ) ---------- */

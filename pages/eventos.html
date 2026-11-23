@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f9e8e6">
+  <title>Eventos – Rede de Proteção à Mulher</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261123a">
+</head>
+<body data-page="noticias" data-root="../">
+  <main id="conteudo">
+    <section class="page-hero"><div class="wrap">
+      <div class="crumbs"><a href="../index.html">Início</a> / <a href="noticias.html">Notícias</a> / Eventos</div>
+      <h1>Eventos</h1>
+      <p>Caminhadas, encontros, rodas de conversa e outras atividades sobre os direitos das mulheres em Caxias do Sul.</p>
+    </div></section>
+
+    <section class="section wrap">
+      <nav class="subpages" aria-label="Seções de Notícias">
+        <a class="chip" href="noticias.html">Todas</a>
+        <a class="chip" href="noticias.html?tipo=noticia">Notícias</a>
+        <a class="chip" href="decisoes.html">Decisões</a>
+        <a class="chip on" href="eventos.html" aria-current="page">Eventos</a>
+      </nav>
+
+      <div class="ev-layout">
+        <aside class="ev-cal" id="ev-cal" aria-label="Calendário de eventos"></aside>
+        <div class="ev-col">
+          <div class="ev-list-head">
+            <h2 id="ev-list-title" class="ev-title" tabindex="-1">Próximos eventos</h2>
+            <button type="button" class="chip" id="ev-clear" hidden>Ver todos os eventos</button>
+          </div>
+          <div class="news-list" id="ev-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../assets/js/main.js?v=20261123a"></script>
+  <script src="../assets/js/data.js?v=20261123a"></script>
+  <script src="../assets/js/pages.js?v=20261123a"></script>
+</body>
+</html>

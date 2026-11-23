@@ -289,6 +289,8 @@ window.NOTICIAS = [
   {
     data: "2026-11-23",
     fonte: "Virada Feminina",
+    tipo: "evento",
+    evento: { dia: "2026-11-24", hora: "13h30", local: "Câmara Municipal de Caxias do Sul", nome: "I Fórum Virada Feminina" },
     titulo: "I Fórum Virada Feminina reúne lideranças femininas de Caxias do Sul e da Serra Gaúcha nesta terça, 24 de novembro",
     resumo: "Um encontro de lideranças femininas para diálogos sobre empreendedorismo, autonomia, saúde, longevidade, epigenética e nutrição. Com o tema \"Conexões que fortalecem. Vozes que transformam.\", o fórum reúne representantes da rede de proteção, do poder público, da advocacia, da saúde e do empreendedorismo.",
     pontos: [
@@ -314,6 +316,8 @@ window.NOTICIAS = [
   {
     data: "2026-11-23",
     fonte: "Apsiconor",
+    tipo: "evento",
+    evento: { dia: "2026-11-28", hora: "14h às 17h", local: "Sindicato dos Bancários – Rua Borges de Medeiros, 676", nome: "Mente Forte, Corpo Seguro" },
     titulo: "Mente Forte, Corpo Seguro: tarde gratuita de conversas e cuidado no sábado, 28 de novembro",
     resumo: "Atividade dos 21 dias de ativismo contra a violência à mulher, com música, conversa sobre saúde, depoimento de superação e dança. Uma tarde cheia de alegria e boas conversas: traga uma amiga e presenteie-a com este momento.",
     pontos: [
@@ -343,6 +347,8 @@ window.NOTICIAS = [
   {
     data: "2026-11-17",
     fonte: "Grupo Mulheres do Brasil e Prefeitura de Caxias do Sul",
+    tipo: "evento",
+    evento: { dia: "2026-11-29", hora: "9h", local: "Em frente ao Largo da Prefeitura de Caxias do Sul", nome: "6ª Caminhada pelo Fim da Violência contra Mulheres e Meninas" },
     titulo: "Juntas pelo fim da violência contra mulheres e meninas: 6ª Caminhada é no dia 29 de novembro",
     resumo: "Caxias do Sul vai às ruas pelo fim da violência contra mulheres e meninas. A caminhada é um convite para unir vozes, fortalecer a rede de proteção e mostrar que não podemos nos calar diante da violência. Mulheres, homens, crianças e toda a comunidade são bem-vindos.",
     pontos: [
