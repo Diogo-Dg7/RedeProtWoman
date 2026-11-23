@@ -154,9 +154,19 @@
     const fmt = (d) => { const [a, m, dia] = d.split("-"); return `${dia}/${m}/${a}`; };
     const itens = [...(window.NOTICIAS || [])].sort((a, b) => b.data.localeCompare(a.data));
     const root = document.body.dataset.root || "";
+    const carrossel = (imgs, titulo) => `
+      <div class="nc" role="region" aria-roledescription="carrossel" aria-label="${esc("Imagens: " + titulo)}">
+        <div class="nc-track" tabindex="0">
+          ${imgs.map((im, i) => `<a class="nc-slide" href="${esc(root + "assets/img/" + im[0])}" target="_blank" rel="noopener" aria-label="${esc(`Imagem ${i + 1} de ${imgs.length}: abrir em tamanho grande`)}"><img src="${esc(root + "assets/img/" + im[0])}" alt="${esc(im[1])}" loading="${i ? "lazy" : "eager"}" width="1024" height="1280"></a>`).join("")}
+        </div>
+        <button class="nc-btn nc-prev" type="button" aria-label="Imagem anterior">${icon("arrow")}</button>
+        <button class="nc-btn nc-next" type="button" aria-label="Próxima imagem">${icon("arrow")}</button>
+        <div class="nc-foot"><div class="nc-dots">${imgs.map((_, i) => `<button type="button" class="nc-dot" aria-label="Ir para a imagem ${i + 1}"></button>`).join("")}</div><span class="nc-count" aria-live="polite">1 / ${imgs.length}</span></div>
+      </div>`;
     nlist.innerHTML = itens.map(n => `
-      <article class="service news${n.imagem ? " news--img" : ""}">
-        ${n.imagem ? `<img class="news-img" src="${esc(root + "assets/img/" + n.imagem[0])}" alt="${esc(n.imagem[1])}" loading="lazy">` : ""}
+      <article class="service news${n.imagens ? " news--carousel" : n.imagem ? " news--img" : ""}">
+        ${n.imagens ? carrossel(n.imagens, n.titulo) : ""}
+        ${!n.imagens && n.imagem ? `<img class="news-img" src="${esc(root + "assets/img/" + n.imagem[0])}" alt="${esc(n.imagem[1])}" loading="lazy">` : ""}
         <div class="news-body">
         <div class="service-top"><span class="tag">${esc(n.fonte)}</span><time class="news-date" datetime="${esc(n.data)}">${fmt(n.data)}</time></div>
         <h3>${esc(n.titulo)}</h3>
@@ -170,6 +180,34 @@
         </div>
         </div>
       </article>`).join("") || '<div class="empty">Nenhuma notícia publicada ainda.</div>';
+
+    // carrosséis: deslizar com o dedo, setas, bolinhas e teclado
+    nlist.querySelectorAll(".nc").forEach(c => {
+      const track = c.querySelector(".nc-track");
+      const slides = [...track.children];
+      const dots = [...c.querySelectorAll(".nc-dot")];
+      const count = c.querySelector(".nc-count");
+      const prev = c.querySelector(".nc-prev"), next = c.querySelector(".nc-next");
+      let atual = 0;
+      const ir = (i) => { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: "smooth" }); };
+      const marcar = () => {
+        const i = Math.round(track.scrollLeft / track.clientWidth);
+        if (i === atual && count.dataset.ok) return;
+        atual = i; count.dataset.ok = "1";
+        dots.forEach((d, k) => { d.classList.toggle("on", k === i); d.setAttribute("aria-current", k === i ? "true" : "false"); });
+        count.textContent = `${i + 1} / ${slides.length}`;
+        prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+      };
+      let t; track.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(marcar, 60); }, { passive: true });
+      prev.addEventListener("click", () => ir(atual - 1));
+      next.addEventListener("click", () => ir(atual + 1));
+      dots.forEach((d, k) => d.addEventListener("click", () => ir(k)));
+      track.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight") { e.preventDefault(); ir(atual + 1); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); ir(atual - 1); }
+      });
+      marcar();
+    });
   }
 
   /* ---------- DÚVIDAS (FAQ) ---------- */

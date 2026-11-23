@@ -287,6 +287,46 @@ window.REDE_ORGAOS = [
    link (publicação original), relacionado (opcional): [texto, link para outra página do site] */
 window.NOTICIAS = [
   {
+    data: "2026-11-23",
+    fonte: "Virada Feminina",
+    titulo: "I Fórum Virada Feminina reúne lideranças femininas de Caxias do Sul e da Serra Gaúcha nesta terça, 24 de novembro",
+    resumo: "Um encontro de lideranças femininas para diálogos sobre empreendedorismo, autonomia, saúde, longevidade, epigenética e nutrição. Com o tema \"Conexões que fortalecem. Vozes que transformam.\", o fórum reúne representantes da rede de proteção, do poder público, da advocacia, da saúde e do empreendedorismo.",
+    pontos: [
+      "Quando: terça-feira, 24 de novembro de 2026, às 13h30.",
+      "Onde: Câmara Municipal de Caxias do Sul.",
+      "Entre as participantes estão representantes da Delegacia da Mulher (DEAM), da Coordenadoria da Mulher e da Procuradoria Especial da Mulher (PEM) da Câmara.",
+      "Inscrições pelo QR code que aparece nas artes. Passe as imagens para conhecer todas as participantes."
+    ],
+    imagens: [
+      ["noticias/forum-virada-feminina/01.jpg", "Convite especial do I Fórum Virada Feminina, Caxias do Sul e Serra Gaúcha: 24 de novembro, 13h30, na Câmara Municipal de Caxias do Sul. Temas: empreendedorismo, autonomia, saúde, longevidade, epigenética e nutrição"],
+      ["noticias/forum-virada-feminina/02.jpg", "Conheça as participantes: Jeane Schulz, da Coordenadoria da Mulher, e Dra. Bruna Marin, advogada, mãe atípica e comentarista política da TVCom Bento Gonçalves"],
+      ["noticias/forum-virada-feminina/03.jpg", "Conheça as participantes: Dra. Ana Paula Caregnato, vice-presidente da Comissão da Mulher Advogada da OAB Subseção Caxias do Sul; Angela de Oliveira, artista plástica, curadora e presidente da Virada Feminina de Gramado; Dra. Katiane Deconto, fisioterapeuta; e Cileide Moussallem, presidente da Virada Feminina do Amazonas"],
+      ["noticias/forum-virada-feminina/04.jpg", "Conheça as participantes: Melissa Oliveira, empresária e apresentadora do RS Play; Márcia Costa, presidente do Sindilojas; Ana Paula Lima, especialista em relações governamentais; e Andressa Marques, assistente social e vereadora, da Procuradoria Especial da Mulher"],
+      ["noticias/forum-virada-feminina/05.jpg", "Conheça as participantes: Thalita Giacomitti Andrich, da Delegacia Especializada no Atendimento à Mulher (DEAM); Tatiane Frizzo, secretária municipal da Cultura de Caxias do Sul; Suzana Strassburger, do Gabinete da Primeira-Dama de Gramado; e Miriane de Vargas, empresária e mentora de comunicação"],
+      ["noticias/forum-virada-feminina/06.jpg", "Conheça as participantes: Cassiane Borges, empresária da beleza; Leila Cristina Fagundes, diretora de Políticas Públicas para Mulheres de Horizontina; Evelise Weber, educadora física; e Dra. Jaqueline Mari de Ross, advogada e escritora"],
+      ["noticias/forum-virada-feminina/07.jpg", "Conheça as participantes: Barbara Penna, palestrante e referência na luta contra a violência doméstica; Dra. Neura Trevisol, psicoterapeuta e vice-presidente nacional da Virada Feminina; Raquel Maffeis, especialista em pele; e Metriz Viana, comandante do 1º Pelotão de Bombeiros de Caxias do Sul"],
+      ["noticias/forum-virada-feminina/08.jpg", "Conheça as participantes: Patrícia Siqueira, coordenadora do escritório da OIM no Rio Grande do Sul; Maria Inês Correia Borges, coordenadora do GT Migrantes; Tatiana Lyra Umada, planejamento patrimonial; e Dra. Greice Fontana, médica ginecologista"],
+      ["noticias/forum-virada-feminina/09.jpg", "Lideranças em destaque: Ângela M. Chaves, presidente da Virada Feminina Caxias e Região; Marta Lívia Suplicy, presidente da Virada Feminina Internacional; e Stella Zorzo, presidente jovem da Virada Feminina Internacional. 24 de novembro de 2026, 13h30, Câmara Municipal de Caxias do Sul, com QR code para inscrição"],
+      ["noticias/forum-virada-feminina/10.jpg", "Apoio institucional do 1º Fórum Virada Feminina no RS: logotipos das instituições, entidades e marcas parceiras, como Câmara Municipal, Prefeitura de Caxias do Sul, OAB, OIM, CRAM e Polícia Civil"],
+      ["noticias/forum-virada-feminina/11.jpg", "Sua presença faz a diferença: QR code para inscrição no fórum. Aponte a câmera do celular para o código e faça sua inscrição"]
+    ]
+  },
+  {
+    data: "2026-11-23",
+    fonte: "Apsiconor",
+    titulo: "Mente Forte, Corpo Seguro: tarde gratuita de conversas e cuidado no sábado, 28 de novembro",
+    resumo: "Atividade dos 21 dias de ativismo contra a violência à mulher, com música, conversa sobre saúde, depoimento de superação e dança. Uma tarde cheia de alegria e boas conversas: traga uma amiga e presenteie-a com este momento.",
+    pontos: [
+      "Quando: sábado, 28 de novembro, das 14h às 17h.",
+      "Onde: Sindicato dos Bancários (Rua Borges de Medeiros, 676).",
+      "Condução da psicóloga Maria Marlene Faria, presidente da Apsiconor. Abertura com violino de Nêmora Hoff e Leda Cristina Carberlon de Fonseca, fundadora do coral INAV.",
+      "Conversa sobre climatério e menopausa com a ginecologista Dra. Bruna Genuina de Freitas Schiavo, depoimento de superação com Cláudia Sudan e encerramento com dança cigana.",
+      "Evento gratuito. Confirme presença até 26/11 pelo WhatsApp (54) 99618-8686."
+    ],
+    imagem: ["noticias/mente-forte-corpo-seguro.jpg", "Cronograma do evento Mente Forte, Corpo Seguro: sábado, 28 de novembro, das 14h às 17h, no Sindicato dos Bancários, Rua Borges de Medeiros, 676. Evento gratuito, com confirmação pelo WhatsApp 54 99618-8686"],
+    botao: ["Confirmar presença no WhatsApp", "https://wa.me/5554996188686"]
+  },
+  {
     data: "2026-11-11",
     fonte: "Prefeitura de Caxias do Sul",
     titulo: "Município assume gestão direta da Casa Viva Rachel para garantir acolhimento ininterrupto a mulheres vítimas de violência",
